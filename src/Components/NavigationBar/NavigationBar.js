@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { TouchableOpacity } from 'react-native';
 import {
     NavBar,
     Menu,
@@ -6,24 +7,65 @@ import {
 } from './styles.js';
 import { SvgXml } from 'react-native-svg';
 import icons from './icons'
-//import Animated, { useSharedValue, WitTiming, Easing } from 'react-native-reanimated';
+import Animated, { useSharedValue, withTiming, Easing } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/native';
 
-//remember to do pod install for iOS
 function NavigationBar() {
+    const [open, setOpen] = useState(false);
+    const navigation = useNavigation();
+    const height = useSharedValue(90);
+
+    const handleOpen = () => {
+        setOpen(!open);
+    }
+
+    const handleNavigate = () => {
+        navigation.navigate('search');
+    }
+
+    useEffect(() => {
+        if(open){
+            height.value = withTiming(500, {           // width will have its value changed to 100, an linear animation will occur
+                duration: 200,                          // in milliseconds
+                easing: Easing.linear
+            });
+        }
+        else{
+            height.value = withTiming(90, {           // width will have its value changed to 100, an linear animation will occur
+                duration: 200,                          // in milliseconds
+                easing: Easing.linear
+            });
+        }
+    }, [open])
+
     return(
-        <NavBar>
-            <SvgXml xml={icons['menu']} width='41px' height='41px'/>
-            <Menu>
-                <Line/>
-                <SvgXml xml={icons['home']} width='41px' height='41px'/>
-                <Line/>
-                <SvgXml xml={icons['search']} width='41px' height='41px'/>
-                <Line/>
-                <SvgXml xml={icons['user']} width='41px' height='41px'/>
-                <Line/>
-                <SvgXml xml={icons['cart']} width='41px' height='41px'/>
-            </Menu>
-        </NavBar>
+        <TouchableOpacity onPress={handleOpen}>
+            <Animated.View style={{    
+                width: '100%',
+                height,
+                overflow: 'hidden',
+                backgroundColor: 'green',
+                display: 'flex',
+                alignItems: 'center',
+                paddingTop: 20,
+                gap: 20}}>
+                <SvgXml xml={icons['menu']} width='41px' height='41px'/>
+                <Menu>
+                    <Line/>
+                    <TouchableOpacity onPress={handleNavigate}>
+                        <SvgXml xml={icons['home']} width='41px' height='41px'/>
+                    </TouchableOpacity>
+                    <Line/>
+                    <SvgXml xml={icons['search']} width='41px' height='41px'/>
+                    <Line/>
+                    <SvgXml xml={icons['user']} width='41px' height='41px'/>
+                    <Line/>
+                    <SvgXml xml={icons['cart']} width='41px' height='41px'/>
+                </Menu>
+            </Animated.View>
+
+        </TouchableOpacity>
+
     )
 }
 

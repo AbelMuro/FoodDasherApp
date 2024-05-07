@@ -12,16 +12,19 @@ import {
     Description,
     Message,
     SignUpButton,
-    ButtonText
+    ButtonText,
+    CompanyDetails,
+    CompanyTitle,
+    CompanyDetail,
+    Footer
 } from './styles.js';
-import images from './images';
+import images from '~/Common/images';
 import { ScrollView, Text} from 'react-native';
 
-function Home() {
+function Home({navigation}) {
 
     return (
         <ScrollView>
-            <NavigationBar />
             <Header source={images['background']} resizeMode='cover'>
                 <Content>
                     <Logo>
@@ -59,6 +62,36 @@ function Home() {
                 </Content>
             </Header>
             <ImageCarousel/>
+            <CompanyDetails source={images['background']} resizeMode='cover'>
+                <CompanyTitle>
+                    Our Restaurant Partners
+                </CompanyTitle>
+                <CompanyDetail>
+                    At the moment, our app 
+                    can only order from McDonalds and Jack in the box.
+                    But we will soon have other restaurants available.
+                </CompanyDetail>
+                <CompanyTitle>
+                    Contact Us
+                </CompanyTitle>
+                <CompanyDetail>
+                    Questions or concerns? 
+                    you can either call us at&nbsp;
+                    <Text style={{fontWeight: 700}}>123-456-7898</Text> or email us &nbsp;
+                    <Text style={{fontWeight: 700}}>someEmail@email.com</Text>
+                </CompanyDetail>
+                <CompanyTitle>
+                    Open Hours
+                </CompanyTitle>
+                <CompanyDetail>
+                    It depends on the restaurant. Most of the restaurants are open 24/7
+                </CompanyDetail>
+            </CompanyDetails>
+            <Footer>
+                <Text style={{color: 'white'}}>
+                &copy; | Food Dasher App
+                </Text>
+            </Footer>
         </ScrollView>
     )
 }

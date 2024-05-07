@@ -95,3 +95,37 @@ export const SignUpButton = styled.Pressable`
 export const ButtonText = styled.Text`
     color: white;
 `
+
+export const CompanyDetails = styled.ImageBackground`
+    width: 100%;
+    height: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+`
+
+export const CompanyTitle = styled.Text`
+    width: 80%;
+    text-align: center;
+    font-family: sans-serif;
+    color: rgb(49, 38, 0);
+    font-size: 24px;
+    font-weight: 700;
+`
+
+export const CompanyDetail = styled.Text`
+    width: 70%;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+`
+
+export const Footer = styled.View`
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+`

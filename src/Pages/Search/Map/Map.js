@@ -10,6 +10,8 @@ import {
 } from './styles.js';
 import icons from './icons';
 
+
+//i need to implement react-native-element-dropdown
 function Map() {
 
     const mapStyles = {

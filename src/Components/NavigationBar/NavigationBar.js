@@ -19,8 +19,8 @@ function NavigationBar() {
         setOpen(!open);
     }
 
-    const handleNavigate = () => {
-        navigation.navigate('search');
+    const handleNavigate = (page) => {
+        navigation.navigate(page);
     }
 
     useEffect(() => {
@@ -52,18 +52,23 @@ function NavigationBar() {
                 <SvgXml xml={icons['menu']} width='41px' height='41px'/>
                 <Menu>
                     <Line/>
-                    <TouchableOpacity onPress={handleNavigate}>
+                    <TouchableOpacity onPress={() => handleNavigate('home')}>
                         <SvgXml xml={icons['home']} width='41px' height='41px'/>
                     </TouchableOpacity>
                     <Line/>
-                    <SvgXml xml={icons['search']} width='41px' height='41px'/>
+                    <TouchableOpacity onPress={() => handleNavigate('search')}>
+                        <SvgXml xml={icons['search']} width='41px' height='41px'/>
+                    </TouchableOpacity>
                     <Line/>
-                    <SvgXml xml={icons['user']} width='41px' height='41px'/>
+                    <TouchableOpacity onPress={() => handleNavigate('user')}>
+                        <SvgXml xml={icons['user']} width='41px' height='41px'/>
+                    </TouchableOpacity>             
                     <Line/>
-                    <SvgXml xml={icons['cart']} width='41px' height='41px'/>
+                    <TouchableOpacity>
+                        <SvgXml xml={icons['cart']} width='41px' height='41px'/>
+                    </TouchableOpacity>        
                 </Menu>
             </Animated.View>
-
         </TouchableOpacity>
 
     )

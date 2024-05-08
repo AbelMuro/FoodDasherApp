@@ -21,7 +21,7 @@ import {
 import images from '~/Common/images';
 import { ScrollView, Text} from 'react-native';
 
-function Home({navigation}) {
+function Home() {
 
     return (
         <ScrollView>

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text} from 'react-native';
 import Home from './Pages/Home';
 import Search from './Pages/Search';
 import NavigationBar from './Components/NavigationBar';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
+import firestore from '@react-native-firebase/firestore';
 
 const Stack = createNativeStackNavigator();
 

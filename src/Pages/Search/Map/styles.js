@@ -23,15 +23,6 @@ export const FieldSet = styled.View`
     gap: 5px;
 `
 
-export const EnterAddress = styled.TextInput`
-    width: 100%;
-    height: 30px; 
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
-    border-radius: 5px;
-`
-
 export const SearchButton = styled.Pressable`
     width: 100%;
     height: 35px;

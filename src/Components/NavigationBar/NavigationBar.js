@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {
-    NavBar,
     Menu,
     Line
 } from './styles.js';

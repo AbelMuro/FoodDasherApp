@@ -7,7 +7,7 @@ export const SearchBox = styled.View`
     justify-content: center;
     align-items: center;
     border-radius: 15px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.7);
     gap: 15px;
     position: absolute;
     top: 180px;
@@ -35,4 +35,12 @@ export const SearchButton = styled.Pressable`
 
 export const ButtonText = styled.Text`
     color: white;
+`
+
+export const DialogContent = styled.View`
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `

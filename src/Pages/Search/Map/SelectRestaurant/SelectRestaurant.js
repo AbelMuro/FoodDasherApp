@@ -17,7 +17,7 @@ const SelectRestaurant = forwardRef((props, ref) => {
 
     const data = [
         {label: 'McDonalds', value: 'McDonalds'},
-        {label: 'Jack in the Box', value: 'Jack in the Box'}
+        {label: 'Jack in the Box', value: 'Jack%20in%20the%20Box'}
     ];
 
     useImperativeHandle(ref, () => ({

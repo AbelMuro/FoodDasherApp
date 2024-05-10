@@ -1,20 +1,25 @@
 import React, {useRef, useState, useEffect} from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert, TouchableOpacity, Image, Text } from 'react-native';
 import SelectRestaurant from './SelectRestaurant';
 import EnterAddress from './EnterAddress';
-import {Image} from 'react-native'
+import Dialog from 'react-native-dialog';
 import MapView, {Marker} from 'react-native-maps';
 import {
     SearchBox, 
     FieldSet, 
     SearchButton,
-    ButtonText
+    ButtonText,
+    DialogContent
 } from './styles.js';
 import icons from './icons';
 
+//i will need to get the selectedRestaurant state and display the photo url in the dialog
 
 function Map() {
     const [usersLocation, setUsersLocation] = useState(null);
+    const [nearbyRestaurants, setNearbyRestaurants] = useState([]);
+    const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+    const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const restaurant = useRef();
     const address = useRef();
@@ -27,15 +32,31 @@ function Map() {
         marginBottom: 20
     }
 
-    const handleSearch = async () => {
-        if(!restaurant.current.state)
-            return;
-        if(!address.current.state)
-            return;
-        setLoading(true);
+    const handleClose = () => {
+        setOpen(false);
+    }
 
-        let latlong = await geocode(address.current.state);
+    const handleSearch = async () => {
+        if(!restaurant.current.state){
+            Alert.alert('Please select restaurant');
+            return;
+        }
+        if(!address.current.state){
+            Alert.alert('Please enter address');
+            return;
+        }
+        setLoading(true);
+        const latlong = await geocode(address.current.state);
+        if(!latlong) {
+            Alert.alert('Address is invalid');
+            setLoading(false);
+            return;
+        }
         setUsersLocation(latlong);
+    }
+
+    const handleMarker = (restaurant) => {
+        setSelectedRestaurant(restaurant);
     }
 
     const geocode = async (address) => {
@@ -43,24 +64,43 @@ function Map() {
             let response = await fetch(`https://geocode.maps.co/search?q=${address}&api_key=${process.env.geocode}`);
             let results = await response.json();
             let latlong = results[0];
-            return {lat: Number(latlong.lat) , lon: Number(latlong.lon)};            
+            return {lat: Number(latlong.lat), lng: Number(latlong.lon)};            
         }
         catch(error){
             console.log(error);
         }
     }
 
+    const searchNearbyRestaurants = async () => {
+        try{
+            let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${usersLocation.lat},${usersLocation.lng}&radius=5000&keyword=${restaurant.current.state}&key=${process.env.googlemaps}`);
+            let results = await response.json();
+            console.log(results);
+            return results.results;         
+        }
+        catch(error) {
+            console.log('error', error);
+        }
+    }
+
     useEffect(() => {
         if(!usersLocation) return;
-
-        map.current.animateToRegion({
-            latitude: usersLocation.lat,
-            longitude: usersLocation.lon,
-        })
-        setLoading(false);
-        
+        async function searchRestaurants() {
+            let restaurants = await searchNearbyRestaurants();
+            setNearbyRestaurants(restaurants); 
+            map.current.animateToRegion({
+                latitude: usersLocation.lat,
+                longitude: usersLocation.lng,
+            })
+            setLoading(false);            
+        }
+        searchRestaurants();
     }, [usersLocation])
 
+    useEffect(() => {
+        if(!selectedRestaurant) return;
+        setOpen(true);
+    }, [selectedRestaurant])
 
     return(
         <>
@@ -78,13 +118,33 @@ function Map() {
                     <Marker
                         coordinate={{
                             latitude: usersLocation.lat,
-                            longitude: usersLocation.lon,
+                            longitude: usersLocation.lng,
                         }}> 
                         <Image 
                             source={icons['green']} 
                             style={{width: 35, height: 35}}
                             resizeMode='contain'/>
                     </Marker>
+               }
+               {
+                nearbyRestaurants && nearbyRestaurants.map((restaurant) => {
+                    let latlong = restaurant.geometry.location;
+                    let id = restaurant.place_id;
+                    return(
+                        <TouchableOpacity key={id} onPress={() => handleMarker(restaurant)}>
+                            <Marker
+                                coordinate={{
+                                    latitude: latlong.lat,
+                                    longitude: latlong.lng,
+                                }}> 
+                                <Image 
+                                    source={icons['blue']} 
+                                    style={{width: 35, height: 35}}
+                                    resizeMode='contain'/>
+                            </Marker>                            
+                        </TouchableOpacity>
+                    )
+                })
                }
             </MapView>        
             <SearchBox> 
@@ -108,7 +168,24 @@ function Map() {
                         Clear Route
                     </ButtonText>
                 </SearchButton>
-            </SearchBox>        
+            </SearchBox>     
+            {selectedRestaurant && 
+                <Dialog.Container visible={open}>
+                    <Dialog.Title>
+                        {selectedRestaurant.vicinity}
+                    </Dialog.Title>
+                    <DialogContent>
+                        <Image 
+                            source={{uri: selectedRestaurant.photos[0].photo_reference}} 
+                            style={{width: 100, height: 100}}
+                            />
+                        <Text>
+                            {selectedRestaurant.rating}
+                        </Text>
+                    </DialogContent>
+                    <Dialog.Button label='Select'/>
+                    <Dialog.Button label='Close' onPress={handleClose}/>
+                </Dialog.Container>  } 
         </>
     )
 }

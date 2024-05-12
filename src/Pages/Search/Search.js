@@ -27,7 +27,7 @@ function Search() {
                         3: Click on one of the BLUE markers in the map
                     </Instruction>
                     <Instruction>
-                        4: Enter your address
+                        4: Press on Select
                     </Instruction>
                 </Instructions>
                 <Map/>

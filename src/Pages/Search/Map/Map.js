@@ -1,5 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
-import { ActivityIndicator, Alert, TouchableOpacity, Image, Text } from 'react-native';
+import { ActivityIndicator, Alert, Image, Text, Platform } from 'react-native';
+import MapViewDirections from 'react-native-maps-directions';
 import SelectRestaurant from './SelectRestaurant';
 import EnterAddress from './EnterAddress';
 import Dialog from 'react-native-dialog';
@@ -12,13 +13,20 @@ import {
     DialogContent
 } from './styles.js';
 import icons from './icons';
-
-//i will need to get the selectedRestaurant state and display the photo url in the dialog
+import { useNavigation } from '@react-navigation/native';
 
 function Map() {
+    const navigation = useNavigation();
     const [usersLocation, setUsersLocation] = useState(null);
+    const [destination, setDestination] = useState(null);
     const [nearbyRestaurants, setNearbyRestaurants] = useState([]);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+    const [region, setRegion] = useState({
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+    })
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const restaurant = useRef();
@@ -30,6 +38,17 @@ function Map() {
         height: 500,
         borderRadius: 10,
         marginBottom: 20
+    }
+
+    const handleClear = () => {
+        setDestination(null);
+    }
+
+    const handleSelect = () => {
+        navigation.navigate('menu', {
+            name: restaurant.current.state.replaceAll('%20', ' '),
+            restaurant: selectedRestaurant
+        });
     }
 
     const handleClose = () => {
@@ -56,6 +75,7 @@ function Map() {
     }
 
     const handleMarker = (restaurant) => {
+        setDestination(restaurant.geometry.location);
         setSelectedRestaurant(restaurant);
     }
 
@@ -64,10 +84,13 @@ function Map() {
             let response = await fetch(`https://geocode.maps.co/search?q=${address}&api_key=${process.env.geocode}`);
             let results = await response.json();
             let latlong = results[0];
-            return {lat: Number(latlong.lat), lng: Number(latlong.lon)};            
+            if(latlong)
+                return {lat: Number(latlong.lat), lng: Number(latlong.lon)};            
+            else    
+                return null;
         }
         catch(error){
-            console.log(error);
+            console.log('error', error);
         }
     }
 
@@ -75,7 +98,6 @@ function Map() {
         try{
             let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${usersLocation.lat},${usersLocation.lng}&radius=5000&keyword=${restaurant.current.state}&key=${process.env.googlemaps}`);
             let results = await response.json();
-            console.log(results);
             return results.results;         
         }
         catch(error) {
@@ -85,14 +107,22 @@ function Map() {
 
     useEffect(() => {
         if(!usersLocation) return;
-        async function searchRestaurants() {
+
+        async function searchRestaurants() {            
             let restaurants = await searchNearbyRestaurants();
-            setNearbyRestaurants(restaurants); 
-            map.current.animateToRegion({
+            if(restaurants.length === 0){
+                Alert.alert(`There are no nearby ${restaurant.current.state.replaceAll('%20', ' ')}`);
+                setLoading(false);  
+                return;
+            }
+            setRegion({
                 latitude: usersLocation.lat,
                 longitude: usersLocation.lng,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
             })
-            setLoading(false);            
+            setNearbyRestaurants(restaurants); 
+            setLoading(false);                          
         }
         searchRestaurants();
     }, [usersLocation])
@@ -102,17 +132,32 @@ function Map() {
         setOpen(true);
     }, [selectedRestaurant])
 
+    useEffect(() => {
+        if(open) return;
+        setSelectedRestaurant(null);
+    }, [open])
+
     return(
         <>
             <MapView
                 ref={map}
-                style={mapStyles}
-                initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}> 
+                region={region}
+                style={mapStyles}> 
+                {
+                    destination && <MapViewDirections
+                        origin={{
+                            latitude: usersLocation.lat,
+                            longitude: usersLocation.lng,
+                        }}
+                        destination={{
+                            latitude: destination.lat,
+                            longitude: destination.lng
+                        }}
+                        apikey={process.env.googlemaps}
+                        strokeWidth={3}
+                        strokeColor='green'
+                    />
+                }
                {
                 usersLocation && 
                     <Marker
@@ -122,7 +167,7 @@ function Map() {
                         }}> 
                         <Image 
                             source={icons['green']} 
-                            style={{width: 35, height: 35}}
+                            style={{width: 45, height: 45}}
                             resizeMode='contain'/>
                     </Marker>
                }
@@ -131,18 +176,18 @@ function Map() {
                     let latlong = restaurant.geometry.location;
                     let id = restaurant.place_id;
                     return(
-                        <TouchableOpacity key={id} onPress={() => handleMarker(restaurant)}>
-                            <Marker
-                                coordinate={{
-                                    latitude: latlong.lat,
-                                    longitude: latlong.lng,
-                                }}> 
-                                <Image 
-                                    source={icons['blue']} 
-                                    style={{width: 35, height: 35}}
-                                    resizeMode='contain'/>
-                            </Marker>                            
-                        </TouchableOpacity>
+                        <Marker
+                            key={id}
+                            onPress={() => handleMarker(restaurant)}
+                            coordinate={{
+                                latitude: latlong.lat,
+                                longitude: latlong.lng,
+                            }}> 
+                             <Image 
+                                source={icons['blue']} 
+                                style={{width: 45, height: 45}}
+                                resizeMode='contain'/>
+                        </Marker>                            
                     )
                 })
                }
@@ -158,12 +203,12 @@ function Map() {
                 </FieldSet>
                 <SearchButton onPress={handleSearch}>
                     {loading ? 
-                        <ActivityIndicator size='medium' color={'white'}/> : 
+                        <ActivityIndicator size={Platform.OS === 'ios' ? 'medium' : 'small'} color={'white'}/> : 
                         <ButtonText>
                             Search Restaurants
                         </ButtonText>}
                 </SearchButton>
-                <SearchButton>
+                <SearchButton onPress={handleClear}>
                     <ButtonText>
                         Clear Route
                     </ButtonText>
@@ -176,14 +221,14 @@ function Map() {
                     </Dialog.Title>
                     <DialogContent>
                         <Image 
-                            source={{uri: selectedRestaurant.photos[0].photo_reference}} 
-                            style={{width: 100, height: 100}}
+                            source={{uri: `https://maps.googleapis.com/maps/api/place/photo?photoreference=${selectedRestaurant.photos[0].photo_reference}&sensor=false&maxheight=1600&maxwidth=1600&key=${process.env.googlemaps}`}} 
+                            style={{width: '100%', height: 100}}
                             />
                         <Text>
-                            {selectedRestaurant.rating}
+                            Rating: {selectedRestaurant.rating}/5
                         </Text>
                     </DialogContent>
-                    <Dialog.Button label='Select'/>
+                    <Dialog.Button label='Select' onPress={handleSelect}/>
                     <Dialog.Button label='Close' onPress={handleClose}/>
                 </Dialog.Container>  } 
         </>

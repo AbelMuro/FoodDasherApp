@@ -15,3 +15,11 @@ export const Line = styled.View`
     height: 2px;
     background-color: white;
 `
+
+export const LinkButton = styled.TouchableOpacity`
+    width: 100%;
+    height: 41px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`

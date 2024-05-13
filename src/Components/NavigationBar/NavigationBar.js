@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { TouchableOpacity } from 'react-native';
 import {
     Menu,
-    Line
+    Line,
+    LinkButton
 } from './styles.js';
 import { SvgXml } from 'react-native-svg';
 import icons from './icons'
@@ -19,6 +20,7 @@ function NavigationBar() {
     }
 
     const handleNavigate = (page) => {
+        setOpen(!open);
         navigation.navigate(page);
     }
 
@@ -51,21 +53,21 @@ function NavigationBar() {
                 <SvgXml xml={icons['menu']} width='41px' height='41px'/>
                 <Menu>
                     <Line/>
-                    <TouchableOpacity onPress={() => handleNavigate('home')}>
+                    <LinkButton onPress={() => handleNavigate('home')}>
                         <SvgXml xml={icons['home']} width='41px' height='41px'/>
-                    </TouchableOpacity>
+                    </LinkButton>
                     <Line/>
-                    <TouchableOpacity onPress={() => handleNavigate('search')}>
+                    <LinkButton onPress={() => handleNavigate('search')}>
                         <SvgXml xml={icons['search']} width='41px' height='41px'/>
-                    </TouchableOpacity>
+                    </LinkButton>
                     <Line/>
-                    <TouchableOpacity onPress={() => handleNavigate('user')}>
+                    <LinkButton onPress={() => handleNavigate('user')}>
                         <SvgXml xml={icons['user']} width='41px' height='41px'/>
-                    </TouchableOpacity>             
+                    </LinkButton>             
                     <Line/>
-                    <TouchableOpacity>
+                    <LinkButton>
                         <SvgXml xml={icons['cart']} width='41px' height='41px'/>
-                    </TouchableOpacity>        
+                    </LinkButton>        
                 </Menu>
             </Animated.View>
         </TouchableOpacity>

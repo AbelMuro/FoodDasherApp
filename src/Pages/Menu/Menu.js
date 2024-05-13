@@ -1,15 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import {Image} from 'react-native'
+import {Image, ScrollView, Dimensions, View} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+import {
+    Container, 
+    WorkHours, 
+    DeliveryFee,
+    Item,
+    ItemImage,
+    ItemName,
+    ItemIngredients,
+    ItemPrice,
+    LogoContainer,
+    SelectItem,
+    ButtonText
+} from './styles.js';
 
 function Menu({route, navigation}) {
-    const {name, restaurant} = route.params;
+    const {name} = route.params;
     const [menu, setMenu] = useState([]);
     const [logo, setLogo] = useState('');
 
+
+    const handleItem = (item) => {
+        navigation.navigate('item', {name, item});
+    }
+
     useEffect(() => {
-        let menuRef = firestore().collection(`${name}`);
+        let menuRef = firestore().collection(`${name}`).orderBy('order');
         let allMenuItems = []
         menuRef.get().then((snapshot) => {
             snapshot.forEach((doc) => {
@@ -23,19 +40,54 @@ function Menu({route, navigation}) {
         })
     }, [])
 
-    useEffect(() => {
-        console.log(menu)
-    }, [menu])
-
-    useEffect(() => {
-        console.log(logo)
-    }, [logo])
 
 
     return(
-        <>
-            {logo && <Image source={{uri: logo}} style={{width: 200, height: 200}}/>}
-        </>
+        <Container 
+            contentContainerStyle={{
+                alignItems: 'center',
+                gap: 25
+            }}>
+            {logo && 
+                <LogoContainer>
+                    <Image source={{uri: logo}} style={{width: '100%', height: 200}}/>
+                    <WorkHours>
+                        Work Hours: 24 Hours 
+                    </WorkHours>
+                    <DeliveryFee>
+                        Delivery Fee $4.99
+                    </DeliveryFee>                    
+                </LogoContainer>
+            }
+
+            {menu && menu.map((item, i) => {
+                const imageUrl = item.image;
+                const name = item.name;
+                const ingredients = item.ingredients; 
+                const price = item.price;
+                let backgroundColor = i % 2 === 0 ? 'rgb(243, 236, 236)' : 'white';
+
+                return(
+                    <Item key={name} style={{backgroundColor}}>
+                        <ItemImage source={{uri: imageUrl}}/>
+                        <ItemName>
+                            {name}
+                        </ItemName>
+                        <ItemIngredients>
+                            {ingredients.join(', ')}
+                        </ItemIngredients>
+                        <ItemPrice>
+                            ${price.toFixed(2)}
+                        </ItemPrice>
+                        <SelectItem onPress={() => handleItem(name)}>
+                            <ButtonText>
+                                Choose Item
+                            </ButtonText>
+                        </SelectItem>
+                    </Item>
+                )
+            })}
+        </Container>
     )
 }
 

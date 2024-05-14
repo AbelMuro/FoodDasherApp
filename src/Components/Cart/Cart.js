@@ -11,6 +11,8 @@ import {
     ItemDesc
 } from './styles.js';
 
+
+//i will need to add another component that can increment and decrement the quantity of the item
 function Cart() {
     const open = useSelector(state => state.open);
     const cart = useSelector(state => state.cart);          //i will need to traverse through this array and format the items

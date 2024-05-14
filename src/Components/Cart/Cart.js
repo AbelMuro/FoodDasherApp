@@ -11,7 +11,6 @@ import {
     ItemDesc
 } from './styles.js';
 
-
 //i will need to add another component that can increment and decrement the quantity of the item
 function Cart() {
     const open = useSelector(state => state.open);
@@ -19,11 +18,9 @@ function Cart() {
     const dispatch = useDispatch();
     const width = useSharedValue(0);
 
-
     const handleClose = () => {
         dispatch({type: 'CLOSE_CART'});
     }
-
 
     useEffect(() => {
         if(open){

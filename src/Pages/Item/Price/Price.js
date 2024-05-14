@@ -7,25 +7,15 @@ import {
     Container,
     Decrement,
     Increment,
-    ButtonContainer,
-    AddButton,
-    ButtonText,
-    BackButton
 } from './styles.js';
-import { useNavigation } from '@react-navigation/native';
 
-function Price({price}){
-    const navigation = useNavigation();
+function Price({price, handlePrice, handleQuantity}){
     const [total, setTotal] = useState(price);
     const [quantity, setQuantity] = useState(1);
 
     const disableDecrement = () => {
         if(quantity === 1)
             return {backgroundColor: 'grey'};
-    }
-
-    const handleBack = () => {
-        navigation.goBack();
     }
 
     const handleDecrement = () => {
@@ -40,7 +30,12 @@ function Price({price}){
 
     useEffect(() => {
         setTotal(quantity * price);
+        handleQuantity(quantity);
     }, [quantity])
+
+    useEffect(() => {
+        handlePrice(total);
+    }, [total])
 
 
     return(
@@ -58,21 +53,8 @@ function Price({price}){
                 <Increment onPress={handleIncrement}>
                     <SvgXml xml={icons['plus']} width='35px' height='15px'/>
                 </Increment>
-            </Container>     
-            <ButtonContainer>
-                <AddButton>
-                    <ButtonText>
-                        Add to Order
-                    </ButtonText>
-                </AddButton>
-                <BackButton onPress={handleBack}>
-                    <ButtonText>
-                        Go Back
-                    </ButtonText>
-                </BackButton>
-            </ButtonContainer>     
+            </Container>       
         </>
-
     )
 }
 

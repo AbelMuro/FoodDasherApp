@@ -9,9 +9,11 @@ import { SvgXml } from 'react-native-svg';
 import icons from './icons'
 import Animated, { useSharedValue, withTiming, Easing } from 'react-native-reanimated';
 import { useNavigation } from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
 function NavigationBar() {
     const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
     const navigation = useNavigation();
     const height = useSharedValue(90);
 
@@ -19,9 +21,15 @@ function NavigationBar() {
         setOpen(!open);
     }
 
+    const handleCart = () => {
+        dispatch({type: 'OPEN_CART'});
+    }
+
     const handleNavigate = (page) => {
-        setOpen(!open);
         navigation.navigate(page);
+        setTimeout(() => {
+            setOpen(false);
+        }, 400)
     }
 
     useEffect(() => {
@@ -65,7 +73,7 @@ function NavigationBar() {
                         <SvgXml xml={icons['user']} width='41px' height='41px'/>
                     </LinkButton>             
                     <Line/>
-                    <LinkButton>
+                    <LinkButton onPress={handleCart}>
                         <SvgXml xml={icons['cart']} width='41px' height='41px'/>
                     </LinkButton>        
                 </Menu>

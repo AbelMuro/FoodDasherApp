@@ -1,15 +1,23 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Image} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import icons from './icons';
 
-function Ingredient({label}) {
+function Ingredient({label, handleIngredient}) {
     const [checked, setChecked] = useState(false);
+    const skipFirstRender = useRef(true);
 
     const handleChecked = () => {
         setChecked(!checked);
     }
 
+    useEffect(() => {
+        if(skipFirstRender.current) {
+            skipFirstRender.current = false;
+            return;
+        }
+        handleIngredient(checked)
+    }, [checked])
 
     return(
         <CheckBox

@@ -27,3 +27,34 @@ export const Message = styled.Text`
     font-weight: 500;
     color: black;
 `
+
+export const ButtonContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+`
+
+export const AddButton = styled.Pressable`
+    width: 116px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+export const BackButton = styled.Pressable`
+    width: 91px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: rgb(2, 66, 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+export const ButtonText = styled.Text`
+    font-size: 16px;
+    color: white;
+`

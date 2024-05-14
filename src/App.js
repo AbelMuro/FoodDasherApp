@@ -4,22 +4,29 @@ import Search from './Pages/Search';
 import Menu from './Pages/Menu';
 import Item from './Pages/Item';
 import NavigationBar from './Components/NavigationBar';
+import Cart from './Components/Cart';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
+import store from './Store';
+import {Provider} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
     return (
-        <NavigationContainer>
-            <NavigationBar/>     
-            <Stack.Navigator initialRouteName='home'>     
-                <Stack.Screen name='home' component={Home} options={{ headerShown: false }}/>
-                <Stack.Screen name='search' component={Search} options={{headerShown: false}}/>
-                <Stack.Screen name='menu' component={Menu} options={{headerShown: false}}/>
-                <Stack.Screen name='item' component={Item} options={{headerShown: false}}/>
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Provider store={store}>
+            <NavigationContainer>
+                <NavigationBar/>     
+                <Cart/>
+                <Stack.Navigator initialRouteName='home'>     
+                    <Stack.Screen name='home' component={Home} options={{ headerShown: false }}/>
+                    <Stack.Screen name='search' component={Search} options={{headerShown: false}}/>
+                    <Stack.Screen name='menu' component={Menu} options={{headerShown: false}}/>
+                    <Stack.Screen name='item' component={Item} options={{headerShown: false}}/>
+                </Stack.Navigator>
+            </NavigationContainer>            
+        </Provider>
+
     );
 }
 

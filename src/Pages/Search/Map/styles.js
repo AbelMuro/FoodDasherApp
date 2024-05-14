@@ -42,7 +42,8 @@ export const DialogContent = styled.View`
     margin: auto;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+    margin-bottom: 20px;
 `
 
 export const PressableArea = styled.TouchableOpacity`

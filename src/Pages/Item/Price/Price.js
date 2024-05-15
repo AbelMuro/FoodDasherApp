@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { SvgXml } from 'react-native-svg';
-import icons from './icons';
+import icons from '~/Common/icons';
 import {
     Total,
     Quantity,
@@ -9,7 +9,7 @@ import {
     Increment,
 } from './styles.js';
 
-function Price({price, handlePrice, handleQuantity}){
+function Price({price, handleQuantity}){
     const [total, setTotal] = useState(price);
     const [quantity, setQuantity] = useState(1);
 
@@ -27,16 +27,10 @@ function Price({price, handlePrice, handleQuantity}){
         setQuantity(quantity + 1);
     }
 
-
     useEffect(() => {
         setTotal(quantity * price);
         handleQuantity(quantity);
     }, [quantity])
-
-    useEffect(() => {
-        handlePrice(total);
-    }, [total])
-
 
     return(
         <>

@@ -6,10 +6,9 @@ export const CartTitle = styled.Text`
     color: white;
 `
 
-export const AllItems = styled.View`
+export const AllItems = styled.ScrollView`
     display: flex;
     gap: 20px;
-    align-items: center;
 `
 export const Item = styled.View`
     width: 200px;
@@ -20,5 +19,11 @@ export const Item = styled.View`
 export const ItemDesc = styled.Text`
     font-size: 20px;
     font-weight: 400;
+    color: white;
+`
+
+export const EmptyMessage = styled.Text`
+    font-size: 25px;
+    font-weight: 700;
     color: white;
 `

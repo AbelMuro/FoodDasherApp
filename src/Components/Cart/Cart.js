@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import Quantity from './Quantity';
 import {TouchableOpacity, Image} from 'react-native';
 import Animated, {useSharedValue, withTiming, Easing} from 'react-native-reanimated';
 import {useSelector, useDispatch} from 'react-redux';
@@ -8,13 +9,13 @@ import {
     CartTitle,
     AllItems,
     Item,
-    ItemDesc
+    ItemDesc,
+    EmptyMessage
 } from './styles.js';
 
-//i will need to add another component that can increment and decrement the quantity of the item
 function Cart() {
     const open = useSelector(state => state.open);
-    const cart = useSelector(state => state.cart);          //i will need to traverse through this array and format the items
+    const cart = useSelector(state => state.cart);         
     const dispatch = useDispatch();
     const width = useSharedValue(0);
 
@@ -61,18 +62,20 @@ function Cart() {
                         style={{position: 'absolute', left: 10, top: 20}}/>                
                 </TouchableOpacity>
 
-                <AllItems>
+                <AllItems contentContainerStyle={{alignItems: 'center'}}>
                     <CartTitle>
                         Your Cart:
                     </CartTitle>
-                    {cart && cart.map((item) => {
+                    {cart.length ? cart.map((item, i) => {
                         const name = item.name;
+                        const id = item.id;
                         const image = item.image;
                         const excludedIngredients = item.excludedIngredients;
                         const price = item.price;
+                        const quantity = item.quantity
 
                         return(
-                            <Item key={name}>
+                            <Item key={id}>
                                 <Image source={{uri: image}} style={{width: 200, height: 200}}/>
                                 <ItemDesc>
                                     Name: {name}
@@ -81,17 +84,20 @@ function Cart() {
                                     {excludedIngredients && 'Exclude: '}
                                     {excludedIngredients.map((ingredient, i) => {
                                         if(i + 1 === excludedIngredients.length)
-                                            return(`no ${ingredient.ingredient}`)
+                                            return(`no ${ingredient}`)
                                         else
-                                            return(`no ${ingredient.ingredient}, `)
+                                            return(`no ${ingredient}, `)
                                     })}
                                 </ItemDesc>
+                                <Quantity prevQuantity={quantity} itemID={id}/>
                                 <ItemDesc>
-                                    Price: ${price.toFixed(2)}
+                                    Price: ${(price * quantity).toFixed(2)}
                                 </ItemDesc>
                             </Item>
                         )  
-                    })}                    
+                    }) : <EmptyMessage>
+                            Cart is Empty
+                        </EmptyMessage>}                    
                 </AllItems>
 
             </Animated.View>           

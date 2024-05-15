@@ -4,16 +4,36 @@ const addItem = createAction('ADD_ITEM')
 const removeItem = createAction('REMOVE_ITEM')
 const openCart = createAction('OPEN_CART');
 const closeCart = createAction('CLOSE_CART');
+const updateCart = createAction('UPDATE_CART')
 const initialState = { cart: [], open: false };
 
-const cartReducer = createReducer(initialState, (builder) => {       //builder, as the name implies, is an object that builds the reducer with .addCase
+const sameIngredients = (itemOne, itemTwo) => {
+    if(itemOne.length !== itemTwo.length)
+      return false;
+    for(let i = 0; i < itemOne.length; i++){
+      if(!itemOne.includes(itemTwo[i]))
+        return false;
+    }
+      return true
+
+}
+
+
+const cartReducer = createReducer(initialState, (builder) => {       
   builder
-    .addCase(addItem, (state, action) => {                            //the 'case'
-      state.cart.push(action.item)
+    .addCase(addItem, (state, action) => {   
+      let item = state.cart.find((item) => {
+        if(item.name === action.item.name && sameIngredients(item.excludedIngredients, action.item.excludedIngredients))
+            return true;
+      })
+      if(item)
+        item.quantity += action.item.quantity
+      else
+        state.cart.push(action.item)
     })
     .addCase(removeItem, (state, action) => {
       state.cart = state.cart.filter(item => {
-            if(item.name === action.item)
+            if(item.id === action.item.id)
                 return false;
             else    
                 return true;
@@ -24,6 +44,15 @@ const cartReducer = createReducer(initialState, (builder) => {       //builder, 
     })
     .addCase(closeCart, (state) => {
       state.open = false
+    })
+    .addCase(updateCart, (state, action) => {
+      state.cart = state.cart.map((item) => {
+          if(item.id === action.item.id){
+            return {...item, quantity: action.item.quantity};
+          }
+          else  
+            return item;
+      })
     })
 })
 

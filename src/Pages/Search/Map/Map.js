@@ -15,7 +15,7 @@ import {
 import icons from './icons';
 import { useNavigation } from '@react-navigation/native';
 
-function Map() {
+function Map({setScrollYPosition}) {
     const navigation = useNavigation();
     const [usersLocation, setUsersLocation] = useState(null);
     const [destination, setDestination] = useState(null);
@@ -65,6 +65,7 @@ function Map() {
             Alert.alert('Please enter address');
             return;
         }
+        setScrollYPosition(100);
         setLoading(true);
         const latlong = await geocode(address.current.state);
         if(!latlong) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView} from 'react-native';
 import Map from './Map';
 import {
@@ -10,8 +10,13 @@ import {
 import images from '~/Common/images';
 
 function Search() {
+    const [scrollYPosition, setScrollYPosition] = useState(0);
+
     return(
-        <ScrollView>
+        <ScrollView contentOffset={{
+            y: scrollYPosition,
+            x: 0
+        }}> 
             <Container source={images['background']}>
                 <Instructions>
                     <Title>
@@ -30,7 +35,7 @@ function Search() {
                         4: Press on Select
                     </Instruction>
                 </Instructions>
-                <Map/>
+                <Map setScrollYPosition={setScrollYPosition}/>
             </Container>
         </ScrollView>
     )

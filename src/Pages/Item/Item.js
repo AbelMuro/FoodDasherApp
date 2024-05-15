@@ -15,9 +15,9 @@ import {
     BackButton
 } from './styles.js';
 import {useDispatch} from 'react-redux';
+import uuid from 'react-native-uuid';
 
 function Item({route, navigation}) {
-    const price = useRef();
     const ingredients = useRef([]);
     const quantity = useRef();
     const dispatch = useDispatch();
@@ -32,27 +32,26 @@ function Item({route, navigation}) {
         ingredients.current[i] = {ingredient, checked};
     }
 
-    const handlePrice = (total) => {
-        price.current = total;
-    }
-
     const handleQuantity = (newQuantity) => {
         quantity.current = newQuantity;
     }
 
     const handleItem = () => {
-        const totalPrice = price.current;
-        const excludedIngredients = ingredients.current.filter((ingredient) => {
+        let excludedIngredients = ingredients.current.filter((ingredient) => {
             return ingredient.checked;
         });
+        excludedIngredients = excludedIngredients.map(ingredient => {
+            return ingredient.ingredient
+        })
         const totalQuantity = quantity.current;
 
         dispatch({type: 'ADD_ITEM', item: {
+            id: uuid.v4(),
             name: itemData.name,
             image: itemData.image,
             quantity: totalQuantity,
-            price: totalPrice,
-            excludedIngredients: excludedIngredients || [],
+            price: itemData.price,
+            excludedIngredients: excludedIngredients,
         }});
         Alert.alert('item has been added to the cart');
         handleBack();
@@ -90,7 +89,7 @@ function Item({route, navigation}) {
                                 })
                             }
                         </ItemIngredients>       
-                        <Price price={itemData.price} handlePrice={handlePrice} handleQuantity={handleQuantity}/>
+                        <Price price={itemData.price} handleQuantity={handleQuantity}/>
                         <ButtonContainer>
                             <AddButton onPress={handleItem}>
                                 <ButtonText>

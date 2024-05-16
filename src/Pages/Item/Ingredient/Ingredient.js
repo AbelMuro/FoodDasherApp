@@ -3,7 +3,7 @@ import {Image} from 'react-native';
 import CheckBox from 'react-native-check-box';
 import icons from './icons';
 
-function Ingredient({label, handleIngredient}) {
+function Ingredient({label, handleIngredient, handleSauce}) {
     const [checked, setChecked] = useState(false);
     const skipFirstRender = useRef(true);
 
@@ -16,7 +16,8 @@ function Ingredient({label, handleIngredient}) {
             skipFirstRender.current = false;
             return;
         }
-        handleIngredient(checked)
+        handleIngredient && handleIngredient(checked);
+        handleSauce && handleSauce(checked);
     }, [checked])
 
     return(
@@ -24,7 +25,7 @@ function Ingredient({label, handleIngredient}) {
             style={{height: 20}}
             onClick={handleChecked}
             isChecked={checked}
-            rightText={`no ${label}`}
+            rightText={handleIngredient ? `no ${label}` : label}
             rightTextStyle={{color: 'black'}}
             checkedImage={ <Image source={icons['checkmark']} style={{width: 20, height: 20}}/>}
             unCheckedImage={<Image source={icons['emptymark']} style={{width: 20, height: 20}}/>}

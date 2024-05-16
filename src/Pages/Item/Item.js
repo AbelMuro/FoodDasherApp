@@ -3,6 +3,7 @@ import Price from './Price';
 import {Image, ScrollView, Alert} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import Ingredient from './Ingredient';
+import Sauces from './Ingredient';
 import images from '~/Common/images';
 import {
     Container,
@@ -20,6 +21,7 @@ import uuid from 'react-native-uuid';
 function Item({route, navigation}) {
     const ingredients = useRef([]);
     const quantity = useRef();
+    const sauces = useRef([]);
     const dispatch = useDispatch();
     const {name, item} = route.params;
     const [itemData, setItemData] = useState(null);
@@ -30,6 +32,10 @@ function Item({route, navigation}) {
 
     const handleIngredients = (ingredient, checked, i) => {
         ingredients.current[i] = {ingredient, checked};
+    }
+
+    const handleSauce = (sauce, checked, i) => {
+        sauces.current[i] = {sauce, checked};
     }
 
     const handleQuantity = (newQuantity) => {
@@ -43,8 +49,13 @@ function Item({route, navigation}) {
         excludedIngredients = excludedIngredients.map(ingredient => {
             return ingredient.ingredient
         })
+        let saucesChoosen = sauces.current.filter(sauce => {
+            return sauce.checked;
+        })
+        saucesChoosen = sauces.current.map(sauce => {
+            return sauce.sauce
+        })
         const totalQuantity = quantity.current;
-
         dispatch({type: 'ADD_ITEM', item: {
             id: uuid.v4(),
             name: itemData.name,
@@ -52,6 +63,7 @@ function Item({route, navigation}) {
             quantity: totalQuantity,
             price: itemData.price,
             excludedIngredients: excludedIngredients,
+            sauces: saucesChoosen
         }});
         Alert.alert('item has been added to the cart');
         handleBack();
@@ -76,15 +88,26 @@ function Item({route, navigation}) {
                         </ItemTitle>  
                         <ItemIngredients>
                             <Message>
-                                Select ingredients to exclude
+                                {itemData.ingredients  ? 'Select ingredients to exclude' : 'Select your sauce'}
                             </Message>
                             {
-                                itemData.ingredients.map((ingredient, i) => {
+                                itemData.ingredients && itemData.ingredients.map((ingredient, i) => {
                                     return(
                                         <Ingredient 
                                             key={ingredient} 
                                             label={ingredient} 
                                             handleIngredient={(checked) => handleIngredients(ingredient, checked, i)} />
+                                    )
+                                })
+                            }
+                            {
+                                itemData.sauce && itemData.sauce.map((sauce, i) => {
+                                    return (
+                                        <Sauces
+                                            key={sauce}
+                                            label={sauce}
+                                            handleSauce={(checked) => handleSauce(sauce, checked, i)}
+                                        />
                                     )
                                 })
                             }

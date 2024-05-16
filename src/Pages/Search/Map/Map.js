@@ -131,6 +131,7 @@ function Map({setScrollYPosition}) {
 
     useEffect(() => {
         if(!selectedRestaurant) return;
+        console.log(selectedRestaurant);
         setOpen(true);
     }, [selectedRestaurant])
 

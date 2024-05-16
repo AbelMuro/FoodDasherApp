@@ -30,7 +30,7 @@ function Menu({route, navigation}) {
         let allMenuItems = []
         menuRef.get().then((snapshot) => {
             snapshot.forEach((doc) => {
-                let item = doc.data();                
+                let item = doc.data();             
                 if(doc.id === 'logo')
                     setLogo(item.url)
                 else
@@ -39,8 +39,6 @@ function Menu({route, navigation}) {
             setMenu(allMenuItems);
         })
     }, [])
-
-
 
     return(
         <Container 
@@ -64,6 +62,7 @@ function Menu({route, navigation}) {
                 const imageUrl = item.image;
                 const name = item.name;
                 const ingredients = item.ingredients; 
+                const sauces = item.sauce;
                 const price = item.price;
                 let backgroundColor = i % 2 === 0 ? 'rgb(243, 236, 236)' : 'white';
 
@@ -74,7 +73,8 @@ function Menu({route, navigation}) {
                             {name}
                         </ItemName>
                         <ItemIngredients>
-                            {ingredients.join(', ')}
+                            {ingredients && ingredients.join(', ')}
+                            {sauces && sauces.join(', ')}
                         </ItemIngredients>
                         <ItemPrice>
                             ${price.toFixed(2)}

@@ -65,7 +65,7 @@ function Item({route, navigation}) {
             excludedIngredients: excludedIngredients,
             sauces: saucesChoosen
         }});
-        Alert.alert('item has been added to the cart');
+        dispatch({type: 'OPEN_CART'});
         handleBack();
     }
 

@@ -52,7 +52,6 @@ export const CheckoutButton = styled.Pressable`
     width: 100px;
     height: 40px;
     border-radius: 10px;
-    background-color: darkgreen;
     display: flex;
     justify-content: center;
     align-items: center;

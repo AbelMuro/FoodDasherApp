@@ -11,6 +11,9 @@ const EnterAddress = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         get state() {
             return address;
+        },
+        newAddress(state) {
+            setAddress(state);
         }
     }))
 

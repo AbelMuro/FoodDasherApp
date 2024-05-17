@@ -14,8 +14,11 @@ import {
 } from './styles.js';
 import icons from './icons';
 import { useNavigation } from '@react-navigation/native';
+import Geolocation from '@react-native-community/geolocation';
+import {useDispatch} from 'react-redux';
 
 function Map({setScrollYPosition}) {
+    const dispatch = useDispatch();
     const navigation = useNavigation();
     const [usersLocation, setUsersLocation] = useState(null);
     const [destination, setDestination] = useState(null);
@@ -96,6 +99,17 @@ function Map({setScrollYPosition}) {
         }
     }
 
+    const reverseGeocode = async (latlng) => {
+        try{
+            let response = await fetch(`https://geocode.maps.co/reverse?lat=${latlng.lat}&lon=${latlng.lng}&api_key=${process.env.geocode}`);
+            let results = await response.json();
+            return results.address;
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     const searchNearbyRestaurants = async () => {
         try{
             let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${usersLocation.lat},${usersLocation.lng}&radius=5000&keyword=${restaurant.current.state}&key=${process.env.googlemaps}`);
@@ -109,9 +123,13 @@ function Map({setScrollYPosition}) {
 
     useEffect(() => {
         if(!usersLocation) return;
+        dispatch({type: 'UPDATE_LOCATION', latlng: usersLocation})
 
         async function searchRestaurants() {            
             let restaurants = await searchNearbyRestaurants();
+            if(!restaurant.current.state)
+                return;
+
             if(restaurants.length === 0){
                 Alert.alert(`There are no nearby ${restaurant.current.state.replaceAll('%20', ' ')}`);
                 setLoading(false);  
@@ -131,7 +149,6 @@ function Map({setScrollYPosition}) {
 
     useEffect(() => {
         if(!selectedRestaurant) return;
-        console.log(selectedRestaurant);
         setOpen(true);
     }, [selectedRestaurant])
 
@@ -139,6 +156,30 @@ function Map({setScrollYPosition}) {
         if(open) return;
         setSelectedRestaurant(null);
     }, [open])
+
+    useEffect(() => {
+        Geolocation.getCurrentPosition((pos) => {
+            let usersLatLng = {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+            }
+            setRegion({
+                latitude: usersLatLng.lat,
+                longitude: usersLatLng.lng,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            });
+            setUsersLocation(usersLatLng);
+            reverseGeocode(usersLatLng)
+                .then((usersAddress) => {
+                    const currentLocation = `${usersAddress.building} ${usersAddress.road} ${usersAddress.city} ${usersAddress.state} ${usersAddress.postcode} ${usersAddress.country}`
+                    address.current.newAddress(currentLocation);
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        })     
+    }, [])
 
     return(
         <>

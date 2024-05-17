@@ -21,9 +21,10 @@ import { useNavigation } from '@react-navigation/native';
 
 function Cart() {
     const navigation = useNavigation();
-    const open = useSelector(state => state.open);
-    const cart = useSelector(state => state.cart);     
+    const open = useSelector(state => state.cart.open);
+    const cart = useSelector(state => state.cart.items);     
     const total = useRef(0)
+    const cartItems = useRef();
     const dispatch = useDispatch();
     const width = useSharedValue(0);
 
@@ -32,6 +33,7 @@ function Cart() {
     }
 
     const handleCheckout = () => {
+        dispatch({type: 'CLOSE_CART'});
         navigation.navigate('checkout');
     }
 
@@ -49,6 +51,7 @@ function Cart() {
             })
         }
     }, [open])
+
 
     return(          
             <Animated.View 
@@ -73,7 +76,9 @@ function Cart() {
                         height='50px' 
                         style={{position: 'absolute', left: 10, top: 20}}/>                
                 </TouchableOpacity>
-                <AllItems contentContainerStyle={{alignItems: 'center', gap: 60}}>
+                <AllItems 
+                    contentContainerStyle={{alignItems: 'center', gap: 60}}
+                    ref={cartItems}>
                     <CartTitle>
                         Your Cart:
                     </CartTitle>                     
@@ -127,8 +132,14 @@ function Cart() {
                     <CartTotal>
                         Total: ${total.current.toFixed(2)}
                     </CartTotal>    
-                    <CheckoutButton onPress={handleCheckout}>
-                        <ButtonText>
+                    <CheckoutButton 
+                        onPress={handleCheckout}
+                        disabled={cart.length === 0}
+                        style={{
+                            backgroundColor: cart.length ? 'darkgreen' : 'grey',
+                        }}>
+                        <ButtonText
+                            style={{color: cart.length ? 'white' : 'lightgrey'}}>
                             Check out
                         </ButtonText>
                     </CheckoutButton>                             

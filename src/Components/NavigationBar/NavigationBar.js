@@ -22,6 +22,7 @@ function NavigationBar() {
     }
 
     const handleCart = () => {
+        setOpen(false);
         dispatch({type: 'OPEN_CART'});
     }
 
@@ -29,7 +30,7 @@ function NavigationBar() {
         navigation.navigate(page);
         setTimeout(() => {
             setOpen(false);
-        }, 400)
+        }, 500)
     }
 
     useEffect(() => {
@@ -48,7 +49,6 @@ function NavigationBar() {
     }, [open])
 
     return(
-        <TouchableOpacity onPress={handleOpen}>
             <Animated.View style={{    
                 width: '100%',
                 height,
@@ -58,7 +58,9 @@ function NavigationBar() {
                 alignItems: 'center',
                 paddingTop: 20,
                 gap: 20}}>
-                <SvgXml xml={icons['menu']} width='41px' height='41px'/>
+                <LinkButton onPress={handleOpen}>
+                    <SvgXml xml={icons['menu']} width='41px' height='41px'/>
+                </LinkButton>
                 <Menu>
                     <Line/>
                     <LinkButton onPress={() => handleNavigate('home')}>
@@ -78,7 +80,6 @@ function NavigationBar() {
                     </LinkButton>        
                 </Menu>
             </Animated.View>
-        </TouchableOpacity>
 
     )
 }

@@ -12,7 +12,7 @@ import {
     ButtonText,
     DialogContent
 } from './styles.js';
-import icons from './icons';
+import icons from '~/Common/icons';
 import { useNavigation } from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
 import {useDispatch} from 'react-redux';
@@ -49,6 +49,7 @@ function Map({setScrollYPosition}) {
 
     const handleSelect = () => {
         setOpen(false);
+        dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: destination})
         navigation.navigate('menu', {
             name: restaurant.current.state.replaceAll('%20', ' '),
             restaurant: selectedRestaurant
@@ -123,7 +124,7 @@ function Map({setScrollYPosition}) {
 
     useEffect(() => {
         if(!usersLocation) return;
-        dispatch({type: 'UPDATE_LOCATION', latlng: usersLocation})
+        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocation})
 
         async function searchRestaurants() {            
             let restaurants = await searchNearbyRestaurants();

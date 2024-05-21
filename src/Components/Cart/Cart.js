@@ -22,8 +22,7 @@ import { useNavigation } from '@react-navigation/native';
 function Cart() {
     const navigation = useNavigation();
     const open = useSelector(state => state.cart.open);
-    const cart = useSelector(state => state.cart.items);     
-    const total = useRef(0)
+    const cart = useSelector(state => state.cart.items);   
     const cartItems = useRef();
     const dispatch = useDispatch();
     const width = useSharedValue(0);
@@ -90,10 +89,6 @@ function Cart() {
                         const sauces = item.sauces;
                         const price = item.price;
                         const quantity = item.quantity;
-                        if(i === 0)
-                            total.current = (price * quantity);
-                        else
-                            total.current += (price * quantity);
 
                         return(
                             <Item key={id}>
@@ -130,7 +125,9 @@ function Cart() {
                 </AllItems>
                 <GreenBox>
                     <CartTotal>
-                        Total: ${total.current.toFixed(2)}
+                        Total: ${cart.reduce((acc, item) => {
+                            return (item.price * item.quantity) + acc;
+                        }, 0).toFixed(2)}
                     </CartTotal>    
                     <CheckoutButton 
                         onPress={handleCheckout}

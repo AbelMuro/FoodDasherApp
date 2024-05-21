@@ -1,13 +1,17 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-const updateLocation = createAction('UPDATE_LOCATION');
-const initialState = {latlng: {lat: 0, lng: 0}};
+const updateUsersLocation = createAction('UPDATE_USERS_LOCATION');
+const updateRestaurantLocation = createAction('UPDATE_RESTAURANT_LOCATION');
+const initialState = {user: {lat: 0, lng: 0}, restaurant: {lat: 0, lng: 0}};
 
 const locationReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(updateLocation, (state, action) => {
-            state.latlng = action.latlng;
+        .addCase(updateUsersLocation, (state, action) => {
+            state.user = action.latlng;
         })  
+        .addCase(updateRestaurantLocation, (state, action) => {
+            state.restaurant = action.latlng;
+        })
 })
 
 export default locationReducer;

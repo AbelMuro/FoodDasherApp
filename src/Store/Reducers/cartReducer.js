@@ -4,8 +4,8 @@ const addItem = createAction('ADD_ITEM')
 const removeItem = createAction('REMOVE_ITEM')
 const openCart = createAction('OPEN_CART');
 const closeCart = createAction('CLOSE_CART');
-const updateCart = createAction('UPDATE_CART')
-const initialState = { items: [], open: false };
+const updateCart = createAction('UPDATE_CART');
+const initialState = {items: [], open: false};
 
 const sameIngredients = (itemOne, itemTwo) => {
     if(itemOne.length !== itemTwo.length)
@@ -27,7 +27,7 @@ const cartReducer = createReducer(initialState, (builder) => {
       if(item)
         item.quantity += action.item.quantity
       else
-        state.items.push(action.item)
+        state.items.unshift(action.item)
     })
     .addCase(removeItem, (state, action) => {
       state.items = state.items.filter(item => {

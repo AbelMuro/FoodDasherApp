@@ -16,7 +16,6 @@ function Checkout() {
     const location = useSelector(state => state.location.user);    
     const destination = useSelector(state => state.location.restaurant);
 	const [travelTime, setTravelTime] = useState(0);
-    const cart = useSelector(state => state.cart.items);
     const [region, setRegion] = useState({
         latitude: location.lat,
         longitude: location.lng,
@@ -25,13 +24,12 @@ function Checkout() {
     })
 
 	const handleDirectionsReady = (result) => {
-		const time = result.duration + '';
+		const time = result.duration.toFixed(2);
+
 		const minutes = time.slice(0, time.indexOf('.'));
 		const seconds = time.slice(time.indexOf('.') + 1, time.length);
-
 		setTravelTime(`${minutes} minutes, ${seconds} seconds`);
 	}
-
 
     return(
 		<ScrollView>
@@ -81,11 +79,6 @@ function Checkout() {
 				</MapView>
 				<Message>
 					Delivery Time: {travelTime}
-				</Message>
-				<Message>
-					Total Cost: ${cart.reduce((acc, item) => {
-						return acc + (item.price * item.quantity);
-					}, 0).toFixed(2)}
 				</Message>
 				<Form/>
 			</Container>			

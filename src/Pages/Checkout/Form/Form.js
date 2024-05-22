@@ -1,20 +1,29 @@
-import React, {useRef} from 'react';
+import React, {useState, useMemo} from 'react';
+import {useSelector} from 'react-redux'
 import DeliveryOptions from './DeliveryOptions';
 import {
-    Container
+    Container,
+    Message
 } from './styles.js'
 
 function Form() {
-    const deliveryOption = useRef();
+    const [deliveryOption, setDeliveryOption] = useState('Standard');
+    const cart = useSelector(state => state.cart.items);
 
-    const handleDeliveryOption = (option) => {
-        deliveryOption.current = option;
-    }
+    const cost = useMemo(() => {
+        let express = deliveryOption === 'Express' ? 5 : 0;
+        return cart.reduce((acc, item) => {
+            return acc + (item.price * item.quantity);
+        }, 0) + express;
+    }, [deliveryOption])
 
     return(
         <Container>
-            <DeliveryOptions handleOption={handleDeliveryOption}/>
-        </Container>
+            <DeliveryOptions handleOption={setDeliveryOption}/>
+            <Message>
+				Total Cost: ${cost.toFixed(2)}
+			</Message>
+        </Container>        
     )
 }
 

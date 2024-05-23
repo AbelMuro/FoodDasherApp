@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useRef} from 'react';
+import React, {useState, useMemo} from 'react';
 import {useSelector} from 'react-redux'
 import DeliveryOptions from './DeliveryOptions';
 import DropOffOptions from './DropOffOptions';
@@ -11,7 +11,6 @@ import {
 function Form() {
     const [deliveryOption, setDeliveryOption] = useState('Standard');
     const cart = useSelector(state => state.cart.items);
-    const dropOffOption = useRef('');
 
     const cost = useMemo(() => {
         let express = deliveryOption === 'Express' ? 5 : 0;

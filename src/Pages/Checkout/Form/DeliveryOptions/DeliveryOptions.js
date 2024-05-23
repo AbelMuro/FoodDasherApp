@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { Dropdown } from 'react-native-element-dropdown';
 import Dialog from 'react-native-dialog';
@@ -7,12 +7,14 @@ import {
     Title,
     DropdownContainer
 } from './styles.js';
+import {useSelector, useDispatch} from 'react-redux';
 
 
-//i need to double check the use effect, i need to get the correct future dates
-function DeliveryOptions({handleOption}) {
+//i will need to make the schedule into a property in the global state
+function DeliveryOptions() {
     const [open, setOpen] = useState(false);
-    const [option, setOption] = useState('Standard');          
+    const option = useSelector(state => state.checkout.deliveryOption);  
+    const dispatch = useDispatch();     
     const [schedule, setSchedule] = useState('');
     const data = useRef([]);
 
@@ -43,9 +45,22 @@ function DeliveryOptions({handleOption}) {
         }
     ]
 
+    const handleSelect = () => {
+        if(!schedule){
+            Alert.alert('Please select a time')
+            return;
+        }
+        dispatch({type: 'UPDATE_SCHEDULE', schedule});
+        setOpen(false);
+    }
 
     const handleCancel = () => {
+        dispatch({type: 'UPDATE_DELIVERY_OPTION', option: 'Standard'})
         setOpen(false);
+    }
+
+    const handleOption = (option) => {
+        dispatch({type: 'UPDATE_DELIVERY_OPTION', option})
     }
 
     useEffect(() => {
@@ -53,7 +68,6 @@ function DeliveryOptions({handleOption}) {
             setOpen(true)
         else
             setOpen(false);
-        handleOption(option)
     }, [option])
 
     useEffect(() => {
@@ -70,14 +84,14 @@ function DeliveryOptions({handleOption}) {
             let dateTwo = times[i].slice(times[i].indexOf('?') + 1, times[i].length);
             const futureDateOne = new Date(dateOne);
             const futureDateTwo = new Date(dateTwo);
-            let futureHoursOne = futureDateOne.getHours();
-            let futureHoursTwo = futureDateTwo.getHours();
-            futureHoursOne = futureHoursOne > 12 ? (futureHoursOne - 12) : futureHoursOne;
-            futureHoursTwo = futureHoursTwo > 12 ? (futureHoursTwo - 12) : futureHoursTwo;
+            let tempOne = futureDateOne.getHours();
+            let tempTwo = futureDateTwo.getHours();
+            let futureHoursOne = (tempOne + 24) % 12 || 12;
+            let futureHoursTwo = (tempTwo + 24) % 12 || 12;
+            let AmPmOne = tempOne > 12 ? 'pm' : 'am';
+            let AmPmTwo = tempTwo > 12 ? 'pm' : 'am';              
             let futureMinutesOne = futureDateOne.getMinutes();
             let futureMinutesTwo = futureDateTwo.getMinutes();
-            let AmPmOne = futureMinutesOne > 12 ? 'pm' : 'am';
-            let AmPmTwo = futureMinutesTwo > 12 ? 'pm' : 'am';
             times[i] = `${futureHoursOne}:${futureMinutesOne < 10 ? '0' + futureMinutesOne : futureMinutesOne}${AmPmOne} - ${futureHoursTwo}:${futureMinutesTwo < 10 ? '0' + futureMinutesTwo : futureMinutesTwo}${AmPmTwo}`;
         }
        times.forEach((time) => {
@@ -87,6 +101,7 @@ function DeliveryOptions({handleOption}) {
             });
        });
     }, [])
+
 
     return(
         <>
@@ -98,11 +113,11 @@ function DeliveryOptions({handleOption}) {
             alignSelf: 'start'
            }}>
             <RadioGroup 
-                style={{
+                containerStyle={{
                     alignItems: 'start'
                 }}
                 radioButtons={options} 
-                onPress={setOption}            
+                onPress={handleOption}            
                 selectedId={option}
                 />                  
           </View>
@@ -129,7 +144,7 @@ function DeliveryOptions({handleOption}) {
                         onChange={item => setSchedule(item)}               
                     />  
                 </DropdownContainer>
-                <Dialog.Button label='Select'/>
+                <Dialog.Button label='Select' onPress={handleSelect}/>
                 <Dialog.Button label='Cancel' onPress={handleCancel}/>
           </Dialog.Container>
         </>

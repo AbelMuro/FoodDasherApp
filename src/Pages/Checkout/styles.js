@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.ImageBackground`
-    width: 100%;
     display: flex;
     align-items: center;
     gap: 20px;

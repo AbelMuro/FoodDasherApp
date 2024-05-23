@@ -1,6 +1,8 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useRef} from 'react';
 import {useSelector} from 'react-redux'
 import DeliveryOptions from './DeliveryOptions';
+import DropOffOptions from './DropOffOptions';
+import DropOffInstructions from './DropOffInstructions';
 import {
     Container,
     Message
@@ -9,6 +11,7 @@ import {
 function Form() {
     const [deliveryOption, setDeliveryOption] = useState('Standard');
     const cart = useSelector(state => state.cart.items);
+    const dropOffOption = useRef('');
 
     const cost = useMemo(() => {
         let express = deliveryOption === 'Express' ? 5 : 0;
@@ -20,6 +23,14 @@ function Form() {
     return(
         <Container>
             <DeliveryOptions handleOption={setDeliveryOption}/>
+            <Message>
+                Drop-off Options
+            </Message>
+            <DropOffOptions/>    
+            <Message>
+                Drop-off Instructions
+            </Message>  
+            <DropOffInstructions/>  
             <Message>
 				Total Cost: ${cost.toFixed(2)}
 			</Message>

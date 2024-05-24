@@ -22,7 +22,8 @@ function DropOffInstructions() {
                 borderWidth: 1,
                 borderColor: 'green',
                 padding: 10,
-                borderRadius: 10
+                borderRadius: 10,
+                textAlignVertical: 'top'
             }}
             multiline={true}
         />

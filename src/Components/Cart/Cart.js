@@ -6,6 +6,7 @@ import Animated, {useSharedValue, withTiming, Easing} from 'react-native-reanima
 import {useSelector, useDispatch} from 'react-redux';
 import icons from './icons';
 import { SvgXml } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
 import {
     CartTitle,
     AllItems,
@@ -13,11 +14,10 @@ import {
     ItemDesc,
     EmptyMessage,
     CartTotal,
-    GreenBox,
+    CheckoutBox,
     CheckoutButton,
     ButtonText
 } from './styles.js';
-import { useNavigation } from '@react-navigation/native';
 
 function Cart() {
     const navigation = useNavigation();
@@ -56,14 +56,13 @@ function Cart() {
             <Animated.View 
                 style={{
                     width,
-                    height: '100%',
+                    height:'100%',
                     backgroundColor: 'darkgreen',
                     overflow: 'hidden',
                     borderLeftStyle: 'solid',
                     borderLeftColor: 'black',
                     borderLeftWidth: 2,
                     position: 'absolute',
-                    zIndex: 100,
                     right: 0,
                     top: 0,
                 }
@@ -81,7 +80,7 @@ function Cart() {
                     <CartTitle>
                         Your Cart:
                     </CartTitle>                     
-                    {cart.length ? cart.map((item, i) => {
+                    {cart.length ? cart.map((item) => {
                         const name = item.name;
                         const id = item.id;
                         const image = item.image;
@@ -100,7 +99,7 @@ function Cart() {
                                     {name}
                                 </ItemDesc>
                                 <ItemDesc>
-                                    {excludedIngredients.length !== 0 && <Text style={{fontWeight: 700}}>Exclude:&nbsp; </Text>}
+                                    {excludedIngredients.length !== 0 && <Text style={{fontWeight: 700}}>Exclude:&nbsp;</Text>}
                                     {excludedIngredients.length !== 0 && excludedIngredients.map((ingredient, i) => {
                                         if(i + 1 === excludedIngredients.length)
                                             return(`no ${ingredient}`)
@@ -123,7 +122,7 @@ function Cart() {
                             Cart is Empty
                         </EmptyMessage>}    
                 </AllItems>
-                <GreenBox>
+                <CheckoutBox>
                     <CartTotal>
                         Total: ${cart.reduce((acc, item) => {
                             return (item.price * item.quantity) + acc;
@@ -140,7 +139,7 @@ function Cart() {
                             Check out
                         </ButtonText>
                     </CheckoutButton>                             
-                </GreenBox>
+                </CheckoutBox>
             </Animated.View>           
     )
 }

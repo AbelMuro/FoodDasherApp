@@ -159,6 +159,7 @@ function Map({setScrollYPosition}) {
     }, [open])
 
     useEffect(() => {
+
         Geolocation.getCurrentPosition((pos) => {
             let usersLatLng = {
                 lat: pos.coords.latitude,
@@ -177,9 +178,11 @@ function Map({setScrollYPosition}) {
                     address.current.newAddress(currentLocation);
                 })
                 .catch((error) => {
-                    console.log(error);
+                        console.log(error);
                 })
-        })     
+            }, (error) => {
+                console.log('error', error)
+            })                 
     }, [])
 
     return(
@@ -275,7 +278,8 @@ function Map({setScrollYPosition}) {
                     </DialogContent>
                     <Dialog.Button label='Select' onPress={handleSelect}/>
                     <Dialog.Button label='Close' onPress={handleClose}/>
-                </Dialog.Container>  } 
+                </Dialog.Container>  
+                } 
         </>
     )
 }

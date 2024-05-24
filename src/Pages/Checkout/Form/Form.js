@@ -9,8 +9,8 @@ import {
 } from './styles.js'
 
 function Form() {
-    const [deliveryOption, setDeliveryOption] = useState('Standard');
     const cart = useSelector(state => state.cart.items);
+    const deliveryOption = useSelector(state => state.checkout.deliveryOption);
 
     const cost = useMemo(() => {
         let express = deliveryOption === 'Express' ? 5 : 0;
@@ -21,7 +21,7 @@ function Form() {
 
     return(
         <Container>
-            <DeliveryOptions handleOption={setDeliveryOption}/>
+            <DeliveryOptions/>
             <Message>
                 Drop-off Options
             </Message>

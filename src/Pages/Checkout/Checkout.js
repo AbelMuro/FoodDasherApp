@@ -15,7 +15,8 @@ import Form from './Form';
 function Checkout() {
     const location = useSelector(state => state.location.user);    
     const destination = useSelector(state => state.location.restaurant);
-	const [travelTime, setTravelTime] = useState(0);
+	const deliveryOption = useSelector(state => state.checkout.deliveryOption);
+	const [travelTime, setTravelTime] = useState('');
     const [region, setRegion] = useState({
         latitude: location.lat,
         longitude: location.lng,
@@ -26,10 +27,17 @@ function Checkout() {
 	const handleDirectionsReady = (result) => {
 		const time = result.duration.toFixed(2);
 
-		const minutes = time.slice(0, time.indexOf('.'));
-		const seconds = time.slice(time.indexOf('.') + 1, time.length);
-		setTravelTime(`${minutes} minutes, ${seconds} seconds`);
+		const minutes = Number(time.slice(0, time.indexOf('.')));
+		const seconds = Number(time.slice(time.indexOf('.') + 1, time.length));
+		setTravelTime([minutes, seconds]);
 	}
+
+	const handleExpress = () => {
+		if(deliveryOption === 'Express')
+			return travelTime[0] < 5 ? 0 : travelTime[0] - 5;
+		else
+			return travelTime[0];
+	}	
 
     return(
 		<ScrollView>
@@ -78,7 +86,7 @@ function Checkout() {
 					/>	
 				</MapView>
 				<Message>
-					Delivery Time: {travelTime}
+					Delivery Time: {`${handleExpress()} minutes, ${travelTime[1]} seconds`}
 				</Message>
 				<Form/>
 			</Container>			

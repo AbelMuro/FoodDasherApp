@@ -31,7 +31,6 @@ function DropOffOptions() {
     }
 
     return(
-        <Container>
             <RadioGroup
                 radioButtons={options}
                 onPress={handleOption}
@@ -40,7 +39,6 @@ function DropOffOptions() {
                     alignItems: 'start'
                 }}
             />
-        </Container>
     )
 }
 

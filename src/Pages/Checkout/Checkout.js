@@ -16,6 +16,7 @@ function Checkout() {
     const location = useSelector(state => state.location.user);    
     const destination = useSelector(state => state.location.restaurant);
 	const deliveryOption = useSelector(state => state.checkout.deliveryOption);
+	const schedule = useSelector(state => state.checkout.schedule);
 	const [travelTime, setTravelTime] = useState('');
     const [region, setRegion] = useState({
         latitude: location.lat,
@@ -26,7 +27,6 @@ function Checkout() {
 
 	const handleDirectionsReady = (result) => {
 		const time = result.duration.toFixed(2);
-
 		const minutes = Number(time.slice(0, time.indexOf('.')));
 		const seconds = Number(time.slice(time.indexOf('.') + 1, time.length));
 		setTravelTime([minutes, seconds]);
@@ -86,7 +86,7 @@ function Checkout() {
 					/>	
 				</MapView>
 				<Message>
-					Delivery Time: {`${handleExpress()} minutes, ${travelTime[1]} seconds`}
+					Delivery Time: {(schedule && deliveryOption === 'Schedule') ? schedule : `${handleExpress()} minutes, ${travelTime[1]} seconds`}
 				</Message>
 				<Form/>
 			</Container>			

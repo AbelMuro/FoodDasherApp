@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux'
 import DeliveryOptions from './DeliveryOptions';
 import DropOffOptions from './DropOffOptions';
 import DropOffInstructions from './DropOffInstructions';
+import PaymentInformation from './PaymentInformation';
 import {
     Container,
     Message
@@ -21,6 +22,9 @@ function Form() {
 
     return(
         <Container>
+            <Message>
+                Select Delivery Option
+            </Message>
             <DeliveryOptions/>
             <Message>
                 Drop-off Options
@@ -30,6 +34,10 @@ function Form() {
                 Drop-off Instructions
             </Message>  
             <DropOffInstructions/>  
+            <Message>
+                Payment Information
+            </Message>
+            <PaymentInformation/>
             <Message>
 				Total Cost: ${cost.toFixed(2)}
 			</Message>

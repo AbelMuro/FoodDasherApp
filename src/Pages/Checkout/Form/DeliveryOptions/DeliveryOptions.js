@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Alert} from 'react-native';
+import {View, Alert, Text} from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { Dropdown } from 'react-native-element-dropdown';
 import Dialog from 'react-native-dialog';
@@ -9,13 +9,11 @@ import {
 } from './styles.js';
 import {useSelector, useDispatch} from 'react-redux';
 
-
-//i will need to make the schedule into a property in the global state
 function DeliveryOptions() {
     const [open, setOpen] = useState(false);
     const option = useSelector(state => state.checkout.deliveryOption);  
+    const schedule = useSelector(state => state.checkout.schedule);
     const dispatch = useDispatch();     
-    const [schedule, setSchedule] = useState('');
     const data = useRef([]);
 
     const options = [
@@ -59,8 +57,12 @@ function DeliveryOptions() {
         setOpen(false);
     }
 
+    const handleSchedule = (schedule) => {
+        dispatch({type: 'UPDATE_SCHEDULE', schedule: schedule.value});
+    }
+
     const handleOption = (option) => {
-        dispatch({type: 'UPDATE_DELIVERY_OPTION', option})
+        dispatch({type: 'UPDATE_DELIVERY_OPTION', option});
     }
 
     useEffect(() => {
@@ -102,25 +104,16 @@ function DeliveryOptions() {
        });
     }, [])
 
-
     return(
         <>
-          <Title>
-                Select Delivery Option
-          </Title>
-          <View style={{
-            display: 'flex',
-            alignSelf: 'start'
-           }}>
-            <RadioGroup 
+          <RadioGroup 
                 containerStyle={{
                     alignItems: 'start'
                 }}
                 radioButtons={options} 
                 onPress={handleOption}            
                 selectedId={option}
-                />                  
-          </View>
+            />             
           <Dialog.Container visible={open}>
                 <Dialog.Title>
                     Schedule Order
@@ -141,7 +134,7 @@ function DeliveryOptions() {
                         valueField="value"
                         iconStyle={{width: 20, height: 20}}    
                         value={schedule}
-                        onChange={item => setSchedule(item)}               
+                        onChange={handleSchedule}               
                     />  
                 </DropdownContainer>
                 <Dialog.Button label='Select' onPress={handleSelect}/>

@@ -18,7 +18,6 @@ function App() {
         <Provider store={store}>
             <NavigationContainer>
                 <NavigationBar/>     
-                <Cart/>
                 <Stack.Navigator initialRouteName='home'>     
                     <Stack.Screen name='home' component={Home} options={{ headerShown: false }}/>
                     <Stack.Screen name='search' component={Search} options={{headerShown: false}}/>
@@ -26,9 +25,9 @@ function App() {
                     <Stack.Screen name='item' component={Item} options={{headerShown: false}}/>
                     <Stack.Screen name='checkout' component={Checkout} options={{headerShown: false}}/>
                 </Stack.Navigator>
-            </NavigationContainer>            
+                <Cart/>                             
+            </NavigationContainer>         
         </Provider>
-
     );
 }
 

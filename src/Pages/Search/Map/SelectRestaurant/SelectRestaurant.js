@@ -36,8 +36,8 @@ const SelectRestaurant = forwardRef((props, ref) => {
                 iconStyle={{width: 20, height: 20}}
                 value={value}
                 placeholder={!focus ? 'Select Restaurant' : '...'}
-                placeholderStyle={{paddingLeft: 10}}
-                selectedTextStyle={{paddingLeft: 10}}
+                placeholderStyle={{paddingLeft: 10, color: 'black'}}
+                selectedTextStyle={{paddingLeft: 10, color: 'black'}}
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
                 onChange={item => setValue(item.value)}

@@ -34,12 +34,14 @@ export const EmptyMessage = styled.Text`
     color: white;
 `
 
-export const GreenBox = styled.View`
+export const CheckoutBox = styled.View`
     width: 100%;
     height: 50px;
     position: absolute;
     bottom: 0px;
     left: 0px;
+    z-index: 1000;
+    elevation: 1000;
     background-color: green;
     display: flex;
     flex-direction: row;

@@ -1,32 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import {Text} from 'react-native';
 import {
-    CardContainer,
-    CreditCard,
-    CardIcon
+    CardDetails,
 } from './styles.js';
-import icons from './icons';
+import CardNumber from './CardNumber';
+import ExpirationDate from './ExpirationDate';
+import CVC from './CVC';
 
 function PaymentInformation() {
-    const [number, setNumber] = useState('');
-
-    const handleChange = (text) => {
-        setNumber(text);
-    }
-
-    useEffect(() => {
-        //console.log(number.match(/.{0,4}/g).join(' '));
-    }, [number])
 
     return(
         <>
-            <CardContainer>
-                <CreditCard 
-                    value={number}
-                    onChangeText={handleChange}
-                    placeholder='xxxx xxxx xxxx xxxx'
-                    />    
-                <CardIcon source={icons['CreditCard']} />            
-            </CardContainer>
+            <CardNumber/>
+            <CardDetails>
+                <ExpirationDate/>
+                <CVC/>
+            </CardDetails>
         </>
     )
 }

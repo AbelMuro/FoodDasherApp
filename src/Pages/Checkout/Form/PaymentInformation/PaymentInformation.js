@@ -1,11 +1,11 @@
 import React from 'react';
-import {Text} from 'react-native';
 import {
     CardDetails,
 } from './styles.js';
 import CardNumber from './CardNumber';
 import ExpirationDate from './ExpirationDate';
 import CVC from './CVC';
+import ZIPcode from './ZIPcode';
 
 function PaymentInformation() {
 
@@ -15,6 +15,7 @@ function PaymentInformation() {
             <CardDetails>
                 <ExpirationDate/>
                 <CVC/>
+                <ZIPcode/>
             </CardDetails>
         </>
     )

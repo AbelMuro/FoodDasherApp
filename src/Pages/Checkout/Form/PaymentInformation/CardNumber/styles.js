@@ -8,7 +8,7 @@ export const Fieldset = styled.View`
 `
 
 export const CreditCard = styled.TextInput`
-    width: 90%;
+    width: 100%;
     height: 50px;
     color: black;
     border-radius: 10px;

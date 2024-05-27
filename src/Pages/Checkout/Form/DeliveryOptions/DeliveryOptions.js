@@ -1,10 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Alert, Text} from 'react-native';
+import {Alert} from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { Dropdown } from 'react-native-element-dropdown';
 import Dialog from 'react-native-dialog';
 import {
-    Title,
     DropdownContainer
 } from './styles.js';
 import {useSelector, useDispatch} from 'react-redux';
@@ -12,7 +11,7 @@ import {useSelector, useDispatch} from 'react-redux';
 function DeliveryOptions() {
     const [open, setOpen] = useState(false);
     const option = useSelector(state => state.checkout.deliveryOption);  
-    const schedule = useSelector(state => state.checkout.schedule);
+    const deliveryTime = useSelector(state => state.checkout.deliveryTime);
     const dispatch = useDispatch();     
     const data = useRef([]);
 
@@ -44,11 +43,11 @@ function DeliveryOptions() {
     ]
 
     const handleSelect = () => {
-        if(!schedule){
+        if(!deliveryTime){
             Alert.alert('Please select a time')
             return;
         }
-        dispatch({type: 'UPDATE_SCHEDULE', schedule});
+        dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: deliveryTime});
         setOpen(false);
     }
 
@@ -57,8 +56,8 @@ function DeliveryOptions() {
         setOpen(false);
     }
 
-    const handleSchedule = (schedule) => {
-        dispatch({type: 'UPDATE_SCHEDULE', schedule: schedule.value});
+    const handleDeliveryTime = (schedule) => {
+        dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: schedule.value});
     }
 
     const handleOption = (option) => {
@@ -133,8 +132,8 @@ function DeliveryOptions() {
                         labelField="label"
                         valueField="value"
                         iconStyle={{width: 20, height: 20}}    
-                        value={schedule}
-                        onChange={handleSchedule}               
+                        value={deliveryTime}
+                        onChange={handleDeliveryTime}               
                     />  
                 </DropdownContainer>
                 <Dialog.Button label='Select' onPress={handleSelect}/>

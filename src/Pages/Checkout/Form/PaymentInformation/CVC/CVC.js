@@ -5,16 +5,18 @@ import {
     Label,
     ErrorMessage
 } from './styles.js';
+import {useSelector, useDispatch} from 'react-redux';
 
 function CVC(){
-    const [cvc, setCvc] = useState('');
     const [error, setError] = useState(false);
+    const dispatch = useDispatch();
+    const cvc = useSelector(state => state.checkout.creditCard.cvc);
 
     const handleCVC = (text) => {
         if(text.match(/\D/g))
-                return;
+            return;
         setError(false);
-        setCvc(text);
+        dispatch({type: 'UPDATE_CARD_CVC', cvc: text});
     }
 
     const handleBlur = () => {
@@ -23,7 +25,7 @@ function CVC(){
         else if(cvc.length < 3)
             setError('invalid cvc')
     }
-4
+
     return(
         <Fieldset>
             <Label>

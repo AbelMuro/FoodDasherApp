@@ -1,6 +1,14 @@
 import styled from 'styled-components/native';
 
-export const CardDetail = styled.TextInput`
+export const Fieldset = styled.View`
+    width: 30%;
+    height: 50px;
+    display: flex;
+    gap: 20px;
+    position: relative;
+`
+
+export const ZIP = styled.TextInput`
     width: 100%;
     height: 50px;
     color: black;
@@ -10,13 +18,6 @@ export const CardDetail = styled.TextInput`
     border-color: green;
     border-width: 1px;
     padding-left: 15px;
-` 
-
-export const Fieldset = styled.View`
-    width: 30%;
-    position: relative;
-    display: flex;
-    gap: 20px;
 `
 
 export const ErrorMessage = styled.Text`
@@ -25,7 +26,7 @@ export const ErrorMessage = styled.Text`
     font-size: 16px;
     font-weight: 700;
     position: absolute;
-    bottom: -20px;
+    bottom: -45px;
     left: 10px;
 `
 
@@ -35,3 +36,4 @@ export const Label = styled.Text`
     margin-bottom: -15px;
     font-weight: 700;
 `
+

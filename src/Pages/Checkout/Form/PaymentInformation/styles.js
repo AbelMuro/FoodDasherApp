@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 
-
 export const Title = styled.Text`
     font-size: 15px;
     color: black;
@@ -11,6 +10,6 @@ export const Title = styled.Text`
 export const CardDetails = styled.View`
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
 `

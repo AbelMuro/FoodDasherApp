@@ -7,9 +7,11 @@ import {
     Label,
 } from './styles.js';
 import icons from './icons';
+import {useDispatch, useSelector} from 'react-redux';
 
 function CardNumber(){
-    const [number, setNumber] = useState('');
+    const number = useSelector(state => state.checkout.creditCard.number);
+    const dispatch = useDispatch({type: 'UPDATE_CARD_NUMBER', number})    
     const [error, setError] = useState(false);
 
     const handleNumber = (text) => {
@@ -26,7 +28,7 @@ function CardNumber(){
             else
                 temp += formatCard[i];
         }
-        setNumber(temp.replace(' ', ''));
+        dispatch({type: 'UPDATE_CARD_NUMBER', number: temp.replace(' ', '')})
     }
 
     const handleBlur = () => {
@@ -48,8 +50,7 @@ function CardNumber(){
                 placeholderTextColor={error ? 'red' : 'grey'}
                 keyboardType='numeric'
                 onBlur={handleBlur}
-                style={
-                    error && {borderColor: 'red', color: 'red'}}
+                style={error && {borderColor: 'red', color: 'red'}}
                 />    
             <CardIcon source={icons['CreditCard']} />      
             {error === 'empty' && 

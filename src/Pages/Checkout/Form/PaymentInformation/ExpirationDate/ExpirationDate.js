@@ -4,12 +4,14 @@ import {
     CardDetail,
     ErrorMessage,
     Label
-} from './styles.js'
+} from './styles.js';
+import {useSelector, useDispatch} from 'react-redux';
 
 function ExpirationDate(){
-    const [expiration, setExpiration] = useState('');
     const [error, setError] = useState(false);
     const inputRef = useRef();
+    const expiration = useSelector(state => state.checkout.creditCard.expiration);
+    const dispatch = useDispatch();
 
     const handleExpiration = (text) => {
         inputRef.current.setNativeProps({ selection: { start: text.length, end: text.length } });
@@ -22,7 +24,7 @@ function ExpirationDate(){
         let formattedText = cleanedText;
         if(cleanedText.length > 2)
             formattedText = `${cleanedText.slice(0, 2)}/${cleanedText.slice(2, cleanedText.length)}`;
-        setExpiration(formattedText);
+        dispatch({type: 'UPDATE_CARD_EXPIRATION', expiration: formattedText})
     }   
 
     const handleBlur = () => {
@@ -34,7 +36,6 @@ function ExpirationDate(){
             setError('invalid date');
             return;
         }
-       
        let month = Number(expiration.slice(0, 2));
        let year = Number(expiration.slice(3, 5)); 
        let currentDate = new Date();
@@ -43,6 +44,8 @@ function ExpirationDate(){
 
        if(!month || !year)
             setError('invalid date');
+       else if(month < 1 || month > 12)
+            setError('invalid date')
        else if(year < currentYear || (year === currentYear && month < currentMonth))
             setError('invalid date');
     }

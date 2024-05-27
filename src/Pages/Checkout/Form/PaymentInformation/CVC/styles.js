@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Fieldset = styled.View`
-    width: 33%;
+    width: 30%;
     position: relative;
     display: flex;
     gap: 20px;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {TextInput} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -16,7 +16,7 @@ function DropOffInstructions() {
             value={option}
             onChangeText={handleChange}
             style={{
-                width: '90%',
+                width: '100%',
                 height: 200,
                 borderStyle: 'solid',
                 borderWidth: 1,

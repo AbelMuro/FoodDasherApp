@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useMemo} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text} from 'react-native';
 import Quantity from './Quantity';
 import {TouchableOpacity, Image} from 'react-native';
@@ -21,6 +21,7 @@ import {
 
 function Cart() {
     const navigation = useNavigation();
+    const [total, setTotal] = useState(0);
     const open = useSelector(state => state.cart.open);
     const cart = useSelector(state => state.cart.items);   
     const cartItems = useRef();
@@ -51,14 +52,16 @@ function Cart() {
         }
     }, [open])
 
-    const cost = useMemo(() => {
+    useEffect(() => {
         let cost = cart.reduce((acc, item) => {
             return acc + (item.price * item.quantity);
         }, 0);
-
-        dispatch({type: 'UPDATE_TOTAL', total: cost});
-        return cost;
+        setTotal(cost);
     }, [cart])
+
+    useEffect(() => {
+        dispatch({type: 'UPDATE_TOTAL', total});
+    }, [total])
 
 
 
@@ -134,7 +137,7 @@ function Cart() {
                 </AllItems>
                 <CheckoutBox>
                     <CartTotal>
-                        Total: ${cost.toFixed(2)}
+                        Total: ${total.toFixed(2)}
                     </CartTotal>    
                     <CheckoutButton 
                         onPress={handleCheckout}

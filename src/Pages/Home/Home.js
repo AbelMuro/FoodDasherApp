@@ -1,5 +1,4 @@
 import React from 'react';
-import NavigationBar from '~/Components/NavigationBar';
 import ImageCarousel from './ImageCarousel';
 import {
     Header,
@@ -20,8 +19,14 @@ import {
 } from './styles.js';
 import images from '~/Common/images';
 import { ScrollView, Text} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 function Home() {
+    const navigation = useNavigation();
+
+    const handleSignUp = () => {
+        navigation.navigate('register');
+    }
 
     return (
         <ScrollView>
@@ -54,7 +59,7 @@ function Home() {
                         Want to become a Food Dasher?{"\n"}
                         You can sign up with a click of a button!
                     </Message>
-                    <SignUpButton> 
+                    <SignUpButton onPress={handleSignUp}> 
                         <ButtonText>
                             Sign Up
                         </ButtonText>

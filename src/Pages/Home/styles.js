@@ -83,6 +83,8 @@ export const Message = styled.Text`
 
 
 export const SignUpButton = styled.Pressable`
+    position: relative;
+    z-index: 1000;
     background-color: green;
     width: 73px;
     height: 40px;

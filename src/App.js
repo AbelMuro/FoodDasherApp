@@ -4,6 +4,7 @@ import Search from './Pages/Search';
 import Menu from './Pages/Menu';
 import Item from './Pages/Item';
 import Checkout from './Pages/Checkout';
+import Register from './Pages/Register';
 import NavigationBar from './Components/NavigationBar';
 import Cart from './Components/Cart';
 import { NavigationContainer} from '@react-navigation/native';
@@ -24,6 +25,7 @@ function App() {
                     <Stack.Screen name='menu' component={Menu} options={{headerShown: false}}/>
                     <Stack.Screen name='item' component={Item} options={{headerShown: false}}/>
                     <Stack.Screen name='checkout' component={Checkout} options={{headerShown: false}}/>
+                    <Stack.Screen name='register' component={Register} options={{headerShown: false}}/>
                 </Stack.Navigator>
                 <Cart/>                             
             </NavigationContainer>         

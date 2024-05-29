@@ -1,15 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-    Input
+    Fieldset,
+    Input,
+    ErrorMessage,
+    Label
 } from './styles.js';
 
 function ZipInput({handleChange, handleBlur, errors, touched}) {
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        setError(errors.zip)
+    }, [errors])
+
     return(
-        <Input
-            placeholder='94806'
-            onChangeText={handleChange('zip')}
-            onBlur={handleBlur('zip')}
-        />
+        <Fieldset>
+            <Label>
+                Enter ZIP:
+            </Label>
+            <Input
+                style={error && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                placeholderTextColor={error ? 'red' : 'grey'}
+                placeholder='94806'
+                onChangeText={handleChange('zip')}
+                onBlur={handleBlur('zip')}
+            />            
+            {(error === 'empty' && touched) && <ErrorMessage>
+                can't be empty
+            </ErrorMessage>}
+        </Fieldset>
+
     )
 }
 

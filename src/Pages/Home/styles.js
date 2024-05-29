@@ -6,6 +6,8 @@ export const Header = styled.ImageBackground`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 1000;
 `
 
 export const Content = styled.View`
@@ -82,7 +84,7 @@ export const Message = styled.Text`
 `
 
 
-export const SignUpButton = styled.Pressable`
+export const SignUpButton = styled.TouchableOpacity`
     position: relative;
     z-index: 1000;
     background-color: green;

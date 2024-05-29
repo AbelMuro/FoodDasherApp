@@ -7,17 +7,43 @@ import {
     Container,
     FormContainer,
     Title,
+    Submit,
+    ButtonText
 } from './styles.js'
 import { Formik, Field } from 'formik';
+import { useFormikContext } from 'formik';
+import auth from '@react-native-firebase/auth';
 
 function Register() {
+    const formik = useFormikContext();
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = async (values) => {
+        const phoneNumber = values.phone;
+        console.log(values);
+
+        try{
+            const isValid = await auth().verifyPhoneNumber('+1 510-619-6086');
+            console.log(isValid);
+            formik.handleBlur(e)            
+        } 
+        catch(error){
+            console.log(error);
+        }
+
+
     }
 
     const validateForm = (values) => {
+        const errors = {};
 
+        if(!values.email)
+            errors.email = 'empty';
+        if(!values.phone)
+            errors.phone = 'empty';
+        if(!values.zip)
+            errors.zip = 'empty'
+
+        return errors;
     }
 
     return(
@@ -51,7 +77,7 @@ function Register() {
                                 {() => (
                                     <PhoneInput
                                         handleChange={handleChange}
-                                        handleBlur={handleBlur}
+                                        value={values.phone}
                                         errors={errors}
                                         touched={touched}
                                     />
@@ -68,7 +94,12 @@ function Register() {
                                         touched={touched}
                                     />
                                 )}
-                        </Field>        
+                        </Field>  
+                        <Submit onPress={handleSubmit}>
+                            <ButtonText>
+                                Register
+                            </ButtonText>
+                        </Submit>
                     </>
                 )}
 

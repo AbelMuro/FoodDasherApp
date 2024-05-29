@@ -63,7 +63,7 @@ function Home() {
                         <ButtonText>
                             Sign Up
                         </ButtonText>
-                    </SignUpButton>
+                    </SignUpButton>                      
                 </Content>
             </Header>
             <ImageCarousel/>

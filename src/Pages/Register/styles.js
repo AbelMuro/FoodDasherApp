@@ -11,13 +11,12 @@ export const Container = styled.ImageBackground`
 export const FormContainer = styled.View`
     width: 90%;
     padding: 20px;
-    height: 300px;
     border-radius: 10px;
     background-color: green;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 25px;
 `
 
 export const Title = styled.Text`
@@ -25,4 +24,19 @@ export const Title = styled.Text`
     font-size: 30px;
     color: white;
     text-align: center;
+`
+
+export const Submit = styled.Pressable`
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+export const ButtonText = styled.Text`
+    font-size: 17px;
+    color: green;
 `

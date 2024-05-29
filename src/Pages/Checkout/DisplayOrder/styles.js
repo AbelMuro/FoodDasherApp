@@ -19,7 +19,7 @@ export const ItemImage = styled.Image`
 `
 
 export const ItemDetails = styled.View`
-    width: 200px;
+    width: 150px;
     display: flex;
     gap: 5px;
 `

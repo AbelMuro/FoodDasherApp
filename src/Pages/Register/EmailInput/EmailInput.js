@@ -19,16 +19,16 @@ function EmailInput({handleChange, handleBlur, errors, touched}) {
                 Enter Email:
             </Label>
             <Input
-                style={error && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                style={(error && touched.email) && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
                 placeholder='johnsmith@gmail.com'
-                placeholderTextColor={error ? 'red' : 'grey'}
+                placeholderTextColor={(error && touched.email) ? 'red' : 'grey'}
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
             />
-            {(error === 'empty' && touched) && <ErrorMessage>
+            {(error === 'empty' && touched.email) && <ErrorMessage>
                 can't be empty
             </ErrorMessage>}
-            {(error === 'invalid' && touched) && <ErrorMessage>
+            {(error === 'invalid' && touched.email) && <ErrorMessage>
                 invalid email
             </ErrorMessage>}
         </Fieldset>

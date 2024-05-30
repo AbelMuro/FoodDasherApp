@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { ActivityIndicator } from 'react-native';
 import EmailInput from './EmailInput';
 import PhoneInput from './PhoneInput';
 import ZipInput from './ZipInput';
@@ -11,26 +12,26 @@ import {
     ButtonText
 } from './styles.js'
 import { Formik, Field } from 'formik';
-import { useFormikContext } from 'formik';
 import auth from '@react-native-firebase/auth';
 
 function Register() {
-    const formik = useFormikContext();
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (values) => {
+        setLoading(true);
         const phoneNumber = values.phone;
         console.log(values);
 
         try{
-            const isValid = await auth().verifyPhoneNumber('+1 510-619-6086');
-            console.log(isValid);
-            formik.handleBlur(e)            
+            const isValid = await auth().signInWithPhoneNumber('15106196086', true);
+            console.log(isValid);         
         } 
         catch(error){
             console.log(error);
         }
-
-
+        finally{
+            setLoading(false);
+        }
     }
 
     const validateForm = (values) => {
@@ -77,6 +78,7 @@ function Register() {
                                 {() => (
                                     <PhoneInput
                                         handleChange={handleChange}
+                                        handleBlur={handleBlur}
                                         value={values.phone}
                                         errors={errors}
                                         touched={touched}
@@ -96,9 +98,10 @@ function Register() {
                                 )}
                         </Field>  
                         <Submit onPress={handleSubmit}>
-                            <ButtonText>
+                            {loading ? <ActivityIndicator color='green' size='small'/> : 
+                                <ButtonText>
                                 Register
-                            </ButtonText>
+                            </ButtonText>}
                         </Submit>
                     </>
                 )}

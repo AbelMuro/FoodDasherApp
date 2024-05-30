@@ -3,16 +3,12 @@ import {
     Fieldset,
     Input,
     ErrorMessage,
-    Label,
+    Label
 } from './styles.js'
 import auth from '@react-native-firebase/auth';
 
-function PhoneInput({handleChange, errors, value, touched}) {
+function PhoneInput({handleChange, handleBlur,  errors, value, touched}) {
     const [error, setError] = useState(false);
-
-    const handleBlur = async (e) => {
-        //phone validation
-    }
 
     useEffect(() => {
         setError(errors.phone);
@@ -24,16 +20,16 @@ function PhoneInput({handleChange, errors, value, touched}) {
                 Enter Phone Number:
             </Label>
             <Input
-                style={error && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
-                placeholderTextColor={error ? 'red' : 'grey'}
+                style={(error && touched.phone)&& {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                placeholderTextColor={(error && touched.phone) ? 'red' : 'grey'}
                 placeholder='123-4567-8910'
                 onChangeText={handleChange('phone')}
-                onBlur={handleBlur}
+                onBlur={handleBlur('phone')}
             />            
-            {(error === 'empty' && touched) && <ErrorMessage>
+            {(error === 'empty' && touched.phone) && <ErrorMessage>
                 can't be empty
             </ErrorMessage>}
-            {(error === 'invalid' && touched) && <ErrorMessage>
+            {(error === 'invalid' && touched.phone) && <ErrorMessage>
                 invalid phone number
             </ErrorMessage>}
         </Fieldset>

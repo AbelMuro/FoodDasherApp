@@ -2324,7 +2324,7 @@ PODS:
     - React-perflogger (= 0.74.1)
     - React-utils (= 0.74.1)
   - RecaptchaInterop (100.0.0)
-  - RNFBApp (19.2.2):
+  - RNFBApp (19.3.0):
     - Firebase/CoreOnly (= 10.24.0)
     - React-Core
   - RNFBAuth (20.0.0):
@@ -2687,7 +2687,7 @@ SPEC CHECKSUMS:
   React-utils: 8e9c5cd66f0788e156a1fcb5cd69593ec8607611
   ReactCommon: eb4c4a9c43fcc0d93f922d0fdada24638429e515
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  RNFBApp: 91311b27bc9a33e23b76a62825afd1635501018a
+  RNFBApp: de81f7eb68c1e6107574f2b102b0dee92a9862fa
   RNFBAuth: 7bf53f44128127e601a003a04b483ba23cb9ca85
   RNFBFirestore: 58f9f2f1d61eadcf16bf6d75737d92ad651bb264
   RNReanimated: 82d44098f1640ac390d073bca26264d52a67dc7d

@@ -19,13 +19,13 @@ function ZipInput({handleChange, handleBlur, errors, touched}) {
                 Enter ZIP:
             </Label>
             <Input
-                style={error && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
-                placeholderTextColor={error ? 'red' : 'grey'}
+                style={(error && touched.zip) && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                placeholderTextColor={(error && touched.zip) ? 'red' : 'grey'}
                 placeholder='94806'
                 onChangeText={handleChange('zip')}
                 onBlur={handleBlur('zip')}
             />            
-            {(error === 'empty' && touched) && <ErrorMessage>
+            {(error === 'empty' && touched.zip) && <ErrorMessage>
                 can't be empty
             </ErrorMessage>}
         </Fieldset>

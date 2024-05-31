@@ -20,6 +20,8 @@ function Register() {
     const handleSubmit = async (values) => {
         setLoading(true);
         const phoneNumber = values.phone;
+        const email = values.email;
+        const zip = values.zip;
 
         try{
             const isValid = await auth().signInWithPhoneNumber('5106196086');   //i need to fix this shit!!

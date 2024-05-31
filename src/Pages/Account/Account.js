@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Text, Alert} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {
@@ -39,17 +39,8 @@ function Account() {
 
     const handleLogOut = async () => {
         await auth().signOut();
+        navigation.navigate('login');
     }
-
-    const onAuthStateChanged = (user) => {
-        if(!user)
-            navigation.navigate('login');
-    }
-
-    useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
-        return subscriber;
-    }, [])
 
     return(
         <Container source={globalImages['background']}>

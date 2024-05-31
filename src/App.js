@@ -14,14 +14,18 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import store from './Store';
 import {Provider} from 'react-redux';
+import IsLoggedIn from './Components/IsLoggedIn';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+
+
     return (
         <Provider store={store}>
             
             <NavigationContainer>
+                    <IsLoggedIn/>
                     <SafeAreaView>
                         <NavigationBar/>    
                     </SafeAreaView>    

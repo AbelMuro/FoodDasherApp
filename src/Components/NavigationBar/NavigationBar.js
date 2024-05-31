@@ -34,29 +34,30 @@ function NavigationBar() {
 
     useEffect(() => {
         if(open){
-            height.value = withTiming(500, {           // width will have its value changed to 100, an linear animation will occur
-                duration: 200,                          // in milliseconds
+            height.value = withTiming(500, {          
+                duration: 200,                          
                 easing: Easing.linear
             });
         }
         else{
-            height.value = withTiming(90, {           // width will have its value changed to 100, an linear animation will occur
-                duration: 200,                          // in milliseconds
+            height.value = withTiming(90, {           
+                duration: 200,                       
                 easing: Easing.linear
             });
         }
     }, [open])
 
     return(
-            <Animated.View style={{    
-                width: '100%',
-                height,
-                overflow: 'hidden',
-                backgroundColor: 'green',
-                display: 'flex',
-                alignItems: 'center',
-                paddingTop: 20,
-                gap: 20}}>
+            <Animated.View 
+                style={{    
+                    width: '100%',
+                    height,
+                    overflow: 'hidden',
+                    backgroundColor: 'green',
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingTop: 20,
+                    gap: 20}}>
                 <LinkButton onPress={handleOpen}>
                     <SvgXml xml={icons['menu']} width='41px' height='41px'/>
                 </LinkButton>
@@ -70,7 +71,7 @@ function NavigationBar() {
                         <SvgXml xml={icons['search']} width='41px' height='41px'/>
                     </LinkButton>
                     <Line/>
-                    <LinkButton onPress={() => handleNavigate('user')}>
+                    <LinkButton onPress={() => handleNavigate('account')}>
                         <SvgXml xml={icons['user']} width='41px' height='41px'/>
                     </LinkButton>             
                     <Line/>

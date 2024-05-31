@@ -20,10 +20,9 @@ function Register() {
     const handleSubmit = async (values) => {
         setLoading(true);
         const phoneNumber = values.phone;
-        console.log(values);
 
         try{
-            const isValid = await auth().signInWithPhoneNumber('15106196086', true);
+            const isValid = await auth().signInWithPhoneNumber('5106196086');   //i need to fix this shit!!
             console.log(isValid);         
         } 
         catch(error){

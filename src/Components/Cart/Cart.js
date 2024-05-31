@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Text} from 'react-native';
+import {Text, SafeAreaView} from 'react-native';
 import Quantity from './Quantity';
 import {TouchableOpacity, Image} from 'react-native';
 import Animated, {useSharedValue, withTiming, Easing} from 'react-native-reanimated';
@@ -80,7 +80,8 @@ function Cart() {
                     top: 0,
                 }
             }> 
-                <TouchableOpacity onPress={handleClose} style={{width: 100, height: 100}}>
+            <SafeAreaView>
+               <TouchableOpacity onPress={handleClose} style={{width: 100, height: 100}}>
                     <SvgXml 
                         xml={icons['close']} 
                         width='50px' 
@@ -150,8 +151,9 @@ function Cart() {
                             Check out
                         </ButtonText>
                     </CheckoutButton>                             
-                </CheckoutBox>
-            </Animated.View>           
+                </CheckoutBox>                
+            </SafeAreaView>
+        </Animated.View>           
     )
 }
 

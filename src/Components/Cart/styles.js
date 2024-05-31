@@ -13,6 +13,7 @@ export const CartTotal = styled.Text`
 `
 
 export const AllItems = styled.ScrollView`
+    height: 75%;
     margin-bottom: 70px;
 `
 

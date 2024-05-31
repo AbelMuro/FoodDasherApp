@@ -21,6 +21,7 @@ function Map({setScrollYPosition}) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [usersLocation, setUsersLocation] = useState(null);
+    const [displayMap, setDisplayMap] = useState(false);            //i need this state to render the map after 1 second to prevent visual glitches
     const [destination, setDestination] = useState(null);
     const [nearbyRestaurants, setNearbyRestaurants] = useState([]);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -159,7 +160,6 @@ function Map({setScrollYPosition}) {
     }, [open])
 
     useEffect(() => {
-
         Geolocation.getCurrentPosition((pos) => {
             let usersLatLng = {
                 lat: pos.coords.latitude,
@@ -174,7 +174,7 @@ function Map({setScrollYPosition}) {
             setUsersLocation(usersLatLng);
             reverseGeocode(usersLatLng)
                 .then((usersAddress) => {
-                    const currentLocation = `${usersAddress.building} ${usersAddress.road} ${usersAddress.city} ${usersAddress.state} ${usersAddress.postcode} ${usersAddress.country}`
+                    const currentLocation = `${usersAddress.building || usersAddress.amenity}, ${usersAddress.road}, ${usersAddress.city}, ${usersAddress.state}, ${usersAddress.postcode}, ${usersAddress.country}`
                     address.current.newAddress(currentLocation);
                 })
                 .catch((error) => {
@@ -185,9 +185,15 @@ function Map({setScrollYPosition}) {
             })                 
     }, [])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setDisplayMap(true);
+        }, 1000)
+    }, [])
+
     return(
         <>
-            <MapView
+            {displayMap && <MapView
                 ref={map}
                 region={region}
                 style={mapStyles}> 
@@ -239,7 +245,7 @@ function Map({setScrollYPosition}) {
                     )
                 })
                }
-            </MapView>        
+            </MapView>}        
             <SearchBox> 
                 <FieldSet> 
                     <Image source={icons['green']} style={{width: 15, height: 25}}/> 
@@ -272,7 +278,7 @@ function Map({setScrollYPosition}) {
                             source={{uri: `https://maps.googleapis.com/maps/api/place/photo?photoreference=${selectedRestaurant.photos[0].photo_reference}&sensor=false&maxheight=1600&maxwidth=1600&key=${process.env.googlemaps}`}} 
                             style={{width: '100%', height: 100}}
                             />
-                        <Text style={{fontWeight: 700}}>
+                        <Text style={{fontWeight: 700, color: 'white'}}>
                             Rating: {selectedRestaurant.rating}/5
                         </Text>
                     </DialogContent>

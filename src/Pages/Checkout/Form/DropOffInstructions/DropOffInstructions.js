@@ -13,6 +13,7 @@ function DropOffInstructions() {
     return(
         <TextInput
             placeholder='Enter instructions'
+            placeholderTextColor='grey'
             value={option}
             onChangeText={handleChange}
             style={{

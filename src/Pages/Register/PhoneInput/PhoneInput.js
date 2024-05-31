@@ -7,7 +7,7 @@ import {
 } from './styles.js'
 import auth from '@react-native-firebase/auth';
 
-function PhoneInput({handleChange, handleBlur,  errors, value, touched}) {
+function PhoneInput({handleChange, handleBlur,  errors, touched}) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -25,6 +25,7 @@ function PhoneInput({handleChange, handleBlur,  errors, value, touched}) {
                 placeholder='123-4567-8910'
                 onChangeText={handleChange('phone')}
                 onBlur={handleBlur('phone')}
+                keyboardType='phone-pad'
             />            
             {(error === 'empty' && touched.phone) && <ErrorMessage>
                 can't be empty

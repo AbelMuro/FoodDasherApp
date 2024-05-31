@@ -1,0 +1,68 @@
+import React from 'react';
+import PhoneInput from './PhoneInput';
+import {
+    Container,
+    FormContainer,
+    Title,
+    Submit,
+    ButtonText,
+} from './styles.js';
+import images from '~/Common/images';
+import { Formik, Field } from 'formik';
+
+function Login() {
+
+    const handleSubmit = (values) => {
+        console.log(values);
+    }
+
+    const validateForm = (values) => {
+        const errors = {};
+
+        if(!values.phone)
+            errors.phone = 'empty';
+    
+        return errors;
+    }
+
+    return(
+        <Container source={images['background']}>
+            <FormContainer>
+                <Title>
+                    Food Dasher Login
+                </Title>
+                <Formik
+                    initialValues={{phone: ''}}
+                    onSubmit={handleSubmit}
+                    validate={validateForm}
+                >
+                    {
+                        ({handleChange, handleBlur, handleSubmit, values, errors, touched}) => (
+                            <>
+                                <Field
+                                    name='phone'
+                                    type='phone'>
+                                        {() => (
+                                            <PhoneInput
+                                                handleChange={handleChange}
+                                                handleBlur={handleBlur}
+                                                errors={errors.phone}
+                                                touched={touched}
+                                            />
+                                        )}
+                                </Field>
+                                <Submit onPress={handleSubmit}>
+                                    <ButtonText>
+                                        Login
+                                    </ButtonText>
+                                </Submit>
+                            </>
+                        )
+                    }
+                </Formik>
+            </FormContainer>
+        </Container>
+    )
+}
+
+export default Login;

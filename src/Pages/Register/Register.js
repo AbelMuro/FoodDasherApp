@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
+import { ActivityIndicator, ScrollView } from 'react-native';
 import EmailInput from './EmailInput';
+import PasswordInput from './PasswordInput';
 import PhoneInput from './PhoneInput';
 import ZipInput from './ZipInput';
 import images from '~/Common/images';
@@ -16,8 +17,6 @@ import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import Dialog from 'react-native-dialog';
 
-
-//now i need to store email and zip in the auth object somehow 
 function Register() {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
@@ -39,27 +38,36 @@ function Register() {
 
     const handleCodeSubmit = async () => {
         try{
-            await confirm.confirm(code);                    //now i need to store email and zip in the auth object somehow 
+            await confirm.confirm(code);               
             setOpen(false);
             navigation.navigate('account');        
         }
         catch(error){
             console.log(error);
         }
-
     }
 
     const handleSubmit = async (values) => {
         setLoading(true);
+        const email = values.email;
+        const password = values.password;
+        const phone = values.phone;
+        const zip = values.zip;
+        console.log(email);
+        console.log(password);
 
         try{
-            const confirmation = await auth().signInWithPhoneNumber('+15106196086');  
-            setConfirm(confirmation);
+            const credentials = await auth().createUserWithEmailAndPassword('abelmuro93@gmail.com', 'ajdwnaoiuwd72biuawd');  
             setLoading(false);
+            navigation.navigate('account');
         } 
         catch(error){
-            setLoading(false);
+            if(error.code === 'auth/email-already-in-use')
+                setError('Email is already registered')
+            else if(error.code === 'auth/invalid-email')
+                setError('Invalid Email');
             console.log(error);
+            setLoading(false);
         }
     }
 
@@ -82,14 +90,14 @@ function Register() {
     }, [confirm])
 
     return(
-        <>
+        <ScrollView>
             <Container source={images['background']}>
                 <FormContainer>
                     <Title>
                         Become a Food Dasher today!
                     </Title>                
                     <Formik
-                        initialValues={{email: '', phone: '', zip: ''}}
+                        initialValues={{email: '', password: '', phone: '', zip: ''}}
                         onSubmit={handleSubmit}
                         validate={validateForm}
                     >
@@ -106,7 +114,21 @@ function Register() {
                                             touched={touched}
                                         />
                                     )}
-                            </Field>           
+                            </Field>    
+                            <Field
+                                name='password'
+                                type='password'
+                                >
+                                {() => (
+                                        <PasswordInput
+                                            handleChange={handleChange}
+                                            handleBlur={handleBlur}
+                                            value={values.password}
+                                            errors={errors}
+                                            touched={touched}
+                                        />
+                                    )}
+                            </Field>       
                             <Field
                                 name='phone'
                                 type='phone'> 
@@ -156,7 +178,7 @@ function Register() {
                 <Dialog.Button label='Submit' onPress={handleCodeSubmit}/>
                 <Dialog.Button label='Cancel' onPress={handleCancel}/>
             </Dialog.Container> 
-        </>
+        </ScrollView>
     )
 }
 

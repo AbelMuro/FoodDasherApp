@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.ImageBackground`
     width: 100%;
-    height: 500px;
+    padding: 50px 0px;
     display: flex;
     justify-content: center;
     align-items: center;

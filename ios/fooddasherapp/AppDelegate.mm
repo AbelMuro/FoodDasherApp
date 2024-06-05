@@ -7,8 +7,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FIRApp configure];  
   [GMSServices provideAPIKey:@"AIzaSyDSJo88uqWG6bFiFqCXyIwW6iKHTn__eLA"];  
-  [FIRApp configure];
   self.moduleName = @"fooddasherapp";
   self.initialProps = @{};
 

@@ -23,7 +23,6 @@ function App() {
 
     return (
         <Provider store={store}>
-            
             <NavigationContainer>
                     <IsLoggedIn/>
                     <SafeAreaView>

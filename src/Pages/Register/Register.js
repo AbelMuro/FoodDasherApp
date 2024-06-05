@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { ActivityIndicator, ScrollView } from 'react-native';
+import { ActivityIndicator, ScrollView, Button } from 'react-native';
 import EmailInput from './EmailInput';
 import PasswordInput from './PasswordInput';
 import PhoneInput from './PhoneInput';
@@ -47,17 +47,24 @@ function Register() {
         }
     }
 
+    const handlePress = async () => {
+        try{
+            const credentials = await auth().signInWithEmailAndPassword('abelmuro93@gmail.com', 'Darkness33!');  
+        } 
+        catch(error){
+            console.log(error);
+        }
+    }
+
     const handleSubmit = async (values) => {
         setLoading(true);
         const email = values.email;
         const password = values.password;
         const phone = values.phone;
         const zip = values.zip;
-        console.log(email);
-        console.log(password);
 
         try{
-            const credentials = await auth().createUserWithEmailAndPassword('abelmuro93@gmail.com', 'ajdwnaoiuwd72biuawd');  
+            const credentials = await auth().createUserWithEmailAndPassword(email, password);  
             setLoading(false);
             navigation.navigate('account');
         } 
@@ -178,6 +185,7 @@ function Register() {
                 <Dialog.Button label='Submit' onPress={handleCodeSubmit}/>
                 <Dialog.Button label='Cancel' onPress={handleCancel}/>
             </Dialog.Container> 
+            <Button title='Click Me' onPress={handlePress}/>
         </ScrollView>
     )
 }

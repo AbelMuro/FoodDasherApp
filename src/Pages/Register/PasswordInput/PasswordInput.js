@@ -23,9 +23,9 @@ function PasswordInput({handleChange, handleBlur, errors, touched}){
                 type='password'
                 placeholder='password'
                 secureTextEntry={true}
-                placeholderTextColor={(error && touched.email) ? 'red' : 'grey'}
-                onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
+                placeholderTextColor={(error && touched.password) ? 'red' : 'grey'}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
             />
             {(error === 'empty' && touched.password) && <ErrorMessage>
                 can't be empty

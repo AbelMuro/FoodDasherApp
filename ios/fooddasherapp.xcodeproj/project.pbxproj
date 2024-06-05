@@ -8,17 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* fooddasherappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* fooddasherappTests.m */; };
-		0AE385828D36340BF62F6F3F /* Pods_fooddasherapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 141EBA978D97E7103D2A94A5 /* Pods_fooddasherapp.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		383574B9DBD2002C6FCB4D5D /* Pods_fooddasherapp_fooddasherappTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00694D48535F7D5DCB88A025 /* Pods_fooddasherapp_fooddasherappTests.framework */; };
 		4784AC90412D2972060A00CB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CD5E4AF1CF31FB9284D14EE3 /* PrivacyInfo.xcprivacy */; };
 		694B4D8E2C0FFCEA00D7D03D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 694B4D8D2C0FFCEA00D7D03D /* GoogleService-Info.plist */; };
 		694B4D8F2C0FFCEA00D7D03D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 694B4D8D2C0FFCEA00D7D03D /* GoogleService-Info.plist */; };
 		6BF205D6B8124DBC84D746A5 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 218112DDA621447A906090AD /* Pacifico.ttf */; };
-		6D1C638312F2EF8CBEBB48BC /* Pods_fooddasherapp_fooddasherappTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E90A17BD434933C016AA0AB /* Pods_fooddasherapp_fooddasherappTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		990D6904CDD540E6A734C1CF /* BebasNeue.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17F7D7FC5ED84792BDCE0C5B /* BebasNeue.ttf */; };
+		E6180F9E2A3846FA00657CC1 /* Pods_fooddasherapp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 673EF398B7EC7E88CB6283E7 /* Pods_fooddasherapp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,9 +32,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00694D48535F7D5DCB88A025 /* Pods_fooddasherapp_fooddasherappTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fooddasherapp_fooddasherappTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356EE1AD99517003FC87E /* fooddasherappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fooddasherappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* fooddasherappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = fooddasherappTests.m; sourceTree = "<group>"; };
+		022FE4303A8E50BD96899E2C /* Pods-fooddasherapp-fooddasherappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp-fooddasherappTests.debug.xcconfig"; path = "Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* fooddasherapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fooddasherapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = fooddasherapp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = fooddasherapp/AppDelegate.mm; sourceTree = "<group>"; };
@@ -42,19 +44,17 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = fooddasherapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = fooddasherapp/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = fooddasherapp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		141EBA978D97E7103D2A94A5 /* Pods_fooddasherapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fooddasherapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17F7D7FC5ED84792BDCE0C5B /* BebasNeue.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BebasNeue.ttf; path = ../assets/fonts/BebasNeue.ttf; sourceTree = "<group>"; };
 		218112DDA621447A906090AD /* Pacifico.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Pacifico.ttf; path = ../assets/fonts/Pacifico.ttf; sourceTree = "<group>"; };
-		5381F96AC7E07B8770DD3750 /* Pods-fooddasherapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp.debug.xcconfig"; path = "Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp.debug.xcconfig"; sourceTree = "<group>"; };
+		5BC8CFB1BFBC199B87A76B12 /* Pods-fooddasherapp-fooddasherappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp-fooddasherappTests.release.xcconfig"; path = "Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests.release.xcconfig"; sourceTree = "<group>"; };
+		673EF398B7EC7E88CB6283E7 /* Pods_fooddasherapp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fooddasherapp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		694B4D8D2C0FFCEA00D7D03D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		69E1177F2C0836E900EEB5AF /* fooddasherapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = fooddasherapp.entitlements; path = fooddasherapp/fooddasherapp.entitlements; sourceTree = "<group>"; };
-		7ACA3C6794F7975C61627BE2 /* Pods-fooddasherapp-fooddasherappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp-fooddasherappTests.debug.xcconfig"; path = "Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = fooddasherapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8E90A17BD434933C016AA0AB /* Pods_fooddasherapp_fooddasherappTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fooddasherapp_fooddasherappTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AFAAA77A68ADFDFEA734C26 /* Pods-fooddasherapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp.release.xcconfig"; path = "Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp.release.xcconfig"; sourceTree = "<group>"; };
+		85809296AAE43FDAFB41C6A6 /* Pods-fooddasherapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp.release.xcconfig"; path = "Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp.release.xcconfig"; sourceTree = "<group>"; };
+		BFDF6E337CCCB2FA2D1C80BF /* Pods-fooddasherapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp.debug.xcconfig"; path = "Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp.debug.xcconfig"; sourceTree = "<group>"; };
 		CD5E4AF1CF31FB9284D14EE3 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = fooddasherapp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F5D8166A36DB5CE4D2352426 /* Pods-fooddasherapp-fooddasherappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fooddasherapp-fooddasherappTests.release.xcconfig"; path = "Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D1C638312F2EF8CBEBB48BC /* Pods_fooddasherapp_fooddasherappTests.framework in Frameworks */,
+				383574B9DBD2002C6FCB4D5D /* Pods_fooddasherapp_fooddasherappTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AE385828D36340BF62F6F3F /* Pods_fooddasherapp.framework in Frameworks */,
+				E6180F9E2A3846FA00657CC1 /* Pods_fooddasherapp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,8 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				141EBA978D97E7103D2A94A5 /* Pods_fooddasherapp.framework */,
-				8E90A17BD434933C016AA0AB /* Pods_fooddasherapp_fooddasherappTests.framework */,
+				673EF398B7EC7E88CB6283E7 /* Pods_fooddasherapp.framework */,
+				00694D48535F7D5DCB88A025 /* Pods_fooddasherapp_fooddasherappTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -165,10 +165,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5381F96AC7E07B8770DD3750 /* Pods-fooddasherapp.debug.xcconfig */,
-				9AFAAA77A68ADFDFEA734C26 /* Pods-fooddasherapp.release.xcconfig */,
-				7ACA3C6794F7975C61627BE2 /* Pods-fooddasherapp-fooddasherappTests.debug.xcconfig */,
-				F5D8166A36DB5CE4D2352426 /* Pods-fooddasherapp-fooddasherappTests.release.xcconfig */,
+				BFDF6E337CCCB2FA2D1C80BF /* Pods-fooddasherapp.debug.xcconfig */,
+				85809296AAE43FDAFB41C6A6 /* Pods-fooddasherapp.release.xcconfig */,
+				022FE4303A8E50BD96899E2C /* Pods-fooddasherapp-fooddasherappTests.debug.xcconfig */,
+				5BC8CFB1BFBC199B87A76B12 /* Pods-fooddasherapp-fooddasherappTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -180,12 +180,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "fooddasherappTests" */;
 			buildPhases = (
-				A3308BC06E17DF006B7B8038 /* [CP] Check Pods Manifest.lock */,
+				423C97FCBE54CD45BE91E703 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				0F294A0C84C09C346866CB39 /* [CP] Embed Pods Frameworks */,
-				71C40F20990B01B50666ACD3 /* [CP] Copy Pods Resources */,
+				6A4ED60A5A5B02A0E37FF7C9 /* [CP] Embed Pods Frameworks */,
+				60999D39822C90FE37D4DCED /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -201,20 +201,22 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "fooddasherapp" */;
 			buildPhases = (
-				AB77099CADE44608C465F948 /* [CP] Check Pods Manifest.lock */,
+				64F42D85C32843A9DECB82DA /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				8A92784122091B68AB4791CD /* [CP] Embed Pods Frameworks */,
-				E56E4D493990AA2BAF8E6407 /* [CP] Copy Pods Resources */,
-				FAF023A94D4A952CFAD15084 /* [CP-User] [RNFB] Core Configuration */,
+				EBAAD4B1228B061F4D71B5C9 /* [CP] Embed Pods Frameworks */,
+				FBBEA491274364C2DBD02C86 /* [CP] Copy Pods Resources */,
+				FDE1DFACC02C00E369F5096F /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = fooddasherapp;
+			packageProductDependencies = (
+			);
 			productName = fooddasherapp;
 			productReference = 13B07F961A680F5B00A75B9A /* fooddasherapp.app */;
 			productType = "com.apple.product-type.application";
@@ -246,7 +248,6 @@
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			packageReferences = (
-				69CB8DB12BE9AF65002AEF41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
@@ -299,58 +300,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		0F294A0C84C09C346866CB39 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		71C40F20990B01B50666ACD3 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8A92784122091B68AB4791CD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A3308BC06E17DF006B7B8038 /* [CP] Check Pods Manifest.lock */ = {
+		423C97FCBE54CD45BE91E703 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -372,7 +322,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AB77099CADE44608C465F948 /* [CP] Check Pods Manifest.lock */ = {
+		60999D39822C90FE37D4DCED /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64F42D85C32843A9DECB82DA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -394,7 +361,41 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E56E4D493990AA2BAF8E6407 /* [CP] Copy Pods Resources */ = {
+		6A4ED60A5A5B02A0E37FF7C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp-fooddasherappTests/Pods-fooddasherapp-fooddasherappTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBAAD4B1228B061F4D71B5C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBBEA491274364C2DBD02C86 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -411,7 +412,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-fooddasherapp/Pods-fooddasherapp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FAF023A94D4A952CFAD15084 /* [CP-User] [RNFB] Core Configuration */ = {
+		FDE1DFACC02C00E369F5096F /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -457,7 +458,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7ACA3C6794F7975C61627BE2 /* Pods-fooddasherapp-fooddasherappTests.debug.xcconfig */;
+			baseConfigurationReference = 022FE4303A8E50BD96899E2C /* Pods-fooddasherapp-fooddasherappTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -484,7 +485,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5D8166A36DB5CE4D2352426 /* Pods-fooddasherapp-fooddasherappTests.release.xcconfig */;
+			baseConfigurationReference = 5BC8CFB1BFBC199B87A76B12 /* Pods-fooddasherapp-fooddasherappTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -508,7 +509,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5381F96AC7E07B8770DD3750 /* Pods-fooddasherapp.debug.xcconfig */;
+			baseConfigurationReference = BFDF6E337CCCB2FA2D1C80BF /* Pods-fooddasherapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -537,7 +538,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9AFAAA77A68ADFDFEA734C26 /* Pods-fooddasherapp.release.xcconfig */;
+			baseConfigurationReference = 85809296AAE43FDAFB41C6A6 /* Pods-fooddasherapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -646,7 +647,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -729,7 +733,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -768,17 +775,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		69CB8DB12BE9AF65002AEF41 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.25.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

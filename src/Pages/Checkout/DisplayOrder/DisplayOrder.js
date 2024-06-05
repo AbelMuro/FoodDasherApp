@@ -14,11 +14,11 @@ import { useNavigation } from '@react-navigation/native';
 
 function DisplayOrder() {
     const cart = useSelector(state => state.cart.items);
-    const navigate = useNavigation();
+    const navigation = useNavigation();
 
     useEffect(() => {
         if(!cart.length)
-            navigate('home');
+            navigation.navigate('home');
     }, [cart])
 
     return(

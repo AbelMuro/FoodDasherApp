@@ -49,7 +49,8 @@ function Register() {
 
     const handlePress = async () => {
         try{
-            const credentials = await auth().signInWithEmailAndPassword('abelmuro93@gmail.com', 'Darkness33!');  
+            const credentials = await auth().createUserWithEmailAndPassword('abelmu@gmail.com', 'Dargtvjythgkness33!');  
+            console.log(credentials);
         } 
         catch(error){
             console.log(error);
@@ -64,7 +65,7 @@ function Register() {
         const zip = values.zip;
 
         try{
-            const credentials = await auth().createUserWithEmailAndPassword(email, password);  
+            const credentials = await auth().signInWithEmailAndPassword(email, password);  
             setLoading(false);
             navigation.navigate('account');
         } 

@@ -31,5 +31,5 @@ export const ErrorMessage = styled.Text`
     color: red;
     position: absolute;
     bottom: -20px;
-    left: 5px;
+    left: 85px;
 `   

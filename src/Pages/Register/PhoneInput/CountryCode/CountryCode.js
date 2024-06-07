@@ -7,7 +7,7 @@ import {
 } from './styles.js'
 
 function CountryCode({getCountryCode}) {
-    const [code, setCode] = useState('+1');
+    const [code, setCode] = useState({label: '1', value: '+1'});
 
     const data = [
         {label: '1', value: '+1'},
@@ -21,7 +21,7 @@ function CountryCode({getCountryCode}) {
     }
 
     useEffect(() => {
-        getCountryCode(code)
+        getCountryCode(code.value)
     }, [code])
 
     return(
@@ -33,17 +33,18 @@ function CountryCode({getCountryCode}) {
                   paddingHorizontal: 8,
                   position: 'absolute',
                   left: -2,
-                  top: 0,                                    
+                  top: 0,                                
                 }}                            
                 data={data}
                 labelField="label"
                 valueField="value"
                 iconStyle={{width: 20, height: 20}}                //styles for the arrow
+                selectedTextStyle={{color: 'black'}}
                 value={code}
                 onChange={handleCode}  
                 placeholder=''
                 renderLeftIcon={() => (
-                    <Text style={{marginRight: 5}}>+</Text>
+                    <Text style={{marginRight: 5, color: 'black'}}>+</Text>
                 )}
             />            
         </Container>

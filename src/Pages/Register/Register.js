@@ -13,11 +13,12 @@ import {
 } from './styles.js'
 import { Formik, Field } from 'formik';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import Dialog from 'react-native-dialog';
 
 
-//note to self: implement a functionality in the case that the user signs in with phone number but enters the incorrect code
+// i will need to validate the phone number and zip code next
 
 function Register() {
     const [loading, setLoading] = useState(false);
@@ -41,11 +42,16 @@ function Register() {
 
     const handleCodeSubmit = async () => {
         try{
-            await confirm.confirm(code);               
-            setOpen(false);
+            setOpen(false);            
+            setLoading(true);
+            await confirm.confirm(code);  
+            setLoading(false);             
             navigation.navigate('account');        
         }
         catch(error){
+            if(error.code === 'auth/invalid-verification-code')
+                Alert.alert('Invalid code');
+            setLoading(false);
             console.log(error);
         }
     }
@@ -53,19 +59,31 @@ function Register() {
     const handleSubmit = async (values) => {
         setLoading(true);
         const email = values.email;
-        const phone = values.phone;
+        const phone = values.phone.replaceAll('-','');
         const zip = values.zip;
         const code = countryCode.current;
 
         try{
-            const confirmation = await auth().signInWithPhoneNumber(code + phone);  
+            const docRef = firestore().collection(`${code + phone}`).doc('userInfo');
+            const doc = await docRef.get();
+            if(doc.exists)
+                throw new Error('auth/phone-number-already-registered')
+            const confirmation = await auth().signInWithPhoneNumber(code + phone);     
+            await docRef.set({
+                email,
+                zip,
+                phone: code + phone
+            });
             setConfirm(confirmation)
             setLoading(false);
-            //navigation.navigate('account');
         } 
         catch(error){
             if(error.code === 'auth/invalid-phone-number')
                 Alert.alert('Phone number is invalid')
+            else if(error.code === 'auth/too-many-requests')
+                Alert.alert('We have blocked all requests from this device due to unusual activity. Try again later');
+            else if(error.message === 'auth/phone-number-already-registered')
+                Alert.alert('Phone number is already registered');
             console.log(error);
             setLoading(false);
         }
@@ -84,10 +102,11 @@ function Register() {
             errors.phone = 'empty';
         if(!values.zip)
             errors.zip = 'empty'
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) 
+            errors.email = 'invalid';
 
         return errors;
     }
-
     useEffect(() => {
         if(confirm)
             setOpen(true);
@@ -100,8 +119,9 @@ function Register() {
                     <Title>
                         Become a Food Dasher today!
                     </Title>                
+                    {!confirm ? 
                     <Formik
-                        initialValues={{email: '', phone: '', countryCode: '', zip: ''}}
+                        initialValues={{email: '', phone: '', zip: ''}}
                         onSubmit={handleSubmit}
                         validate={validateForm}
                     >
@@ -109,7 +129,8 @@ function Register() {
                         <>
                             <Field
                                 name='email'
-                                type='email'> 
+                                type='email'
+                                > 
                                     {() => (
                                         <EmailInput
                                             handleChange={handleChange}
@@ -151,14 +172,15 @@ function Register() {
                                     Register
                                 </ButtonText>}
                             </Submit>
-                            {confirm && <Submit onPress={handleOpen}>
-                                <ButtonText>
-                                    Enter Code
-                                </ButtonText>
-                            </Submit>}
                         </>
                     )}
-                    </Formik>
+                    </Formik> : 
+                    <Submit onPress={handleOpen}>
+                        {loading ? <ActivityIndicator color='green' size='small'/> : <ButtonText>
+                            Enter Code
+                        </ButtonText>}
+                    </Submit>
+                }
                 </FormContainer>
             </Container>       
             <Dialog.Container visible={open}>

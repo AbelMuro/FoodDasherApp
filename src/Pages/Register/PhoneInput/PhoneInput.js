@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {
     Fieldset,
+    InputContainer,
     Input,
     ErrorMessage,
     Label
-} from './styles.js'
-import auth from '@react-native-firebase/auth';
+} from './styles.js';
+import CountryCode from './CountryCode';
 
-function PhoneInput({handleChange, handleBlur,  errors, touched}) {
+function PhoneInput({handleChange, handleBlur,  errors, touched, getCountryCode}) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -19,14 +20,18 @@ function PhoneInput({handleChange, handleBlur,  errors, touched}) {
             <Label>
                 Enter Phone Number:
             </Label>
-            <Input
-                style={(error && touched.phone)&& {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
-                placeholderTextColor={(error && touched.phone) ? 'red' : 'grey'}
-                placeholder='123-4567-8910'
-                onChangeText={handleChange('phone')}
-                onBlur={handleBlur('phone')}
-                keyboardType='phone-pad'
-            />            
+            <InputContainer>
+                <CountryCode getCountryCode={getCountryCode}/>
+                <Input
+                    style={(error && touched.phone)&& {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                    placeholderTextColor={(error && touched.phone) ? 'red' : 'grey'}
+                    placeholder='123-4567-8910'
+                    onChangeText={handleChange('phone')}
+                    onBlur={handleBlur('phone')}
+                    keyboardType='phone-pad'
+                />             
+            </InputContainer>
+           
             {(error === 'empty' && touched.phone) && <ErrorMessage>
                 can't be empty
             </ErrorMessage>}

@@ -7,6 +7,12 @@ export const Fieldset = styled.View`
     gap: 10px;
 `
 
+export const InputContainer = styled.View`
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+`
+
 export const Label = styled.Text`
     font-size: 17px;
     font-weight: 400;
@@ -14,7 +20,7 @@ export const Label = styled.Text`
 `
 
 export const Input = styled.TextInput`
-    width: 100%;
+    width: 75%;
     height: 50px;
     border-radius: 10px;
     background-color: white;

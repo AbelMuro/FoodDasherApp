@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { ActivityIndicator, ScrollView, Button } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import { ActivityIndicator, ScrollView, Button, Alert } from 'react-native';
 import EmailInput from './EmailInput';
-import PasswordInput from './PasswordInput';
 import PhoneInput from './PhoneInput';
 import ZipInput from './ZipInput';
 import images from '~/Common/images';
@@ -17,12 +16,16 @@ import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import Dialog from 'react-native-dialog';
 
+
+//note to self: implement a functionality in the case that the user signs in with phone number but enters the incorrect code
+
 function Register() {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const [confirm, setConfirm] = useState(null);
     const [open, setOpen] = useState(false);
     const [code, setCode] = useState('');
+    const countryCode = useRef('');
 
     const handleCode = (text) => {
         setCode(text);
@@ -47,36 +50,29 @@ function Register() {
         }
     }
 
-    const handlePress = async () => {
-        try{
-            const credentials = await auth().createUserWithEmailAndPassword('abelmu@gmail.com', 'Dargtvjythgkness33!');  
-            console.log(credentials);
-        } 
-        catch(error){
-            console.log(error);
-        }
-    }
-
     const handleSubmit = async (values) => {
         setLoading(true);
         const email = values.email;
-        const password = values.password;
         const phone = values.phone;
         const zip = values.zip;
+        const code = countryCode.current;
 
         try{
-            const credentials = await auth().signInWithEmailAndPassword(email, password);  
+            const confirmation = await auth().signInWithPhoneNumber(code + phone);  
+            setConfirm(confirmation)
             setLoading(false);
-            navigation.navigate('account');
+            //navigation.navigate('account');
         } 
         catch(error){
-            if(error.code === 'auth/email-already-in-use')
-                setError('Email is already registered')
-            else if(error.code === 'auth/invalid-email')
-                setError('Invalid Email');
+            if(error.code === 'auth/invalid-phone-number')
+                Alert.alert('Phone number is invalid')
             console.log(error);
             setLoading(false);
         }
+    }
+
+    const getCountryCode = (code) => {
+        countryCode.current = code;
     }
 
     const validateForm = (values) => {
@@ -105,7 +101,7 @@ function Register() {
                         Become a Food Dasher today!
                     </Title>                
                     <Formik
-                        initialValues={{email: '', password: '', phone: '', zip: ''}}
+                        initialValues={{email: '', phone: '', countryCode: '', zip: ''}}
                         onSubmit={handleSubmit}
                         validate={validateForm}
                     >
@@ -122,21 +118,7 @@ function Register() {
                                             touched={touched}
                                         />
                                     )}
-                            </Field>    
-                            <Field
-                                name='password'
-                                type='password'
-                                >
-                                {() => (
-                                        <PasswordInput
-                                            handleChange={handleChange}
-                                            handleBlur={handleBlur}
-                                            value={values.password}
-                                            errors={errors}
-                                            touched={touched}
-                                        />
-                                    )}
-                            </Field>       
+                            </Field>         
                             <Field
                                 name='phone'
                                 type='phone'> 
@@ -147,6 +129,7 @@ function Register() {
                                             value={values.phone}
                                             errors={errors}
                                             touched={touched}
+                                            getCountryCode={getCountryCode}
                                         />
                                     )}
                             </Field>       
@@ -186,7 +169,6 @@ function Register() {
                 <Dialog.Button label='Submit' onPress={handleCodeSubmit}/>
                 <Dialog.Button label='Cancel' onPress={handleCancel}/>
             </Dialog.Container> 
-            <Button title='Click Me' onPress={handlePress}/>
         </ScrollView>
     )
 }

@@ -14,10 +14,10 @@ function IsLoggedIn() {
         console.log(user);
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
         return subscriber;
-    }, [])*/
+    }, [])
 
     return(<></>)
 }

@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>Select image/video from photos</string>
-	<key>NSCameraUsageDescription</key>
-    <string>Capture Image</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Capture Video</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Capture Video</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -35,7 +27,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>app-1-1094918136706-ios-b4dba9a1b2c6612359259b</string>
+				<string>app-1-240675873493-ios-87333acaa5fcf72f74b85c</string>
 			</array>
 		</dict>
 	</array>
@@ -50,8 +42,14 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Capture Video</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to provide the closest restaurant that you can use to order from</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Capture Video</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select image/video from photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pacifico.ttf</string>

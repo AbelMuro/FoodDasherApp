@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useSelector} from 'react-redux';
 
-
+//i need to implement the functionality for the 'update account' button
 function Account() {
     const navigation = useNavigation();
     const isLoggedIn = useSelector(state => state.user.isLoggedIn);

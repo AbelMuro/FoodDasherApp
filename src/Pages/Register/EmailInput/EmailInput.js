@@ -21,7 +21,7 @@ function EmailInput({handleChange, handleBlur, errors, touched}) {
             <Input
                 style={(error && touched.email) && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
                 placeholder='johnsmith@gmail.com'
-                placeholderTextColor={(error && touched.email) ? 'red' : 'grey'}
+                placeholderTextColor='grey'
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
             />

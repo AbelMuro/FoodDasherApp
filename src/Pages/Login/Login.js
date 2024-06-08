@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PhoneInput from './PhoneInput';
 import {
     Container,
@@ -9,8 +9,12 @@ import {
 } from './styles.js';
 import images from '~/Common/images';
 import { Formik, Field } from 'formik';
+import {useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 function Login() {
+    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+    const navigation = useNavigation();
 
     const handleSubmit = (values) => {
         console.log(values);
@@ -24,6 +28,11 @@ function Login() {
     
         return errors;
     }
+
+    useEffect(() => {
+        if(isLoggedIn)
+            navigation.navigate('account');
+    }, [isLoggedIn])
 
     return(
         <Container source={images['background']}>

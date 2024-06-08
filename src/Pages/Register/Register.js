@@ -72,7 +72,8 @@ function Register() {
             await docRef.set({
                 email,
                 zip,
-                phone: code + phone
+                phone: code + phone,
+                image: ''
             });
             setConfirm(confirmation)
             setLoading(false);
@@ -98,15 +99,20 @@ function Register() {
 
         if(!values.email)
             errors.email = 'empty';
+        if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))
+            errors.email = 'invalid';
         if(!values.phone)
             errors.phone = 'empty';
+        else if(!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/i.test(values.phone))
+            errors.phone = 'invalid';
         if(!values.zip)
-            errors.zip = 'empty'
-        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) 
-            errors.email = 'invalid';
+            errors.zip = 'empty';
+        else if(!/[0-9]{5}/i.test(values.zip))
+            errors.zip = 'invalid';
 
         return errors;
     }
+
     useEffect(() => {
         if(confirm)
             setOpen(true);
@@ -116,12 +122,17 @@ function Register() {
         <ScrollView>
             <Container source={images['background']}>
                 <FormContainer>
-                    <Title>
-                        Become a Food Dasher today!
-                    </Title>                
+                    {confirm ? 
+                        <Title>
+                            Verify Phone Number
+                        </Title> :
+                        <Title>
+                            Become a Food Dasher today!
+                        </Title>}                
                     {!confirm ? 
                     <Formik
                         initialValues={{email: '', phone: '', zip: ''}}
+                        enableReinitialize={true}
                         onSubmit={handleSubmit}
                         validate={validateForm}
                     >

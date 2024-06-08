@@ -25,6 +25,7 @@ export const Input = styled.TextInput`
     border-radius: 10px;
     background-color: white;
     padding-left: 20px;
+    color: black;
 `
 export const ErrorMessage = styled.Text`
     font-size: 14px;

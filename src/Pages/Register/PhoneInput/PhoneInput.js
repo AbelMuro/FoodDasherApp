@@ -23,9 +23,9 @@ function PhoneInput({handleChange, handleBlur,  errors, touched, getCountryCode}
             <InputContainer>
                 <CountryCode getCountryCode={getCountryCode}/>
                 <Input
-                    style={(error && touched.phone)&& {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
-                    placeholderTextColor={(error && touched.phone) ? 'red' : 'grey'}
-                    placeholder='123-4567-8910'
+                    style={(error && touched.phone) && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                    placeholderTextColor={'grey'}
+                    placeholder='123-456-7890'
                     onChangeText={handleChange('phone')}
                     onBlur={handleBlur('phone')}
                     keyboardType='phone-pad'

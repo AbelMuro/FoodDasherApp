@@ -17,6 +17,7 @@ import OnAuthStateChanged from './Components/OnAuthStateChanged';
 
 const Stack = createNativeStackNavigator();
 
+//in the account page, there should be a component that displays the current orders that customers have submitted through the app
 function App() {
     const navigationRef = useRef();
 

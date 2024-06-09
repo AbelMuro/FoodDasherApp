@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { SafeAreaView } from 'react-native';
 import Home from './Pages/Home';
 import Search from './Pages/Search';
@@ -6,25 +6,24 @@ import Menu from './Pages/Menu';
 import Item from './Pages/Item';
 import Checkout from './Pages/Checkout';
 import Register from './Pages/Register';
-import Login from './Pages/Login';
 import NavigationBar from './Components/NavigationBar';
 import Cart from './Components/Cart';
-import Account from './Pages/Account';
+import AccountOrLogin from './Pages/AccountOrLogin';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import store from './Store';
 import {Provider} from 'react-redux';
-import IsLoggedIn from './Components/IsLoggedIn';
+import OnAuthStateChanged from './Components/OnAuthStateChanged';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-
+    const navigationRef = useRef();
 
     return (
         <Provider store={store}>
-            <NavigationContainer>
-                    <IsLoggedIn/>
+            <NavigationContainer ref={navigationRef}>
+                    <OnAuthStateChanged navigate={navigationRef}/>
                     <SafeAreaView>
                         <NavigationBar/>    
                     </SafeAreaView>    
@@ -35,8 +34,7 @@ function App() {
                         <Stack.Screen name='item' component={Item} options={{headerShown: false}}/>
                         <Stack.Screen name='checkout' component={Checkout} options={{headerShown: false}}/>
                         <Stack.Screen name='register' component={Register} options={{headerShown: false}}/>
-                        <Stack.Screen name='account' component={Account} options={{headerShown: false}}/>
-                        <Stack.Screen name='login' component={Login} options={{headerShown: false}}/>
+                        <Stack.Screen name='account-login' component={AccountOrLogin} options={{headerShown: false}}/>
                     </Stack.Navigator>
                     <Cart/>                         
             </NavigationContainer>     

@@ -13,20 +13,14 @@ import {
 } from './styles.js';
 import globalImages from '~/Common/images';
 import localImages from './images';
-import { useNavigation } from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useSelector} from 'react-redux';
+import UpdateAccount from './UpdateAccount';
+import DeleteAccount from './DeleteAccount';
 
-//i need to implement the functionality for the 'update account' button
-function Account() {
-    const navigation = useNavigation();
-    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+function Account({setPage}) {
     const [accountInfo, setAccountInfo] = useState(null);
+    const [loadingImage, setLoadingImage] = useState(true);
     const [loading, setLoading] = useState(false);
-
-    const handleAccount = () => {
-
-    }
 
     const handleImage = async () => {
         try{
@@ -44,46 +38,53 @@ function Account() {
                 image: url
             })
             Alert.alert('image has been uploaded');
-            setLoading(false);
-
         } catch(error){
             if(error === 'camera_unavailable')
                 Alert.alert('Camera is not available')
             else if(error === 'permission')
                 Alert.alert("Please allow app to access images in permissions");
-            }   
+        } finally { 
             setLoading(false);
         }
+    }
 
-    const handleLogOut = async () => {
+    const handleLoadStart = () => {
+        setLoadingImage(true);
+    }
+
+    const handleLoadEnd = () => {
+        setLoadingImage(false);
+    }
+
+     const handleLogOut = async () => {
         await auth().signOut();
     }
 
     useEffect(() => {
-        if(!isLoggedIn)
-            navigation.navigate('login');
-
-        let unsubscribe = null;
-        async function getUserInfo() {
-            const phoneNumber = auth().currentUser.phoneNumber;
-            const docRef = firestore().collection(`${phoneNumber}`).doc('userInfo');
-            unsubscribe = onSnapshot(docRef, (snapshot) => {
-                setAccountInfo(snapshot.data())
-            })
-        }
-        getUserInfo();
-
+        if(!auth().currentUser)
+            return;
+    
+        const phoneNumber = auth().currentUser.phoneNumber;
+        const docRef = firestore().collection(`${phoneNumber}`).doc('userInfo');
+        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+            setAccountInfo(snapshot.data() || null)
+        })
         return () => {
             unsubscribe && unsubscribe();
         }
-    }, [isLoggedIn])
+    }, [])
 
 
 
     return(
         <Container source={globalImages['background']}>
             <AccountContainer>
-                <AccountImage source={accountInfo && accountInfo.image ? {uri: accountInfo.image} : localImages['emptyAvatar']}/>
+                {loadingImage && <ActivityIndicator color='white' size='medium' style={{position: 'absolute', top: -35, left: '50%', zIndex: 1000} }/> }
+                <AccountImage 
+                    source={accountInfo && accountInfo.image ? {uri: accountInfo.image} : localImages['emptyAvatar']}
+                    onLoadStart={handleLoadStart}
+                    onLoad={handleLoadEnd}
+                    />
                 <AccountDetails>
                     <Text style={{fontWeight: 700}}>Email</Text>: {accountInfo && accountInfo.email}
                 </AccountDetails>
@@ -93,11 +94,7 @@ function Account() {
                 <AccountDetails>
                     <Text style={{fontWeight: 700}}>ZIP:</Text> {accountInfo && accountInfo.zip}
                 </AccountDetails>
-                <Button onPress={handleAccount}>
-                    <ButtonText>
-                        Update Account
-                    </ButtonText>
-                </Button>
+                {accountInfo && <UpdateAccount phoneNumber={accountInfo.phone}/>}
                 <Button onPress={handleImage}>
                     {loading ? <ActivityIndicator color='green' size='small'/> : <ButtonText>
                         Upload Image
@@ -108,6 +105,7 @@ function Account() {
                         Log Out
                     </ButtonText>
                 </Button>
+                <DeleteAccount setPage={setPage}/>
             </AccountContainer>
         </Container>
     )

@@ -71,7 +71,7 @@ function NavigationBar() {
                         <SvgXml xml={icons['search']} width='41px' height='41px'/>
                     </LinkButton>
                     <Line/>
-                    <LinkButton onPress={() => handleNavigate('account')}>
+                    <LinkButton onPress={() => handleNavigate('account-login')}>
                         <SvgXml xml={icons['user']} width='41px' height='41px'/>
                     </LinkButton>             
                     <Line/>

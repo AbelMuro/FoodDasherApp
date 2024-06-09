@@ -1,43 +1,44 @@
 import React, {useState, useEffect} from 'react';
 import {
-    Fieldset,
-    InputContainer,
+    Fieldset, 
+    Label,
     Input,
     ErrorMessage,
-    Label
+    InputContainer
 } from './styles.js';
 import CountryCode from '~/Components/CountryCode';
 
-function PhoneInput({handleChange, handleBlur,  errors, touched, getCountryCode}) {
+function PhoneInput({handleChange, handleBlur, errors, getCountryCode}) {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        setError(errors.phone);
+        setError(errors);
     }, [errors])
 
     return(
         <Fieldset>
             <Label>
-                Enter Phone Number:
+                Enter Phone:
             </Label>
             <InputContainer>
                 <CountryCode getCountryCode={getCountryCode}/>
                 <Input
-                    style={(error && touched.phone) && {borderColor: 'red', borderWidth: 1, borderStyle: 'solid'}}
+                    style={error && {borderColor: 'red', borderWidth: 2, borderStyle: 'solid'}}
                     placeholderTextColor={'grey'}
                     placeholder='123-456-7890'
                     onChangeText={handleChange('phone')}
                     onBlur={handleBlur('phone')}
                     keyboardType='phone-pad'
                 />             
-            </InputContainer>
-           
-            {(error === 'empty' && touched.phone) && <ErrorMessage>
-                can't be empty
-            </ErrorMessage>}
-            {(error === 'invalid' && touched.phone) && <ErrorMessage>
-                invalid phone number
-            </ErrorMessage>}
+            </InputContainer>     
+            {error === 'empty' && 
+                <ErrorMessage>
+                    can't be empty
+                </ErrorMessage>}     
+            {error === 'invalid' && 
+                <ErrorMessage>
+                    invalid phone number
+                </ErrorMessage>}   
         </Fieldset>
 
     )

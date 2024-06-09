@@ -17,9 +17,6 @@ import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import Dialog from 'react-native-dialog';
 
-
-// i will need to validate the phone number and zip code next
-
 function Register() {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
@@ -27,6 +24,7 @@ function Register() {
     const [open, setOpen] = useState(false);
     const [code, setCode] = useState('');
     const countryCode = useRef('');
+    const userInfoRef = useRef({});
 
     const handleCode = (text) => {
         setCode(text);
@@ -42,25 +40,43 @@ function Register() {
 
     const handleCodeSubmit = async () => {
         try{
+            const email = userInfoRef.current.email;
+            const phone = userInfoRef.current.phone;
+            const zip = userInfoRef.current.zip;
+            const ccode = countryCode.current;                      //country code
+
             setOpen(false);            
             setLoading(true);
-            await confirm.confirm(code);  
-            setLoading(false);             
-            navigation.navigate('account');        
+            await confirm.confirm(code);                            //code submitted by the user
+            const docRef = firestore().collection(`${ccode + phone}`).doc('userInfo');
+            await docRef.set({
+                email,
+                zip,
+                phone: ccode + phone,
+                image: ''
+            });          
+            navigation.navigate('account-login');        
         }
         catch(error){
             if(error.code === 'auth/invalid-verification-code')
                 Alert.alert('Invalid code');
-            setLoading(false);
+            else if(error.code === 'auth/unknown')
+                Alert.alert("Can't be empty")
             console.log(error);
+        }
+        finally{
+            setLoading(false);
         }
     }
 
     const handleSubmit = async (values) => {
         setLoading(true);
-        const email = values.email;
+        userInfoRef.current = {
+            email: values.email,
+            phone: values.phone.replaceAll('-',''),
+            zip: values.zip,
+        }
         const phone = values.phone.replaceAll('-','');
-        const zip = values.zip;
         const code = countryCode.current;
 
         try{
@@ -69,14 +85,7 @@ function Register() {
             if(doc.exists)
                 throw new Error('auth/phone-number-already-registered')
             const confirmation = await auth().signInWithPhoneNumber(code + phone);     
-            await docRef.set({
-                email,
-                zip,
-                phone: code + phone,
-                image: ''
-            });
             setConfirm(confirmation)
-            setLoading(false);
         } 
         catch(error){
             if(error.code === 'auth/invalid-phone-number')
@@ -86,6 +95,8 @@ function Register() {
             else if(error.message === 'auth/phone-number-already-registered')
                 Alert.alert('Phone number is already registered');
             console.log(error);
+        }
+        finally{
             setLoading(false);
         }
     }
@@ -103,7 +114,7 @@ function Register() {
             errors.email = 'invalid';
         if(!values.phone)
             errors.phone = 'empty';
-        else if(!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/i.test(values.phone))
+        else if(!/[0-9]{3}-[0-9]{3}-[0-9]{4}/i.test(values.phone))
             errors.phone = 'invalid';
         if(!values.zip)
             errors.zip = 'empty';

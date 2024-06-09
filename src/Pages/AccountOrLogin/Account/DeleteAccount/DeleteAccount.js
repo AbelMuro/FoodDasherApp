@@ -27,6 +27,7 @@ function DeleteAccount({setPage}) {
             files.items.forEach((file) => {
                 file.delete();
             })
+            Alert.alert('Account has been deleted');
         }
         catch(error){
             if(error.code === 'auth/requires-recent-login'){

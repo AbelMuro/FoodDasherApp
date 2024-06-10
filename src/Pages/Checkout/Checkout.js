@@ -9,7 +9,6 @@ import {
 import Form from './Form';
 
 function Checkout() {	
-
     return(
 		<ScrollView>
 			<Container source={images['background']}>
@@ -18,7 +17,6 @@ function Checkout() {
 				<Form/>
 			</Container>			
 		</ScrollView>
-
     )
 }
 

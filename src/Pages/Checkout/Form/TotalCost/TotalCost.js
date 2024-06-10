@@ -11,6 +11,7 @@ function TotalCost(){
     const totalCost = useMemo(() => {
         const express = deliveryOption === 'Express' ? 5 : 0;
         return total + express;
+        
     }, [deliveryOption, total])
 
     return(

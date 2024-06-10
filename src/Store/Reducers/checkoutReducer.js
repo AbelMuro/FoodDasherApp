@@ -8,12 +8,17 @@ const updateCardNumber = createAction('UPDATE_CARD_NUMBER');
 const updateCardCvc = createAction('UPDATE_CARD_CVC');
 const updateCardZip = createAction('UPDATE_CARD_ZIP');
 const updateCardExpiration = createAction('UPDATE_CARD_EXPIRATION');
+const updateSchedule = createAction('UPDATE_SCHEDULE');
 const updateTotal = createAction('UPDATE_TOTAL');
+const clear = createAction('CLEAR');
 const initialState = {
-    deliveryOption: 'Standard', 
+    deliveryOption: {
+        option: 'Standard',
+        deliveryTime: ['',''],
+        schedule: '',
+    },
     dropOffOption: 'Hand it to me', 
     dropOffInstructions: '', 
-    deliveryTime: '', 
     total: '',
     creditCard: {
         number: '', 
@@ -25,16 +30,19 @@ const initialState = {
 const locationReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(updateDeliveryOption, (state, action) => {
-            state.deliveryOption = action.option;
+            state.deliveryOption.option = action.option;
         })  
+        .addCase(updateDeliveryTime, (state, action) => {
+            state.deliveryOption.deliveryTime = action.deliveryTime;
+        })    
+        .addCase(updateSchedule, (state, action) => {
+            state.deliveryOption.schedule = action.schedule;
+        })      
         .addCase(updateDropOffOption, (state, action) => {
             state.dropOffOption = action.option;
         })
         .addCase(updateDropOffInstructions, (state, action) => {
             state.dropOffInstructions = action.text;
-        })
-        .addCase(updateDeliveryTime, (state, action) => {
-            state.deliveryTime = action.deliveryTime;
         })
         .addCase(updateCardNumber, (state, action) => {
             state.creditCard.number = action.number;
@@ -51,6 +59,13 @@ const locationReducer = createReducer(initialState, (builder) => {
         .addCase(updateTotal, (state, action) => {
             state.total = action.total;
         })  
+        .addCase(clear, (state) => {
+            state.deliveryOption = initialState.deliveryOption;
+            state.dropOffOption = initialState.dropOffOption;
+            state.dropOffInstructions = initialState.dropOffInstructions;
+            state.total = initialState.total;
+            state.creditCard = initialState.creditCard;
+        })
 })
 
 export default locationReducer;

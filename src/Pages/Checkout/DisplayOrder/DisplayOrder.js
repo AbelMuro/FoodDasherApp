@@ -39,15 +39,22 @@ function DisplayOrder() {
                             <ItemName>
                                 {name}
                             </ItemName>
-                            <ExcludedIngredients>
+                            {(excluded.length !== 0 || sauces.length !== 0) && <ExcludedIngredients>
                                 {excluded.map((ingredients, i) => {
                                     if(i < excluded.length - 1)
                                         return `no ${ingredients}, `
                                     else
                                         return `no ${ingredients}`    
                                     })
-                                }                                
-                            </ExcludedIngredients>
+                                }    
+                                {sauces.map((sauce, i) => {
+                                    if(i < sauces.length - 1)
+                                        return `${sauce}, `;
+                                    else
+                                        return `${sauce}`;                                      
+                                    })
+                                }                             
+                            </ExcludedIngredients>}
                             <ItemPrice>
                                 {`$${price.toFixed(2)}`}
                             </ItemPrice>

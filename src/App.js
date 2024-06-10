@@ -9,6 +9,7 @@ import Register from './Pages/Register';
 import NavigationBar from './Components/NavigationBar';
 import Cart from './Components/Cart';
 import AccountOrLogin from './Pages/AccountOrLogin';
+import DisplayOrders from './Pages/DisplayOrders';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import store from './Store';
@@ -17,7 +18,6 @@ import OnAuthStateChanged from './Components/OnAuthStateChanged';
 
 const Stack = createNativeStackNavigator();
 
-//in the account page, there should be a component that displays the current orders that customers have submitted through the app
 function App() {
     const navigationRef = useRef();
 
@@ -36,6 +36,7 @@ function App() {
                         <Stack.Screen name='checkout' component={Checkout} options={{headerShown: false}}/>
                         <Stack.Screen name='register' component={Register} options={{headerShown: false}}/>
                         <Stack.Screen name='account-login' component={AccountOrLogin} options={{headerShown: false}}/>
+                        <Stack.Screen name='display-orders' component={DisplayOrders} options={{headerShown: false}}/>
                     </Stack.Navigator>
                     <Cart/>                         
             </NavigationContainer>     

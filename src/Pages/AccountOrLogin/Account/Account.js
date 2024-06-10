@@ -16,11 +16,13 @@ import localImages from './images';
 import {launchImageLibrary} from 'react-native-image-picker';
 import UpdateAccount from './UpdateAccount';
 import DeleteAccount from './DeleteAccount';
+import { useNavigation } from '@react-navigation/native';
 
 function Account({setPage}) {
     const [accountInfo, setAccountInfo] = useState(null);
     const [loadingImage, setLoadingImage] = useState(true);
     const [loading, setLoading] = useState(false);
+    const navigation = useNavigation();
 
     const handleImage = async () => {
         try{
@@ -46,6 +48,10 @@ function Account({setPage}) {
         } finally { 
             setLoading(false);
         }
+    }
+
+    const handleOrders = () => {
+        navigation.navigate('display-orders');
     }
 
     const handleLoadStart = () => {
@@ -94,12 +100,18 @@ function Account({setPage}) {
                 <AccountDetails>
                     <Text style={{fontWeight: 700}}>ZIP:</Text> {accountInfo && accountInfo.zip}
                 </AccountDetails>
+                <Button onPress={handleOrders}>
+                    <ButtonText>
+                        Display All Orders
+                    </ButtonText>
+                </Button>                
                 {accountInfo && <UpdateAccount phoneNumber={accountInfo.phone}/>}
                 <Button onPress={handleImage}>
                     {loading ? <ActivityIndicator color='green' size='small'/> : <ButtonText>
                         Upload Image
                     </ButtonText>}
                 </Button>
+
                 <Button onPress={handleLogOut}>
                     <ButtonText>
                         Log Out

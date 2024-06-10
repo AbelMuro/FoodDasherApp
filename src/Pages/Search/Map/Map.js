@@ -15,11 +15,12 @@ import {
 import icons from '~/Common/icons';
 import { useNavigation } from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 function Map({setScrollYPosition}) {
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const previousRestaurant = useSelector(state => state.cart.restaurant);     //this state checks if the user already has a cart from a different restaurant
     const [usersLocation, setUsersLocation] = useState(null);
     const [displayMap, setDisplayMap] = useState(false);            //i need this state to render the map after 1 second to prevent visual glitches
     const [destination, setDestination] = useState(null);
@@ -48,13 +49,39 @@ function Map({setScrollYPosition}) {
         setDestination(null);
     }
 
-    const handleSelect = () => {
+    const handleConfirm = () => {
         setOpen(false);
         dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: destination})
+        dispatch({type: 'UPDATE_RESTAURANT', restaurant: restaurant.current.state})
         navigation.navigate('menu', {
             name: restaurant.current.state.replaceAll('%20', ' '),
             restaurant: selectedRestaurant
-        });
+        });        
+    }
+
+    const handleSelect = () => {
+        if(previousRestaurant && previousRestaurant !== restaurant.current.state){
+            Alert.alert(`You already have a cart with items from ${previousRestaurant}`, 
+                `Would you like to clear the cart and start a new order with ${restaurant.current.state.replaceAll('%20', ' ')}?`,
+                [
+                    {
+                        text: 'Yes',
+                        onPress: () => {
+                            dispatch({type: 'CLEAR'});
+                            handleConfirm();
+                        }
+                    },
+                    {
+                        text: 'No',
+                        onPress: () => {
+                            setOpen(false);
+                        }
+                    }
+                ]
+                )
+        }
+        else
+            handleConfirm();
     }
 
     const handleClose = () => {
@@ -105,7 +132,7 @@ function Map({setScrollYPosition}) {
         try{
             let response = await fetch(`https://geocode.maps.co/reverse?lat=${latlng.lat}&lon=${latlng.lng}&api_key=${process.env.geocode}`);
             let results = await response.json();
-            return results.address;
+            return results.display_name;
         }
         catch(error){
             console.log(error);
@@ -165,20 +192,16 @@ function Map({setScrollYPosition}) {
                 lat: pos.coords.latitude,
                 lng: pos.coords.longitude,
             }
-            setRegion({
+            setRegion({                                                    //changing the center of the map to the users locations
                 latitude: usersLatLng.lat,
                 longitude: usersLatLng.lng,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
             });
-            setUsersLocation(usersLatLng);
+            setUsersLocation(usersLatLng);                                 //updating the users location state and creating a marker in the map
             reverseGeocode(usersLatLng)
                 .then((usersAddress) => {
-                    const currentLocation = `${usersAddress.building || usersAddress.amenity}, ${usersAddress.road}, ${usersAddress.city}, ${usersAddress.state}, ${usersAddress.postcode}, ${usersAddress.country}`
-                    address.current.newAddress(currentLocation);
-                })
-                .catch((error) => {
-                        console.log(error);
+                    address.current.newAddress(usersAddress);               //this ref is being passed down to <EnterAddress/> component and changing the state
                 })
             }, (error) => {
                 console.log('error', error)
@@ -277,6 +300,7 @@ function Map({setScrollYPosition}) {
                     <DialogContent>
                         <Image 
                             source={{uri: `https://maps.googleapis.com/maps/api/place/photo?photoreference=${selectedRestaurant.photos[0].photo_reference}&sensor=false&maxheight=1600&maxwidth=1600&key=${process.env.googlemaps}`}} 
+                            onError={(error) => {console.log(error)}}
                             style={{width: '100%', height: 100}}
                             />
                         <Text style={{fontWeight: 700, color: 'black'}}>

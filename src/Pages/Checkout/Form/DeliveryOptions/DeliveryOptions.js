@@ -10,8 +10,8 @@ import {useSelector, useDispatch} from 'react-redux';
 
 function DeliveryOptions() {
     const [open, setOpen] = useState(false);
-    const option = useSelector(state => state.checkout.deliveryOption);  
-    const deliveryTime = useSelector(state => state.checkout.deliveryTime);
+    const [time, setTime] = useState('');
+    const option = useSelector(state => state.checkout.deliveryOption.option);  
     const dispatch = useDispatch();     
     const data = useRef([]);
 
@@ -42,22 +42,23 @@ function DeliveryOptions() {
         }
     ]
 
+    const handleTime = (schedule) => {
+        setTime(schedule.value);
+    }
+
     const handleSelect = () => {
-        if(!deliveryTime){
+        if(!time){
             Alert.alert('Please select a time')
             return;
         }
-        dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: deliveryTime});
+        dispatch({type: 'UPDATE_SCHEDULE', schedule: time});
         setOpen(false);
     }
+
 
     const handleCancel = () => {
         dispatch({type: 'UPDATE_DELIVERY_OPTION', option: 'Standard'})
         setOpen(false);
-    }
-
-    const handleDeliveryTime = (schedule) => {
-        dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: schedule.value});
     }
 
     const handleOption = (option) => {
@@ -101,6 +102,10 @@ function DeliveryOptions() {
                 value: time,
             });
        });
+
+       return () => {
+            setOpen && setOpen(false);
+       }
     }, [])
 
     return(
@@ -132,8 +137,8 @@ function DeliveryOptions() {
                         labelField="label"
                         valueField="value"
                         iconStyle={{width: 20, height: 20}}    
-                        value={deliveryTime}
-                        onChange={handleDeliveryTime}               
+                        value={time}
+                        onChange={handleTime}               
                     />  
                 </DropdownContainer>
                 <Dialog.Button label='Select' onPress={handleSelect}/>

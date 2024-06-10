@@ -70,7 +70,7 @@ function Item({route, navigation}) {
     }
 
     useEffect(() => {
-        firestore().collection(name).doc(item).get()
+        firestore().collection(name).doc(item.toLowerCase()).get()
             .then((menuItem) => {
                 setItemData(menuItem.data()); 
             })

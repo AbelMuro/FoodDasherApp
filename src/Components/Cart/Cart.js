@@ -112,6 +112,7 @@ function Cart() {
                                     </Text> 
                                     {name}
                                 </ItemDesc>
+                                {(excludedIngredients.length !== 0 || sauces.length !== 0) && 
                                 <ItemDesc>
                                     {excludedIngredients.length !== 0 && <Text style={{fontWeight: 700}}>Exclude:&nbsp;</Text>}
                                     {excludedIngredients.length !== 0 && excludedIngredients.map((ingredient, i) => {
@@ -122,7 +123,7 @@ function Cart() {
                                     })}
                                     {sauces.length !== 0 && <Text style={{fontWeight: 700}}>Sauces:&nbsp; </Text>}
                                     {sauces.length !== 0 && sauces.join(', ')}
-                                </ItemDesc>
+                                </ItemDesc>}
                                 <Quantity 
                                     prevQuantity={quantity} 
                                     itemID={id}

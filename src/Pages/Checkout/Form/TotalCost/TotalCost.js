@@ -1,18 +1,19 @@
-import React, {useMemo} from 'react';
-import {useSelector} from 'react-redux'
+import React, {useMemo, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux'
 import {
     Total
 } from './styles.js';
 
 function TotalCost(){
     const total = useSelector(state => state.checkout.total);
-    const deliveryOption = useSelector(state => state.checkout.deliveryOption);
+    const option = useSelector(state => state.checkout.deliveryOption.option);
 
     const totalCost = useMemo(() => {
-        const express = deliveryOption === 'Express' ? 5 : 0;
+        const express = option === 'Express' ? 5 : 0;
         return total + express;
         
-    }, [deliveryOption, total])
+    }, [option, total]);
+
 
     return(
         <Total>

@@ -10,12 +10,12 @@ import {useNavigation} from '@react-navigation/native';
  
 function SubmitOrder() {
     const [loading, setLoading] = useState(false);
+    const cart = useSelector(state => state.cart.items);
+    const restaurantName = useSelector(state => state.cart.restaurant);
     const {number, cvc, zip, expiration} = useSelector(state => state.checkout.creditCard);
-    const cart = useSelector(state => state.location);
-    const deliveryOption = useSelector(state => state.checkout.deliveryOption);
+    const {option, deliveryTime, schedule} = useSelector(state => state.checkout.deliveryOption);
     const dropOffOption = useSelector(state => state.checkout.dropOffOption);
     const dropOffInstructions = useSelector(state => state.checkout.dropOffInstructions);
-    const deliveryTime = useSelector(state => state.checkout.deliveryTime);
     const total = useSelector(state => state.checkout.total);
     const {user, restaurant} = useSelector(state => state.location);
     const dispatch = useDispatch();
@@ -39,23 +39,19 @@ function SubmitOrder() {
             return;
         }
         setLoading(true);
-
         try{
             let order = {
-                creditCard: number,
-                cvc,
-                zip,
-                expiration,
                 cart,
-                deliveryOption,
+                deliveryOption: option,
                 dropOffOption,
                 dropOffInstructions,
                 deliveryTime,
-                total,
+                restaurantName: restaurantName,
+                schedule,
+                total: option === 'Express' ? total + 5 : total,
                 customerLocation: user,
                 restaurantLocation: restaurant,
             }
-
             const docRef = firestore().collection('allOrders').doc();
             await docRef.set(order);
             dispatch({type: 'CLEAR'});                          //clearing up the global state
@@ -68,7 +64,6 @@ function SubmitOrder() {
         finally{
             setLoading(false);
         }
-
     }
 
     return(

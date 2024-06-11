@@ -4,6 +4,7 @@ export const Container = styled.ImageBackground`
     width: 100%;
     height: 100%;
     display: flex;
+    padding: 50px 0px;
     justify-content: center;
     align-items: center;
 `   

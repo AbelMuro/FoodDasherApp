@@ -20,11 +20,12 @@ import {
 import images from '~/Common/images';
 import { ScrollView, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
 function Home() {
     const navigation = useNavigation();
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         navigation.navigate('register');
     }
 

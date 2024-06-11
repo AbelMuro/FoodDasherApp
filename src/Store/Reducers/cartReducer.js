@@ -56,6 +56,7 @@ const cartReducer = createReducer(initialState, (builder) => {
     .addCase(clear, (state) => {
         state.items = initialState.items;
         state.open = initialState.open;
+        state.restaurant = initialState.restaurant;
     })
     .addCase(updateRestaurant, (state, action) => {
         state.restaurant = action.restaurant;

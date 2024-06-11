@@ -54,15 +54,16 @@ function Map({setScrollYPosition}) {
         dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: destination})
         dispatch({type: 'UPDATE_RESTAURANT', restaurant: restaurant.current.state})
         navigation.navigate('menu', {
-            name: restaurant.current.state.replaceAll('%20', ' '),
+            name: restaurant.current.state,
             restaurant: selectedRestaurant
         });        
     }
 
     const handleSelect = () => {
-        if(previousRestaurant && previousRestaurant !== restaurant.current.state){
+        let currentRestaurant = restaurant.current.state;
+        if(previousRestaurant && previousRestaurant !== currentRestaurant){
             Alert.alert(`You already have a cart with items from ${previousRestaurant}`, 
-                `Would you like to clear the cart and start a new order with ${restaurant.current.state.replaceAll('%20', ' ')}?`,
+                `Would you like to clear the cart and start a new order with ${currentRestaurant}?`,
                 [
                     {
                         text: 'Yes',
@@ -141,7 +142,7 @@ function Map({setScrollYPosition}) {
 
     const searchNearbyRestaurants = async () => {
         try{
-            let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${usersLocation.lat},${usersLocation.lng}&radius=5000&keyword=${restaurant.current.state}&key=${process.env.googlemaps}`);
+            let response = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${usersLocation.lat},${usersLocation.lng}&radius=5000&keyword=${restaurant.current.state.replaceAll(' ', '%20')}&key=${process.env.googlemaps}`);
             let results = await response.json();
             return results.results;         
         }
@@ -160,7 +161,7 @@ function Map({setScrollYPosition}) {
                 return;
 
             if(restaurants.length === 0){
-                Alert.alert(`There are no nearby ${restaurant.current.state.replaceAll('%20', ' ')}`);
+                Alert.alert(`There are no nearby ${restaurant.current.state}`);
                 setLoading(false);  
                 return;
             }
@@ -212,6 +213,10 @@ function Map({setScrollYPosition}) {
         setTimeout(() => {
             setDisplayMap(true);
         }, 1000)
+
+        return () => {
+            
+        }
     }, [])
 
     return(

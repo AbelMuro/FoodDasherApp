@@ -60,7 +60,7 @@ function Map() {
                 }}
                 region={region}
             > 
-                <Marker			
+                {(location.lat !== 0 && location.lng !== 0) && <Marker			
                     coordinate={{
                         latitude: location.lat,
                         longitude: location.lng}}> 
@@ -68,8 +68,8 @@ function Map() {
                         source={icons['green']} 
                         style={{width: 35, height: 35}}
                         resizeMode='contain'/>
-                </Marker>
-                <Marker			
+                </Marker>}
+                {(destination.lat !== 0 && destination.lng !== 0) && <Marker			
                     coordinate={{
                         latitude: destination.lat,
                         longitude: destination.lng}}> 
@@ -77,8 +77,8 @@ function Map() {
                         source={icons['blue']} 
                         style={{width: 35, height: 35}}
                         resizeMode='contain'/>
-                </Marker>
-                <MapViewDirections	
+                </Marker>}
+                {(location.lat !== 0 && location.lng !== 0 && destination.lat !== 0 && destination.lng !== 0) && <MapViewDirections	
                         onReady={handleDirectionsReady}
                         origin={{
                             latitude: location.lat,
@@ -91,7 +91,7 @@ function Map() {
                         apikey={process.env.googlemaps}
                         strokeWidth={3}
                         strokeColor='green'
-                />	
+                />	}
             </MapView>       
             <Message>
 				Delivery Time: {currentTime}

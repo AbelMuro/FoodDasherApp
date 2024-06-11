@@ -4,11 +4,13 @@ import {
     Container,
     Order,
     Details,
-    Title
+    Title,
+    Button,
+    ButtonText
 } from './styles.js';
 import images from '~/Common/images';
 import firestore from '@react-native-firebase/firestore';
-import { formatDeliveryTime } from '~/Common/functions/functions';
+import { formatDeliveryTime } from '~/Common/functions';
 
 function DisplayOrders() {
     const [orders, setOrders] = useState([]);
@@ -57,6 +59,11 @@ function DisplayOrders() {
                                         <Title>Instructions:</Title> {dropOffInstructions}
                                     </Details>
                                 }
+                                <Button>
+                                    <ButtonText>
+                                        Pick up Order
+                                    </ButtonText>
+                                </Button>
                             </Order>
                         )
                     }) 

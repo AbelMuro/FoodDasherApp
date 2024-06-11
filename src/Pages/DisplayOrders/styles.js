@@ -31,3 +31,19 @@ export const Title = styled.Text`
     color: white;
     font-weight: 700;
 `
+
+export const Button = styled.Pressable`
+    width: 100%;
+    height: 60px;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
+export const ButtonText = styled.Text`
+    font-size: 16px;
+    font-weight: 700;
+    color: green;
+`

@@ -8,7 +8,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {
 	Message    
 } from './styles.js';
-import { current } from '@reduxjs/toolkit';
+import { formatDeliveryTime } from '~/Common/functions/functions';
 
 function Map() {
     const dispatch = useDispatch();
@@ -26,26 +26,21 @@ function Map() {
 	const handleDirectionsReady = (result) => {
 		const time = result.duration.toFixed(2);
 		const minutes = Number(time.slice(0, time.indexOf('.')));
-		const seconds = Number(time.slice(time.indexOf('.') + 1, time.length));
-        dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: [minutes, seconds]});
-		setTravelTime([minutes, seconds]);
+        dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: minutes});
+		setTravelTime(minutes);
 	}
 
     const currentTime = useMemo(() => {
-
 		if(option === 'Express'){
-            const minutes = travelTime[0] < 5 ? 0 : travelTime[0] - 5;
-            const seconds = travelTime[1];
-            return `${minutes} minutes, ${seconds} seconds`;
+            const minutes = travelTime < 5 ? 0 : travelTime - 5;
+            return `${formatDeliveryTime(minutes)} - ${formatDeliveryTime(Number(minutes) + 30)}`;
         }
         else if(option === 'Schedule')
             return schedule;
         else {
-            const minutes = deliveryTime[0];
-            const seconds = deliveryTime[1];
-            return `${minutes} minutes, ${seconds} seconds`;
-        }
-            	
+            const minutes = deliveryTime;
+            return `${formatDeliveryTime(minutes)} - ${formatDeliveryTime(Number(minutes) + 30)}`;
+        }	
     }, [deliveryTime, option, schedule])
 
     return(

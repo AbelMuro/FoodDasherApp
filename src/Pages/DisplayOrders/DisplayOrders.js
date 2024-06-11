@@ -3,57 +3,66 @@ import {ScrollView} from 'react-native';
 import {
     Container,
     Order,
-    OrderDetails,
+    Details,
+    Title
 } from './styles.js';
 import images from '~/Common/images';
 import firestore from '@react-native-firebase/firestore';
+import { formatDeliveryTime } from '~/Common/functions/functions';
 
 function DisplayOrders() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-
         const collectionRef = firestore().collection('allOrders');
         collectionRef.onSnapshot((snapshot) => {
             const currentOrders = [];            
             snapshot.forEach((doc) => {
-                currentOrders.push(doc.data());
+                currentOrders.push({...doc.data(), id: doc.id});
             })
             setOrders(currentOrders);            
         })
-
     }, [])
 
-    useEffect(() => {
-        console.log(orders)
-    }, [orders])
-
     return(
+        <ScrollView>
             <Container source={images['background']}>
                 {
                     orders.map((order) => {
+                        const id = order.id;
                         const restaurantName = order.restaurantName;
-                        const items = order.cart.length;
+                        const items = order.cart.reduce((acc, item) => {
+                            return acc + item.quantity;
+                        }, 0);
                         const dropOffOption = order.dropOffOption;
-                        const deliveryTime = order.deliveryTime;
+                        const deliveryTime = `${formatDeliveryTime(order.deliveryTime)} - ${formatDeliveryTime(Number(order.deliveryTime) + 30)}`;
+                        const dropOffInstructions = order.dropOffInstructions
 
                         return (      
-                            <Order>
-                                <OrderDetails>
-                                    Order from: {restaurantName}
-                                </OrderDetails>
-                                <OrderDetails>
-                                    # items: {items}
-                                </OrderDetails>
-                                <OrderDetails>
-                                    Drop off option: {dropOffOption}
-                                </OrderDetails>
+                            <Order key={id}>
+                                <Details>
+                                    <Title>Order from: </Title> {restaurantName}
+                                </Details>
+                                <Details>
+                                    <Title>Pick up by: </Title> {`${deliveryTime}`}
+                                </Details>
+                                <Details>
+                                    <Title># items: </Title> {items}
+                                </Details>
+                                <Details>
+                                    <Title>Drop off option:</Title> {dropOffOption}
+                                </Details>
+                                {dropOffInstructions && 
+                                    <Details>
+                                        <Title>Instructions:</Title> {dropOffInstructions}
+                                    </Details>
+                                }
                             </Order>
                         )
                     }) 
                 }
-            </Container>            
-
+            </Container>              
+        </ScrollView>        
     )
 }
 

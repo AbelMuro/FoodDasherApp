@@ -18,7 +18,7 @@ import OnAuthStateChanged from './Components/OnAuthStateChanged';
 
 const Stack = createNativeStackNavigator();
 
-//change 
+//update github notes with Date object
 
 function App() {
     const navigationRef = useRef();

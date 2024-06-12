@@ -11,9 +11,15 @@ import {
 import images from '~/Common/images';
 import firestore from '@react-native-firebase/firestore';
 import { formatDeliveryTime } from '~/Common/functions';
+import { useNavigation } from '@react-navigation/native';
 
 function DisplayOrders() {
     const [orders, setOrders] = useState([]);
+    const navigation = useNavigation();
+
+    const handleOrder = (order) => {
+        navigation.navigate('pick-up-order', {order});
+    }
 
     useEffect(() => {
         const collectionRef = firestore().collection('allOrders');
@@ -59,7 +65,7 @@ function DisplayOrders() {
                                         <Title>Instructions:</Title> {dropOffInstructions}
                                     </Details>
                                 }
-                                <Button>
+                                <Button onPress={() => handleOrder(order)}>
                                     <ButtonText>
                                         Pick up Order
                                     </ButtonText>

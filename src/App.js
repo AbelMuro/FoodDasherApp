@@ -10,6 +10,7 @@ import NavigationBar from './Components/NavigationBar';
 import Cart from './Components/Cart';
 import AccountOrLogin from './Pages/AccountOrLogin';
 import DisplayOrders from './Pages/DisplayOrders';
+import PickUpOrder from './Pages/PickUpOrder';
 import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import store from './Store';
@@ -38,6 +39,7 @@ function App() {
                         <Stack.Screen name='register' component={Register} options={{headerShown: false}}/>
                         <Stack.Screen name='account-login' component={AccountOrLogin} options={{headerShown: false}}/>
                         <Stack.Screen name='display-orders' component={DisplayOrders} options={{headerShown: false}}/>
+                        <Stack.Screen name='pick-up-order' component={PickUpOrder} options={{headerShown: false}}/>
                     </Stack.Navigator>
                     <Cart/>                         
             </NavigationContainer>     

@@ -213,10 +213,6 @@ function Map({setScrollYPosition}) {
         setTimeout(() => {
             setDisplayMap(true);
         }, 1000)
-
-        return () => {
-            
-        }
     }, [])
 
     return(

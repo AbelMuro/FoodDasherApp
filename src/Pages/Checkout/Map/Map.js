@@ -25,14 +25,14 @@ function Map() {
 
 	const handleDirectionsReady = (result) => {
 		const time = result.duration.toFixed(2);
-		const minutes = Number(time.slice(0, time.indexOf('.')));
+		const minutes = Number(time.slice(0, time.indexOf('.'))) + 20;
         dispatch({type: 'UPDATE_DELIVERY_TIME', deliveryTime: minutes});
 		setTravelTime(minutes);
 	}
 
     const currentTime = useMemo(() => {
 		if(option === 'Express'){
-            const minutes = travelTime < 5 ? 0 : travelTime - 5;
+            const minutes = travelTime - 15;
             return `${formatDeliveryTime(minutes)} - ${formatDeliveryTime(Number(minutes) + 30)}`;
         }
         else if(option === 'Schedule')

@@ -3,9 +3,11 @@ import styled from 'styled-components/native';
 export const Container = styled.ImageBackground`
     width: 100%;
     height: 100%;
+    paddingTop: 15px;
     display: flex;
     align-items: center;
     gap: 20px;
+    margin-bottom: 40px;
 `
 
 export const OrderDetails = styled.View`
@@ -16,6 +18,13 @@ export const OrderDetails = styled.View`
 
 export const Detail = styled.Text`
     font-size: 20px;
+    font-weight: 400;
+    color: green;
+`
+
+export const Title = styled.Text`
+    width: 80%;
+    font-size: 25px;
     font-weight: 700;
     color: green;
 `

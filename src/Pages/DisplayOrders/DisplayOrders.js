@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, Text} from 'react-native';
 import {
     Container,
     Order,
@@ -43,7 +43,15 @@ function DisplayOrders() {
                             return acc + item.quantity;
                         }, 0);
                         const dropOffOption = order.dropOffOption;
-                        const deliveryTime = `${formatDeliveryTime(order.deliveryTime)} - ${formatDeliveryTime(Number(order.deliveryTime) + 30)}`;
+                        const deliveryOption = order.deliveryOption;
+                        const tip = order.tip;
+                        let deliveryTime;
+                        if(deliveryOption === 'Express')
+                            deliveryTime = `${formatDeliveryTime(order.deliveryTime - 15)} - ${formatDeliveryTime((order.deliveryTime - 15) + 30)}`;
+                        else if(deliveryOption === 'Schedule')                                   
+                            deliveryTime = order.schedule;
+                        else
+                            deliveryTime = `${formatDeliveryTime(order.deliveryTime)} - ${formatDeliveryTime(order.deliveryTime + 30)}`
                         const dropOffInstructions = order.dropOffInstructions
 
                         return (      
@@ -63,6 +71,14 @@ function DisplayOrders() {
                                 {dropOffInstructions && 
                                     <Details>
                                         <Title>Instructions:</Title> {dropOffInstructions}
+                                    </Details>
+                                }
+                                <Details>
+                                    <Title>Tip:</Title> ${tip}
+                                </Details>   
+                                {deliveryOption === 'Express' && 
+                                    <Details>
+                                        Order placed with <Text style={{fontWeight: 700}}>Express</Text>
                                     </Details>
                                 }
                                 <Button onPress={() => handleOrder(order)}>

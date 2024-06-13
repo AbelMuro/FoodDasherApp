@@ -11,6 +11,7 @@ const updateCardExpiration = createAction('UPDATE_CARD_EXPIRATION');
 const updateSchedule = createAction('UPDATE_SCHEDULE');
 const updateTotal = createAction('UPDATE_TOTAL');
 const clear = createAction('CLEAR');
+const updateTip = createAction('UPDATE_TIP');
 const initialState = {
     deliveryOption: {
         option: 'Standard',
@@ -20,6 +21,7 @@ const initialState = {
     dropOffOption: 'Hand it to me', 
     dropOffInstructions: '', 
     total: '',
+    tip: '5.00',
     creditCard: {
         number: '', 
         cvc: '', 
@@ -65,6 +67,10 @@ const locationReducer = createReducer(initialState, (builder) => {
             state.dropOffInstructions = initialState.dropOffInstructions;
             state.total = initialState.total;
             state.creditCard = initialState.creditCard;
+            state.tip = initialState.tip;
+        })
+        .addCase(updateTip, (state, action) => {
+            state.tip = action.tip;
         })
 })
 

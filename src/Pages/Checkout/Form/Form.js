@@ -5,6 +5,7 @@ import DropOffInstructions from './DropOffInstructions';
 import PaymentInformation from './PaymentInformation';
 import TotalCost from './TotalCost';
 import SubmitOrder from './SubmitOrder';
+import Tip from './Tip';
 import {
     Container,
     Label
@@ -30,6 +31,10 @@ function Form() {
                 Payment Information
             </Label>
             <PaymentInformation/>
+            <Label>
+                Tip
+            </Label>
+            <Tip/>
             <TotalCost/>
             <SubmitOrder/>
         </Container>        

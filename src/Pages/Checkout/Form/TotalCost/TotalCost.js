@@ -1,5 +1,5 @@
 import React, {useMemo, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {
     Total
 } from './styles.js';
@@ -7,12 +7,13 @@ import {
 function TotalCost(){
     const total = useSelector(state => state.checkout.total);
     const option = useSelector(state => state.checkout.deliveryOption.option);
+    const tip = useSelector(state => state.checkout.tip);
 
     const totalCost = useMemo(() => {
         const express = option === 'Express' ? 5 : 0;
-        return total + express;
+        return total + express + Number(tip);
         
-    }, [option, total]);
+    }, [option, total, tip]);
 
 
     return(

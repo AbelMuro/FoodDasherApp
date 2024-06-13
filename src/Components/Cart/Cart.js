@@ -92,7 +92,10 @@ function Cart() {
                     contentContainerStyle={{alignItems: 'center', gap: 60}}
                     ref={cartItems}>
                     <CartTitle>
-                        Your Cart:
+                        Your Cart: 
+                        {cart.length !== 0 && `\n(${cart.reduce((acc, item) => {
+                            return acc + item.quantity;
+                        }, 0)})`}
                     </CartTitle>                     
                     {cart.length ? cart.map((item) => {
                         const name = item.name;

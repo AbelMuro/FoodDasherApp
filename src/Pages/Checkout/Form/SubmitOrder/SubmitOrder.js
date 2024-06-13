@@ -17,6 +17,7 @@ function SubmitOrder() {
     const dropOffOption = useSelector(state => state.checkout.dropOffOption);
     const dropOffInstructions = useSelector(state => state.checkout.dropOffInstructions);
     const total = useSelector(state => state.checkout.total);
+    const tip = useSelector(state => state.checkout.tip);
     const {user, restaurant} = useSelector(state => state.location);
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -48,6 +49,7 @@ function SubmitOrder() {
                 deliveryTime,
                 restaurantName: restaurantName,
                 schedule,
+                tip,
                 total: option === 'Express' ? total + 5 : total,
                 customerLocation: user,
                 restaurantLocation: restaurant,

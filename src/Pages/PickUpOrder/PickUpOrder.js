@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Image, View} from 'react-native';
+import React from 'react';
+import {Image, View, Text, ScrollView, Dimensions} from 'react-native';
 import {
     Container,
     OrderDetails,
@@ -7,7 +7,8 @@ import {
     Detail,
     Item,
     ItemImage,
-    ItemName
+    ItemName,
+    Title
 } from './styles.js';
 import images from '~/Common/images';
 import {formatDeliveryTime} from '~/Common/functions';
@@ -31,13 +32,14 @@ function PickUpOrder({route}) {
 
     const mapStyles = {
         width: '100%',
-        height: '50%',
-
+        height: 400,
     }
 
     return(
-        <Container source={images['background']}>
-            <MapView region={{...origin, latitudeDelta: 0.0922, longitudeDelta: 0.0421,}} style={mapStyles}>
+        <ScrollView>
+            <MapView 
+                region={{...origin, latitudeDelta: 0.0922, longitudeDelta: 0.0421,}} 
+                style={mapStyles}>
                 {origin && 
                         <Marker
                             coordinate={{
@@ -78,38 +80,48 @@ function PickUpOrder({route}) {
                             strokeColor='green'
                             />
                 }
-            </MapView>
-            <OrderDetails>
-                <Detail>
-                    Pick up from: {restaurantName}
-                </Detail>
-                <Detail>
-                    Pick up by: {deliveryTime}
-                </Detail>   
-                {
-                    cart.map((item) => {
-                        const id = item.id;
-                        const image = item.image;
-                        const name = item.name
-                        const quantity = item.quantity;
+            </MapView>     
+            <Container source={images['background']}>
+                <OrderDetails>
+                    <Detail>
+                        <Text style={{fontWeight: 700}}>
+                            Pick up from:
+                        </Text> {restaurantName}
+                    </Detail>
+                    <Detail>
+                        <Text style={{fontWeight: 700}}>
+                            Pick up by: 
+                        </Text> {deliveryTime}
+                    </Detail>   
+                    <Title>
+                        Pick up these items:
+                    </Title>
+                    {
+                        cart.map((item) => {
+                            const id = item.id;
+                            const image = item.image;
+                            const name = item.name
+                            const quantity = item.quantity;
 
-                        return(
-                            <Item key={id}>
-                                <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10}}>
-                                    <ItemImage source={{uri: image}}/>
-                                    <ItemName>
-                                        {name}
-                                    </ItemName>                                    
-                                </View>
-                                <Quantity>
-                                    x {quantity}
-                                </Quantity>
-                            </Item>
-                        )
-                    })
-                }             
-            </OrderDetails>
-        </Container>
+                            return(
+                                <Item key={id}>
+                                    <View style={{width: 200, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10}}>
+                                        <ItemImage source={{uri: image}}/>
+                                        <ItemName>
+                                            {name}
+                                        </ItemName>                                    
+                                    </View>
+                                    <Quantity>
+                                        x {quantity}
+                                    </Quantity>
+                                </Item>
+                            )
+                        })
+                    }             
+                </OrderDetails>
+            </Container>   
+        </ScrollView>
+
     )
 }
 

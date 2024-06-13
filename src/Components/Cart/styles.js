@@ -4,6 +4,7 @@ export const CartTitle = styled.Text`
     font-size: 40px;
     font-weight: 700;
     color: white;
+    text-align: center;
 `
 
 export const CartTotal = styled.Text`

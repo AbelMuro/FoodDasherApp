@@ -6,7 +6,9 @@ function DropOffInstructions() {
     const option = useSelector(state => state.checkout.dropOffInstructions);
     const dispatch = useDispatch();
 
-    const handleChange = (text) => {
+    const handleInstructions = (text) => {
+        if(text.length > 50)
+            return;
         dispatch({type: 'UPDATE_DROPOFF_INSTRUCTIONS', text});
     }
 
@@ -15,7 +17,7 @@ function DropOffInstructions() {
             placeholder='Enter instructions'
             placeholderTextColor='grey'
             value={option}
-            onChangeText={handleChange}
+            onChangeText={handleInstructions}
             style={{
                 width: '100%',
                 height: 200,

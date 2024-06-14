@@ -27,8 +27,9 @@ function PhoneInput({handleChange, handleBlur,  errors, touched, getCountryCode}
                     placeholderTextColor={'grey'}
                     placeholder='123-456-7890'
                     onChangeText={handleChange('phone')}
+                    maxLength={10}
                     onBlur={handleBlur('phone')}
-                    keyboardType='numeric'
+                    keyboardType='phone-pad'
                 />             
             </InputContainer>
            

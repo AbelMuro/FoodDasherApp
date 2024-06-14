@@ -303,9 +303,9 @@ function Map({setScrollYPosition}) {
                             source={{uri: `https://maps.googleapis.com/maps/api/place/photo?photoreference=${selectedRestaurant.photos[0].photo_reference}&sensor=false&maxheight=1600&maxwidth=1600&key=${process.env.googlemaps}`}} 
                             style={{width: '100%', height: 100}}
                             />
-                        <Text style={{fontWeight: 700, color: 'black'}}>
+                        <Dialog.Description>
                             Rating: {selectedRestaurant.rating}/5
-                        </Text>
+                        </Dialog.Description>
                     </DialogContent>
                     <Dialog.Button label='Select' onPress={handleSelect}/>
                     <Dialog.Button label='Close' onPress={handleClose}/>

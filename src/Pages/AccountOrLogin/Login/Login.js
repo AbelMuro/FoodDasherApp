@@ -89,9 +89,10 @@ function Login({setPage}) {
 
         if(!values.phone)
             errors.phone = 'empty';
-        else if(!/[0-9]{3}-[0-9]{3}-[0-9]{4}/i.test(values.phone))
+        else if(!values.phone.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}/) && !values.phone.match(/[0-9]{10}/))
             errors.phone = 'invalid';
     
+            
         return errors;
     }
 

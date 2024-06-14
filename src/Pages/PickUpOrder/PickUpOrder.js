@@ -57,7 +57,7 @@ function PickUpOrder({route}) {
     return(
         <ScrollView>
             <MapView 
-                region={{...origin, latitudeDelta: 0.0922, longitudeDelta: 0.0421,}} 
+                region={{...origin, latitudeDelta: 0.0922, longitudeDelta: 0.0421}} 
                 style={mapStyles}>
                 {origin && 
                         <Marker

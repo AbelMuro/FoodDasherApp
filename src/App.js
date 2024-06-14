@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native';
 import Home from './Pages/Home';
 import Search from './Pages/Search';
@@ -19,11 +19,10 @@ import {Provider} from 'react-redux';
 const Stack = createNativeStackNavigator();
 
 function App() {
-    const navigationRef = useRef();
 
     return (
         <Provider store={store}>
-            <NavigationContainer ref={navigationRef}>
+            <NavigationContainer>
                     <SafeAreaView>
                         <NavigationBar/>    
                     </SafeAreaView>    

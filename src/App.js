@@ -15,10 +15,8 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import store from './Store';
 import {Provider} from 'react-redux';
-import OnAuthStateChanged from './Components/OnAuthStateChanged';
 
 const Stack = createNativeStackNavigator();
-
 
 function App() {
     const navigationRef = useRef();
@@ -26,7 +24,6 @@ function App() {
     return (
         <Provider store={store}>
             <NavigationContainer ref={navigationRef}>
-                    <OnAuthStateChanged navigate={navigationRef}/>
                     <SafeAreaView>
                         <NavigationBar/>    
                     </SafeAreaView>    

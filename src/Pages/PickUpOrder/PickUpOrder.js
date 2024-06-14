@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, View, Text, ScrollView, Dimensions} from 'react-native';
 import {
     Container,
@@ -17,6 +17,7 @@ import icons from '~/Common/icons';
 import MapViewDirections from 'react-native-maps-directions';
 
 function PickUpOrder({route}) {
+    const [address, setAddress] = useState('');
     const {order} = route.params;
     const destination = {
         latitude: order.restaurantLocation.lat,
@@ -29,11 +30,29 @@ function PickUpOrder({route}) {
     const cart = order.cart;
     const deliveryTime = `${formatDeliveryTime(order.deliveryTime)} - ${formatDeliveryTime(Number(order.deliveryTime) + 30)}`
     const restaurantName = order.restaurantName;
+    const deliveryAddress = order.customerLocation;
 
     const mapStyles = {
         width: '100%',
         height: 400,
     }
+
+    const formatDeliveryAddress = async () => {
+        try{
+            const lat = deliveryAddress.lat;
+            const lng = deliveryAddress.lng;
+            const response = await fetch(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${process.env.geocode}`)
+            const address = await response.json();
+            setAddress(address.display_name);            
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        formatDeliveryAddress();
+    }, [])
 
     return(
         <ScrollView>
@@ -87,6 +106,11 @@ function PickUpOrder({route}) {
                         <Text style={{fontWeight: 700}}>
                             Pick up from:
                         </Text> {restaurantName}
+                    </Detail>
+                    <Detail>
+                        <Text style={{fontWeight: 700}}>
+                            Delivery to: 
+                        </Text> {address}
                     </Detail>
                     <Detail>
                         <Text style={{fontWeight: 700}}>

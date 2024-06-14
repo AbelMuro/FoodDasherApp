@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.ImageBackground`
     width: 100%;
-    height: 100%;
+    min-height: 300px;
     paddingTop: 15px;
     display: flex;
     align-items: center;
@@ -24,7 +24,7 @@ export const Detail = styled.Text`
 
 export const Title = styled.Text`
     width: 80%;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 700;
     color: green;
 `

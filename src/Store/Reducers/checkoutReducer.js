@@ -15,7 +15,7 @@ const updateTip = createAction('UPDATE_TIP');
 const initialState = {
     deliveryOption: {
         option: 'Standard',
-        deliveryTime: ['',''],
+        deliveryTime: '',
         schedule: '',
     },
     dropOffOption: 'Hand it to me', 

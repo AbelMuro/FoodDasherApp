@@ -44,6 +44,7 @@ export const ItemImage = styled.Image`
 `
 
 export const ItemName = styled.Text`
+    width: 200px;
     font-size: 20px;
     font-weight: 700;
     color: green;

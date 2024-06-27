@@ -32,7 +32,7 @@ function Search() {
                         3: Press on Search Restaurants
                     </Instruction>
                     <Instruction>
-                        4: Click on one of the BLUE markers in the map
+                        4: Press on one of the BLUE markers in the map
                     </Instruction>
                     <Instruction>
                         5: Press on Select

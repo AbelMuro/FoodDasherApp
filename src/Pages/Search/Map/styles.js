@@ -10,7 +10,7 @@ export const SearchBox = styled.View`
     background-color: rgba(255, 255, 255, 0.7);
     gap: 15px;
     position: absolute;
-    top: 180px;
+    top: 220px;
     left: 60px;
 `
 

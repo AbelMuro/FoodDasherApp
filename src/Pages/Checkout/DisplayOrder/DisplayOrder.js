@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Quantity from './Quantity';
 import {
     Container,
@@ -13,12 +13,16 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 function DisplayOrder() {
+    const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.items);
     const navigation = useNavigation();
 
     useEffect(() => {
-        if(!cart.length)
+        if(!cart.length){
             navigation.navigate('home');
+            dispatch({type: 'CLEAR'});
+        }
+            
     }, [cart])
 
     return(

@@ -23,7 +23,7 @@ function Item({route, navigation}) {
     const quantity = useRef();
     const sauces = useRef([]);
     const dispatch = useDispatch();
-    const {name, item} = route.params;
+    const {name, item, restaurantLocation, usersLocation} = route.params;
     const [itemData, setItemData] = useState(null);
 
     const handleBack = () => {
@@ -66,6 +66,9 @@ function Item({route, navigation}) {
             sauces: saucesChoosen
         }});
         dispatch({type: 'OPEN_CART'});
+        dispatch({type: 'UPDATE_RESTAURANT', restaurant: name});
+        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocation});
+        dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: restaurantLocation});
         handleBack();
     }
 

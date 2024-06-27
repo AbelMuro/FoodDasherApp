@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ScrollView, Dimensions, View} from 'react-native'
+import {Image} from 'react-native'
 import firestore from '@react-native-firebase/firestore';
 import {
     Container, 
@@ -16,13 +16,12 @@ import {
 } from './styles.js';
 
 function Menu({route, navigation}) {
-    const {name} = route.params;
+    const {name, restaurantLocation, usersLocation} = route.params;
     const [menu, setMenu] = useState([]);
     const [logo, setLogo] = useState('');
 
-
     const handleItem = (item) => {
-        navigation.navigate('item', {name, item});
+        navigation.navigate('item', {name, item, restaurantLocation, usersLocation});
     }
 
     useEffect(() => {

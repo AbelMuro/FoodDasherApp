@@ -51,11 +51,11 @@ function Map({setScrollYPosition}) {
 
     const handleConfirm = () => {
         setOpen(false);
-        dispatch({type: 'UPDATE_RESTAURANT_LOCATION', latlng: destination})
-        dispatch({type: 'UPDATE_RESTAURANT', restaurant: restaurant.current.state})
         navigation.navigate('menu', {
             name: restaurant.current.state,
-            restaurant: selectedRestaurant
+            restaurant: selectedRestaurant,
+            restaurantLocation: destination,
+            usersLocation: usersLocation,
         });        
     }
 
@@ -153,7 +153,6 @@ function Map({setScrollYPosition}) {
 
     useEffect(() => {
         if(!usersLocation) return;
-        dispatch({type: 'UPDATE_USERS_LOCATION', latlng: usersLocation})
 
         async function searchRestaurants() {            
             let restaurants = await searchNearbyRestaurants();

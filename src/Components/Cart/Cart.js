@@ -63,6 +63,10 @@ function Cart() {
         dispatch({type: 'UPDATE_TOTAL', total});
     }, [total])
 
+    useEffect(() => {
+        if(!cart.length)
+            dispatch({type: 'CLEAR'});
+    }, [cart])
 
 
     return(          

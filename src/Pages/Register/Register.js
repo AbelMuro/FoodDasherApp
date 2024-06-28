@@ -191,8 +191,8 @@ function Register() {
                             <Submit onPress={handleSubmit}>
                                 {loading ? <ActivityIndicator color='green' size='small'/> : 
                                     <ButtonText>
-                                    Register
-                                </ButtonText>}
+                                        Register
+                                    </ButtonText>}
                             </Submit>
                         </>
                     )}

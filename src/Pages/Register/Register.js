@@ -43,11 +43,11 @@ function Register() {
             const email = userInfoRef.current.email;
             const phone = userInfoRef.current.phone;
             const zip = userInfoRef.current.zip;
-            const ccode = countryCode.current;                      //country code
+            const ccode = countryCode.current;              
 
             setOpen(false);            
             setLoading(true);
-            await confirm.confirm(code);                            //code submitted by the user
+            await confirm.confirm(code);             
             const docRef = firestore().collection(`${ccode + phone}`).doc('userInfo');
             await docRef.set({
                 email,

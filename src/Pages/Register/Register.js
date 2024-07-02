@@ -62,6 +62,7 @@ function Register() {
                 Alert.alert('Invalid code');
             else if(error.code === 'auth/unknown')
                 Alert.alert("Can't be empty")
+            Alert.alert(error.code);
             console.log(error);
         }
         finally{

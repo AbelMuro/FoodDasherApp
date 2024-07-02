@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { ActivityIndicator, ScrollView, Button, Alert } from 'react-native';
+import { ActivityIndicator, ScrollView, Alert } from 'react-native';
 import EmailInput from './EmailInput';
 import PhoneInput from './PhoneInput';
 import ZipInput from './ZipInput';

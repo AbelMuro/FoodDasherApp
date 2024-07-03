@@ -84,7 +84,7 @@ function Register() {
             const doc = await docRef.get();
             if(doc.exists)
                 throw new Error('auth/phone-number-already-registered')
-            const confirmation = await auth().signInWithPhoneNumber(code + phone);     
+            const confirmation = await auth().signInWithPhoneNumber(code + phone);    
             setConfirm(confirmation)
         } 
         catch(error){
@@ -94,6 +94,8 @@ function Register() {
                 Alert.alert('We have blocked all requests from this device due to unusual activity. Try again later');
             else if(error.message === 'auth/phone-number-already-registered')
                 Alert.alert('Phone number is already registered');
+            else
+                Alert.alert(error.code)
             console.log(error);
         }
         finally{

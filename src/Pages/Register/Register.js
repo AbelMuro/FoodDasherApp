@@ -96,7 +96,7 @@ function Register() {
                 Alert.alert('Phone number is already registered');
             else
                 Alert.alert(error.code)
-            console.log(error);
+            console.log(error.code);
         }
         finally{
             setLoading(false);

@@ -58,10 +58,8 @@ function SubmitOrder() {
             await docRef.set(order);
             //navigation.navigate('home');   
             setLoading(false);                     
-            dispatch({type: 'CLEAR'});                          //clearing up the global state
-            setTimeout(() => {
-                Alert.alert('Order has been placed');    
-            }, 500);
+            //dispatch({type: 'CLEAR'});                          //clearing up the global state
+            Alert.alert('Order has been placed');    
         }
         catch(error){
             console.log(error);

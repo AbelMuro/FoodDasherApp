@@ -60,13 +60,12 @@ function SubmitOrder() {
             setTimeout(() => {
                 Alert.alert('Order has been placed');    
             }, 1000);
+            setLoading(false);
+            navigation.navigate('home');
         }
         catch(error){
             console.log(error);
-        }
-        finally{
-            setLoading(false);
-            navigation.navigate('home');
+            setLoading(false)
         }
     }
 

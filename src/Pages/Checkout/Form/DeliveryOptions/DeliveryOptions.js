@@ -129,6 +129,7 @@ function DeliveryOptions() {
                             height: 50,
                             paddingHorizontal: 8,
                             position: 'absolute',
+                            color: 'black',
                             right: -5,
                             top: -5,                                     
                         }}        

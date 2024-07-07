@@ -16,4 +16,6 @@ export const DropdownContainer = styled.View`
     border-width: 2px;
     border-color: black;
     border-radius: 5px;
+    background-color: white;
+    color: black;
 `

@@ -57,14 +57,16 @@ function SubmitOrder() {
             const docRef = firestore().collection('allOrders').doc();
             await docRef.set(order);
             dispatch({type: 'CLEAR'});                          //clearing up the global state
-            navigation.navigate('home');
-            Alert.alert('Order has been placed');            
+            setTimeout(() => {
+                Alert.alert('Order has been placed');    
+            }, 1000);
         }
         catch(error){
             console.log(error);
         }
         finally{
             setLoading(false);
+            navigation.navigate('home');
         }
     }
 
